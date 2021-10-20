@@ -1,3 +1,5 @@
-abc = 0
-eval("abc") += 1
-print(abc)
+def f():
+    return [1,2]
+    
+a,b = f()
+print(a,b)

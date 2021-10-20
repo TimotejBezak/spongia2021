@@ -5,7 +5,7 @@ class O:
     testObrazok = pygame.loadniObrazok(200,100)
     testObrazok2 = pygame.loadniObrazok(1500,1000)
     auto = pygame.loadniObrazok(200,120,path='testauto2.png')
-    pozadie = pygame.loadniObrazok(1500,800,'pozadie.png')
+    pozadie = pygame.loadniObrazok(1700,800,'pozadie.png')
     pixel = pygame.loadniObrazok(1,1,'pixel.png')
     test1 = pygame.loadniObrazok(-1,-1,'test1.png')
     test2 = pygame.loadniObrazok(-1,-1,'test4.png')
@@ -20,6 +20,8 @@ class T:
     vyhralsiN = pygame.loadniObrazok(100,100)
     prehralsiA = pygame.loadniObrazok(100,100)
     prehralsiN = pygame.loadniObrazok(100,100)
+    XA = pygame.loadniObrazok(25,25)
+    XN = pygame.loadniObrazok(25,25)
 
 class A:
     animacia = pygame.loadniAnimaciu(1000,800,path_foldera='animciaNemasDostPenazi')

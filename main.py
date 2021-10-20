@@ -41,63 +41,81 @@ prehrat = None
 testHrac = None
 trubiroh = None
 myska = None
+paused = False
+pauza = None
+odpauza = None
+Xtlacidlo = None
+testText = None
 
 z.testMuzika.play()
 z.testMuzika.set_volume(0.3)
 def fyzika():
-    global g,koniec
+    global g,koniec,paused,pauza,odpauza
     while not koniec and not klavesy.je_koniec():
-        #print("f")
-        mys.update()
-        klavesy.update()
+        if not paused:
+            mys.update()
+            klavesy.update()
 
-        #g.offsetKamery[0] -= 0.05# funguje
-        g.scaleKamery = 0.5
+            if klavesy.je_keyup('v'):
+                z.test.play()
+                animacia(a.animacia,0.7,500,20,loop=False)
+                print("grg")
 
-        if klavesy.je_keyup('v'):
-            z.test.play()
-            animacia(a.animacia,0.7,500,20,loop=False)
-            print("grg")
+            testHrac.update()
+            trubiroh.update()
 
-        testHrac.update()
-        trubiroh.update()
-        # sprity.update()
+            tlacidla.update()
+            animacie.update()
 
-        tlacidla.update()
-        animacie.update()
+            if vyhrat.je_keyup():
+                koniec = True
+                vyhralsi.spustit()
+                break
 
-        if vyhrat.je_keyup():
-            koniec = True
-            #time.sleep(1)
-            vyhralsi.spustit()
-            break
+            if prehrat.je_keyup():
+                koniec = True
+                prehralsi.spustit()
+                break
 
-        if prehrat.je_keyup():
-            koniec = True
-            prehralsi.spustit()
-            break
+            if pauza.je_keyup():
+                odpauza = tlacidlo(t.vyhralsiN,t.vyhralsiA,700,50,text="odpauznut")
+                paused = True
 
-        #time.sleep(0.02)
-        ratacfpsF.update()
+            if Xtlacidlo.je_keyup():
+                koniec = True
+                
+
+            ratacfpsF.update()
+        else:
+            mys.update()
+            tlacidla.update()
+            klavesy.update()
+
+            if odpauza.je_keyup():
+                paused = False
+                odpauza.zmazSa()
+            
 
 
 def zobrazovac():
     global g
     while not koniec and not klavesy.je_koniec():
-        #print("z")
         g.Displej.fill(g.farby.modra)
-        #print("sem som sa dostal")
-        pygame.zobraz(o.pozadie,(40,40))
+        pygame.zobraz(o.pozadie,(0,40))
         testHrac.zobraz()
-        trubiroh.zobraz()# sprity.draw(g.Displej)
+        trubiroh.zobraz()
         pygame.zobraz(o.auto,(g.displej_width/2,g.displej_height),roh="lavy_dolny")
+
+        testText.zobraz()
 
         tlacidla.zobraz()
         animacie.zobraz()
         ratacfpsF.zobraz()
         ratacfpsZ.zobraz()
 
-        #print(bubu.surface.get_width())
+        if paused:
+            g.Displej.fill((g.farby.modra)) #nejaky iny overlay asi polotransparentny
+            odpauza.zobraz()
 
         myska.zobraz()
         pygame.display.update()
@@ -105,30 +123,28 @@ def zobrazovac():
 
 def gameloop():
     global zobrazovacThread
-    thread = myThread(fyzika)#zobrazovac
+    thread = myThread(fyzika)
     thread.start()
     print("gameloop")
-    zobrazovac()#fyzika()
+    zobrazovac()
 
 def spustit():
-    global vyhrat,prehrat,testHrac,trubiroh,myska
+    #global vyhrat,prehrat,testHrac,trubiroh,myska,pauza
     reset()
-    #volajakeTlacidlo = tlacidlo(t.testtlacidloN,t.testtlacidloA,500,500)
     vyhrat = tlacidlo(t.vyhralsiN,t.vyhralsiA,700,500,text="vyhrat")
     prehrat = tlacidlo(t.prehralsiN,t.prehralsiA,810,500,text="prehrat")
+    pauza = tlacidlo(t.vyhralsiN,t.vyhralsiA,500,50,text="pauznut")
+    Xtlacidlo = tlacidlo(t.XN,t.XA,g.moj_width-5,5,roh="pravy_horny")
     testHrac = s.hrac(o.test1)#
     trubiroh = s.trubiroh(o.auto)
     myska = s.mys(o.mys)
-    #bubu = text.text(0,0,"bubacik",10,g.farby.cierna,g.basic_font,roh="pravy_dolny")
-    # sprity = pygame.sprite.Group()
-    # sprity.add(trubiroh)#cim neskor pridam tym viac vpredu je
-    # sprity.add(testHrac)
+    testText = text.text(200,200,"bubacik",10,g.farby.cierna,g.basic_font,roh="pravy_dolny")
     
-    #globals().update(locals())
+    globals().update(locals())
     print("spustam")
     gameloop()
 
-def reset():
+def reset():# toto by chcelo byt rovnake vo vsetkych screenoch
     global koniec,g
     koniec = False
     tlacidla.tlacidla = []
@@ -142,14 +158,17 @@ if __name__ == "__main__":
 
 '''
 co treba spravit:
-otestovat konvert na .exe
-tlacidlo pauza
-detekcia kolizie(lubovolneho prekryvu) nepriehladnych casti lubovolnych dvoch spritov
 otacanie obrazkov - ked zobrazujem, pridat otocenie a suradnice body oatacania
-aby to fungovalo aj na obrazovkach s inym rozlisenim
+tlacidlo pauza - funguje, len cas stale bezi
+otestovat konvert na .exe - poslat darebakom na otestovanie     #vytazny command: python3 -m PyInstaller --onefile main.py
+
+detekcia kolizie(lubovolneho prekryvu) nepriehladnych casti lubovolnych dvoch spritov
+aby to fungovalo aj na obrazovkach s inym rozlisenim - asi to bude mat proste konstantne rozlisenie
+tlacidlo X aby som to vedel vypnut ked to je na fulscreen
 
 bugy:
 maska tlacidla sa neupdatuje ked sa scalne displej asi nemenit pocas scalovanie ale az na konci, tlacidla sa pocas toho asi aj tak nepouziju, mozno chceme disable tlacidla
+mys mozem tahat mimo obrazovky doprava a dole
 
 adam:
 text input
