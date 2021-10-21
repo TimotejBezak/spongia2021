@@ -76,7 +76,7 @@ def zobraz(obrazok,pozicia,surface=g.Displej,roh="lavy_horny",ui=False):#stred: 
 
     rohUpdate(pozicia,obrazok,roh)
     
-    zobraz2(obrazok,pozicia,surface) #surface.blit(pygame.transform.smoothscale(obrazok,(obrazok.get_width()*g.scaleKamery,obrazok.get_height()*g.scaleKamery)),(pozicia[0]-g.offsetKamery[0],pozicia[1]-g.offsetKamery[1]))
+    zobraz2(obrazok,pozicia,surface)
 
 def zobraz2(obrazok,pozicia,surface):
     surface.blit( obrazok, (int(pozicia[0]),int(pozicia[1])) )

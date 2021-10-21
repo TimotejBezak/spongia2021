@@ -27,7 +27,6 @@ class tlacidlo:
         self.kompletSurface = Nobrazok
         self.x,self.y = pygame.rohUpdate([x,y],Nobrazok,roh)
         self.text = Text.text(self.surface.get_width()/2,self.surface.get_height()/2,text,velkost,farba,font,roh="stred")#x, y,co,velkost,farba,font
-        #self.maska = pygame.mask.from_surface(Nobrazok)#maska chce byt nescalovana
         self.jeStlacene = False
         self.jeKeydown = False
         self.jeKeyup = False
@@ -85,7 +84,7 @@ class tlacidlo:
     def je_keyup(self):
         return self.jeKeyup
 
-    def je_zmena_hover(self):#minuly frame som bol mimo, teraz som v alebo naopak
+    def je_zmena_hover(self):#minuly frame bol kurzor mimo, teraz je v alebo naopak
         return self.zmenaHover
 
     def zmazSa(self):

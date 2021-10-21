@@ -1,7 +1,7 @@
 from globalnepremenne import g
 import pygame
 
-#pygame.mouse.set_visible(False)
+pygame.mouse.set_visible(False)
 predosly_click,predosla_pozicia = None,None
 pozicia = (0,0)
 click = (0,0,0)

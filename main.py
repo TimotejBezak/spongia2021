@@ -1,4 +1,4 @@
-import pygame, time, math, random, threading
+import pygame, math, random, threading
 
 #from pygame.mask import _Offset
 
@@ -27,6 +27,7 @@ import animacie
 import mys
 import vyhralsi,prehralsi
 import text
+import cas
 
 class myThread (threading.Thread):
    def __init__(self, funkcia):
@@ -78,6 +79,7 @@ def fyzika():
                 break
 
             if pauza.je_keyup():
+                cas.pause()
                 odpauza = tlacidlo(t.vyhralsiN,t.vyhralsiA,700,50,text="odpauznut")
                 paused = True
 
@@ -92,6 +94,7 @@ def fyzika():
             klavesy.update()
 
             if odpauza.je_keyup():
+                cas.unpause()
                 paused = False
                 odpauza.zmazSa()
             
@@ -160,7 +163,7 @@ if __name__ == "__main__":
 co treba spravit:
 otacanie obrazkov - ked zobrazujem, pridat otocenie a suradnice body oatacania
 tlacidlo pauza - funguje, len cas stale bezi
-otestovat konvert na .exe - poslat darebakom na otestovanie     #vytazny command: python3 -m PyInstaller --onefile main.py
+otestovat konvert na .exe - poslat darebakom na otestovanie     #vytazny command: python3 -m PyInstaller --onefile main.py    potom z folderu dist presunut .exe do normalneho, aby videl obrazky.
 
 detekcia kolizie(lubovolneho prekryvu) nepriehladnych casti lubovolnych dvoch spritov
 aby to fungovalo aj na obrazovkach s inym rozlisenim - asi to bude mat proste konstantne rozlisenie
