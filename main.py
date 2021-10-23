@@ -25,9 +25,12 @@ import tlacidla
 from animacie import animacia,obrazky_v_case
 import animacie
 import mys
-import vyhralsi,prehralsi
+import vyhralsi,prehralsi,intro
 import text
 import cas
+
+from funkcie import resetScreen
+
 
 class myThread (threading.Thread):
    def __init__(self, funkcia):
@@ -39,6 +42,7 @@ class myThread (threading.Thread):
 
 vyhrat = None
 prehrat = None
+spetDoMenu = None
 testHrac = None
 trubiroh = None
 myska = None
@@ -47,11 +51,12 @@ pauza = None
 odpauza = None
 Xtlacidlo = None
 testText = None
+koniec = False
 
 z.testMuzika.play()
 z.testMuzika.set_volume(0.3)
 def fyzika():
-    global g,koniec,paused,pauza,odpauza
+    global g,paused,pauza,odpauza,koniec
     while not koniec and not klavesy.je_koniec():
         if not paused:
             mys.update()
@@ -60,7 +65,6 @@ def fyzika():
             if klavesy.je_keyup('v'):
                 z.test.play()
                 animacia(a.animacia,0.7,500,20,loop=False)
-                print("grg")
 
             testHrac.update()
             trubiroh.update()
@@ -78,9 +82,14 @@ def fyzika():
                 prehralsi.spustit()
                 break
 
+            if spetDoMenu.je_keyup():
+                koniec = True
+                intro.spustit()
+                break
+
             if pauza.je_keyup():
                 cas.pause()
-                odpauza = tlacidlo(t.vyhralsiN,t.vyhralsiA,700,50,text="odpauznut")
+                odpauza = tlacidlo(t.odpauzaN,t.odpauzaA,700,50,text="odpauznut")
                 paused = True
 
             if Xtlacidlo.je_keyup():
@@ -128,15 +137,16 @@ def gameloop():
     global zobrazovacThread
     thread = myThread(fyzika)
     thread.start()
-    print("gameloop")
     zobrazovac()
 
 def spustit():
     #global vyhrat,prehrat,testHrac,trubiroh,myska,pauza
-    reset()
+    koniec = False
+    resetScreen()
     vyhrat = tlacidlo(t.vyhralsiN,t.vyhralsiA,700,500,text="vyhrat")
     prehrat = tlacidlo(t.prehralsiN,t.prehralsiA,810,500,text="prehrat")
-    pauza = tlacidlo(t.vyhralsiN,t.vyhralsiA,500,50,text="pauznut")
+    spetDoMenu = tlacidlo(t.spetDoMenuN,t.spetDoMenuA,920,500,text="menu")
+    pauza = tlacidlo(t.pauzaN,t.pauzaA,500,50,text="pauznut")
     Xtlacidlo = tlacidlo(t.XN,t.XA,g.moj_width-5,5,roh="pravy_horny")
     testHrac = s.hrac(o.test1)#
     trubiroh = s.trubiroh(o.auto)
@@ -144,7 +154,6 @@ def spustit():
     testText = text.text(200,200,"bubacik",10,g.farby.cierna,g.basic_font,roh="pravy_dolny")
     
     globals().update(locals())
-    print("spustam")
     gameloop()
 
 def reset():# toto by chcelo byt rovnake vo vsetkych screenoch
@@ -152,7 +161,7 @@ def reset():# toto by chcelo byt rovnake vo vsetkych screenoch
     koniec = False
     tlacidla.tlacidla = []
     animacie.animacie = []
-    g.Displej = pygame.display.set_mode((g.displej_width, g.displej_height))
+    #g.Displej = pygame.display.set_mode((g.displej_width, g.displej_height))
     g.frameF = 0
     g.frameZ = 0
 
@@ -161,10 +170,10 @@ if __name__ == "__main__":
 
 '''
 co treba spravit:
-otacanie obrazkov - ked zobrazujem, pridat otocenie a suradnice body oatacania
-tlacidlo pauza - funguje, len cas stale bezi
+otacanie obrazkov - ked zobrazujem, pridat otocenie a suradnice body oatacania     asi netreba
 otestovat konvert na .exe - poslat darebakom na otestovanie     #vytazny command: python3 -m PyInstaller --onefile main.py    potom z folderu dist presunut .exe do normalneho, aby videl obrazky.
 
+tlacidlo pauza - funguje, len cas stale bezi
 detekcia kolizie(lubovolneho prekryvu) nepriehladnych casti lubovolnych dvoch spritov
 aby to fungovalo aj na obrazovkach s inym rozlisenim - asi to bude mat proste konstantne rozlisenie
 tlacidlo X aby som to vedel vypnut ked to je na fulscreen

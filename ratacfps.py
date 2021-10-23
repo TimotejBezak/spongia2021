@@ -25,7 +25,7 @@ class ratacfps:
             frame = g.frameF
         else:
             g.frameZ += 1
-            frame = g.framez
+            frame = g.frameZ
         if frame % self.akoCastoUpdatovat == 0:
             self.sucet -= self.framy.get()
             hodnota = int(1/(time.time()-self.cas))

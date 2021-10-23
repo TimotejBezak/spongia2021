@@ -24,7 +24,7 @@ from animacie import animacia,obrazky_v_case
 import animacie
 
 import mys
-
+from funkcie import resetScreen
 import main,intro
 
 class myThread (threading.Thread):
@@ -40,7 +40,7 @@ restart = None
 koniec = False
 
 def fyzika():
-    global g, koniec
+    global g,koniec
     while not koniec and not klavesy.je_koniec():
         #print("f")
         mys.update()
@@ -78,12 +78,13 @@ def gameloop():
     zobrazovac()
 
 def spustit():
-    global myska,restart
-    reset()
+    #global myska,restart
+    koniec = False
+    resetScreen()
     #print(tlacidla.tlacidla)
     restart = tlacidlo(t.testtlacidloN,t.testtlacidloA,500,500,text="restart")
     myska = s.mys(o.mys)
-    #globals().update(locals())#globalne premenne rozsiri o lokalne
+    globals().update(locals())#globalne premenne rozsiri o lokalne
     gameloop()
 
 def reset():

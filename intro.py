@@ -22,10 +22,9 @@ from tlacidla import tlacidlo
 import tlacidla
 from animacie import animacia,obrazky_v_case
 import animacie
-
 import mys
-
 import main
+from funkcie import resetScreen
 
 class myThread (threading.Thread):
    def __init__(self, funkcia):
@@ -40,7 +39,7 @@ hrat = None
 koniec = False
 
 def fyzika():
-    global g, koniec
+    global g,koniec
     while not koniec and not klavesy.je_koniec():
         #print("f")
         mys.update()
@@ -78,12 +77,13 @@ def gameloop():
     zobrazovac()
 
 def spustit():
-    global myska,hrat
-    reset()
+    #global myska,hrat
+    koniec = False
+    resetScreen()
     #print(tlacidla.tlacidla)
     hrat = tlacidlo(t.testtlacidloN,t.testtlacidloA,500,500,text="hrat")
     myska = s.mys(o.mys)
-    #globals().update(locals())#globalne premenne rozsiri o lokalne
+    globals().update(locals())#globalne premenne rozsiri o lokalne
     gameloop()
 
 def reset():

@@ -13,7 +13,7 @@ class G:
     #region nemenit:
     moj_width = 1700
     moj_height = 950
-    nezvecsovatMod = False#True
+    nezvecsovatMod = True
     if nezvecsovatMod:
         displej_width = moj_width
         displej_height = moj_height
@@ -35,8 +35,10 @@ class G:
     #click = pygame.mouse.get_pressed()
     #poziciamyse = pygame.mouse.get_pos()
     frameF = 0
-    framez = 0
+    frameZ = 0
     offsetKamery = [0,0]
+
+    koniec = False
     #endregion
 
     class farby:

@@ -20,6 +20,12 @@ class T:
     vyhralsiN = pygame.loadniObrazok(100,100)
     prehralsiA = pygame.loadniObrazok(100,100)
     prehralsiN = pygame.loadniObrazok(100,100)
+    spetDoMenuA = pygame.loadniObrazok(100,100)
+    spetDoMenuN = pygame.loadniObrazok(100,100)
+    pauzaA = pygame.loadniObrazok(100,100)
+    pauzaN = pygame.loadniObrazok(100,100)
+    odpauzaA = pygame.loadniObrazok(100,100)
+    odpauzaN = pygame.loadniObrazok(100,100)
     XA = pygame.loadniObrazok(25,25)
     XN = pygame.loadniObrazok(25,25)
 
@@ -28,7 +34,7 @@ class A:
 
 class Z:
     test = pygame.loadniZvuk('maybe-next-time-huh.wav')#zvuk.play
-    testMuzika = pygame.loadniZvuk('muzika.wav')#existuje zvuk.set_volume() od 0 do 1
+    testMuzika = pygame.loadniZvuk('muzikaaa.wav')#existuje zvuk.set_volume() od 0 do 1
 
 o = O()
 t = T()
