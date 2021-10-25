@@ -11,7 +11,7 @@ S_init()
 from sprity import s
 
 import niepygame
-from loaderObrazkov import o,t,a
+from loaderObrazkov import o,t,a,z
 
 import klavesy
 import ratacfps

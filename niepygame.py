@@ -26,7 +26,7 @@ def loadniObrazok(sirka,vyska,path=""):
 def loadniAnimaciu(sirka,vyska,path_foldera='totoniejefolder'):
     vysledok = []
     pocet_filov = len(os.listdir(path_foldera))
-    for i in range(1,pocet_filov):
+    for i in range(1,pocet_filov+1):
         aktualnypath = path_foldera+'/'+str(i)+'.png'
         vysledok.append(loadniObrazok(sirka,vyska,aktualnypath))
     

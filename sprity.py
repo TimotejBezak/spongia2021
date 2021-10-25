@@ -106,7 +106,7 @@ class S:
                 # self.scale = 0
                 # self.casZ = cas.cas()
             
-            self.obrazok = pygame.transform.smoothscale(self.povodnyObrazok, (int(self.scale),int(self.scale)) )
+            self.obrazok = pygame.transform.scale(self.povodnyObrazok, (int(self.scale),int(self.scale)) )
             
         def zobraz(self):
             pygame.zobraz(self.obrazok,(290,290),roh="stred",surface=self.surface)
@@ -154,6 +154,23 @@ class S:
             for pismeno in self.pozicie:
                 pygame.zobraz(o.pozadieKlavesu,self.pozicie[pismeno])
 
+    class panak:
+        def __init__(self):
+            self.pozicia = [0,0,0,0]#lr,pr,ln,pn
+            self.test = self.poziciaZKoncatin(self.pozicia)
+
+        def poziciaZKoncatin(self,rozmiestnenieKoncatin):
+            surface = o.vajce.copy()
+            lr,pr,ln,pn = rozmiestnenieKoncatin
+            print(o.lavaRuka,o.pravaRuka)
+            pygame.zobraz(o.pravaRuka[lr],(0,0),surface=surface)
+            pygame.zobraz(o.pravaRuka[pr],(0,surface.get_width()),roh='pravy_horny',surface=surface)#pygame.zobraz(o.pravaRuka[pr],(1000,850))
+            return surface
+
+        def zobraz(self):
+            pygame.zobraz(self.test,(1200,200))
+
+
     class level:
         def __init__(self,muzika,casyStien,obrazkyStien):#na spusteni levelu
             self.muzika = muzika
@@ -166,6 +183,7 @@ class S:
             self.steny = []
             self.casSteny = 5#kym stena nabura do vajca
             self.surface = pygame.Surface((580,580))
+            self.panak = s.panak()
 
         def update(self):#scalovanie steny, detekovanie inputu
             #print((cas.cas()-self.casZ)+self.casSteny)
@@ -186,6 +204,7 @@ class S:
             for stena in self.steny:
                 stena.zobraz()
             pygame.zobraz(self.surface,(k.xStenoDispleja,k.yStenoDispleja))
+            self.panak.zobraz()
 
 def init():
     global s

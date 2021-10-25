@@ -22,6 +22,11 @@ class O:
     kruh50 = pygame.loadniObrazok(100,100,'kruh.png')
 
     pozadieKlavesu = pygame.loadniObrazok(120,120)
+
+    pravaRuka = pygame.loadniAnimaciu(-1,-1,'prava ruka')
+    lavaRuka = pygame.loadniAnimaciu(-1,-1,'lava ruka')
+
+    vajce = pygame.loadniObrazok(-1,-1,'vajce.png')
     
 class T:
     testtlacidloA = pygame.loadniObrazok(100,100)

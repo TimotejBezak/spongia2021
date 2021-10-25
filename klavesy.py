@@ -35,7 +35,8 @@ def update():
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             koniec = True
-            #pygame.quit()
+            pygame.display.quit()
+            pygame.quit()
             #exit(0)
         if event.type == pygame.KEYDOWN:
             for pismeno in klavesy_vsetky:
