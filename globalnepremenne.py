@@ -27,7 +27,7 @@ class G:
         scaleObrazovky = min(scaleSirka,scaleVyska)#ratam s tym, ze moja obrazovka je najmensia
         displej_width = int(moj_width*scaleObrazovky)
         displej_height = int(moj_height*scaleObrazovky)
-        Displej = pygame.display.set_mode((displej_width, displej_height),FULLSCREEN)
+        Displej = pygame.display.set_mode((displej_width, displej_height))
         print(sirkaPocitaca,vyskaPocitaca)
     Hodiny = pygame.time.Clock()
 

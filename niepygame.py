@@ -39,7 +39,7 @@ def loadniZvuk(path):
         return pygame.mixer.Sound('nic.wav')
 
 def zmenitRozlisenie(obrazok,rozmer):
-    return pygame.transform.scale(obrazok,rozmer)
+    return pygame.transform.scale( obrazok,( int(rozmer[0]),int(rozmer[1]) ) )
 
 def prefarb(surface, color, ignorovaneFarby=[]):
     """Fill all pixels of the surface with color, preserve transparency."""
@@ -81,7 +81,10 @@ def zobraz(obrazok,pozicia,surface=g.Displej,roh="lavy_horny",ui=False):#stred: 
     zobraz2(obrazok,pozicia,surface)
 
 def zobraz2(obrazok,pozicia,surface):
-    surface.blit( obrazok, (int(pozicia[0]),int(pozicia[1])) )
+    try:
+        surface.blit( obrazok, (int(pozicia[0]),int(pozicia[1])) )
+    except:
+        pass
 
 #def zobraz(surface,co,pozicia):
 #    surface.blit(co,pozicia)

@@ -1,4 +1,4 @@
-import pygame, math, random, threading
+import pygame, math, random, threading,time
 
 #from pygame.mask import _Offset
 
@@ -25,7 +25,7 @@ import tlacidla
 from animacie import animacia,obrazky_v_case
 import animacie
 import mys
-import vyhralsi,prehralsi,intro
+import vyhralsi,prehralsi,menu
 import text
 import cas
 
@@ -52,11 +52,13 @@ odpauza = None
 Xtlacidlo = None
 testText = None
 koniec = False
+stena = None
+level = None
 
 z.testMuzika.play()
 z.testMuzika.set_volume(0.3)
 def fyzika():
-    global g,paused,pauza,odpauza,koniec
+    global g,paused,pauza,odpauza,koniec,stena,level
     while not koniec and not klavesy.je_koniec():
         if not paused:
             mys.update()
@@ -66,11 +68,15 @@ def fyzika():
                 z.test.play()
                 animacia(a.animacia,0.7,500,20,loop=False)
 
-            testHrac.update()
-            trubiroh.update()
-
             tlacidla.update()
             animacie.update()
+
+            # stena.update()
+            if level.update() == False:
+                koniec = True
+                vyhralsi.spustit()
+                break
+
 
             if vyhrat.je_keyup():
                 koniec = True
@@ -84,7 +90,7 @@ def fyzika():
 
             if spetDoMenu.je_keyup():
                 koniec = True
-                intro.spustit()
+                menu.spustit()
                 break
 
             if pauza.je_keyup():
@@ -95,7 +101,7 @@ def fyzika():
             if Xtlacidlo.je_keyup():
                 koniec = True
                 
-
+            #time.sleep(0.1)
             ratacfpsF.update()
         else:
             mys.update()
@@ -113,12 +119,10 @@ def zobrazovac():
     global g
     while not koniec and not klavesy.je_koniec():
         g.Displej.fill(g.farby.modra)
-        pygame.zobraz(o.pozadie,(0,40))
-        testHrac.zobraz()
-        trubiroh.zobraz()
-        pygame.zobraz(o.auto,(g.displej_width/2,g.displej_height),roh="lavy_dolny")
 
-        testText.zobraz()
+        # stena.zobraz()
+        pygame.zobraz(o.panak,(300,475),roh="stred")
+        level.zobraz()
 
         tlacidla.zobraz()
         animacie.zobraz()
@@ -139,34 +143,25 @@ def gameloop():
     thread.start()
     zobrazovac()
 
-def spustit():
+def spustit(levelI):
     #global vyhrat,prehrat,testHrac,trubiroh,myska,pauza
     koniec = False
     resetScreen()
-    vyhrat = tlacidlo(t.vyhralsiN,t.vyhralsiA,700,500,text="vyhrat")
-    prehrat = tlacidlo(t.prehralsiN,t.prehralsiA,810,500,text="prehrat")
-    spetDoMenu = tlacidlo(t.spetDoMenuN,t.spetDoMenuA,920,500,text="menu")
-    pauza = tlacidlo(t.pauzaN,t.pauzaA,500,50,text="pauznut")
+    vyhrat = tlacidlo(t.vyhralsiN,t.vyhralsiA,1300,500,text="vyhrat")
+    prehrat = tlacidlo(t.prehralsiN,t.prehralsiA,1410,500,text="prehrat")
+    spetDoMenu = tlacidlo(t.spetDoMenuN,t.spetDoMenuA,1520,500,text="menu")
+    pauza = tlacidlo(t.pauzaN,t.pauzaA,1500,50,text="pauznut")
     Xtlacidlo = tlacidlo(t.XN,t.XA,g.moj_width-5,5,roh="pravy_horny")
-    testHrac = s.hrac(o.test1)#
-    trubiroh = s.trubiroh(o.auto)
     myska = s.mys(o.mys)
-    testText = text.text(200,200,"bubacik",10,g.farby.cierna,g.basic_font,roh="pravy_dolny")
+#    stena = s.stena(o.stena,pygame.Surface((580,580)),5)
+    level = s.level(*levelI)
     
     globals().update(locals())
     gameloop()
 
-def reset():# toto by chcelo byt rovnake vo vsetkych screenoch
-    global koniec,g
-    koniec = False
-    tlacidla.tlacidla = []
-    animacie.animacie = []
-    #g.Displej = pygame.display.set_mode((g.displej_width, g.displej_height))
-    g.frameF = 0
-    g.frameZ = 0
 
-if __name__ == "__main__":
-    spustit()
+# if __name__ == "__main__":
+#     spustit(0,0,0)
 
 '''
 co treba spravit:

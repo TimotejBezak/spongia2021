@@ -12,3 +12,14 @@ def unpause():
 
 def cas():
     return time.time() - casPauz
+
+class dt:
+    def __init__(self):
+        self.cas = cas()
+
+    def update(self):
+        novyCas = cas()
+        dt = novyCas - self.cas
+        self.cas = novyCas
+
+        return dt

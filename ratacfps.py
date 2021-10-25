@@ -6,6 +6,8 @@ import text
 class ratacfps:
     def __init__(self,vyska,ktore):
         self.fpsText = text.text(10,vyska,"",10,(0,0,0),g.basic_font)
+        self.casText = text.text(10,40,"",10,(0,0,0),g.basic_font)
+        self.casZ = time.time()
         self.pocet = 20
         self.sucet = 0#pocet*g.fps
         self.framy = queue.Queue()
@@ -35,7 +37,9 @@ class ratacfps:
             #g.aktualne_fps = self.aktualne_fps
         self.cas = time.time()
         self.fpsText.zmenText(f"fps{self.ktore}: {int(self.aktualne_fps)}")
+        self.casText.zmenText(f"cas: {int(time.time()-self.casZ)}")
 
     def zobraz(self):
         self.fpsText.zobraz()
+        self.casText.zobraz()
         

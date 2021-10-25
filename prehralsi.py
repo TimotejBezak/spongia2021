@@ -25,7 +25,7 @@ import animacie
 
 import mys
 from funkcie import resetScreen
-import main,intro
+import menu
 
 class myThread (threading.Thread):
    def __init__(self, funkcia):
@@ -52,7 +52,7 @@ def fyzika():
         if restart.je_keyup():
             koniec = True
             #time.sleep(1)
-            intro.spustit()
+            menu.spustit()
             break
 
         ratacfpsF.update()

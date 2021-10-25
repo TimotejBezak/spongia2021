@@ -23,7 +23,7 @@ import tlacidla
 from animacie import animacia,obrazky_v_case
 import animacie
 import mys
-import menu
+import main
 from funkcie import resetScreen
 
 class myThread (threading.Thread):
@@ -35,8 +35,8 @@ class myThread (threading.Thread):
 
 
 myska = None
-hrat = None
 koniec = False
+levely1 = None
 
 def fyzika():
     global g,koniec
@@ -48,11 +48,16 @@ def fyzika():
         tlacidla.update()
         animacie.update()
 
-        if hrat.je_keyup():
+        level = levely1.spustiLevel()
+        if level != False:
             koniec = True
-            #time.sleep(1)
-            menu.spustit()
+            main.spustit(level)
             break
+        # if hrat.je_keyup():
+        #     koniec = True
+        #     #time.sleep(1)
+        #     main.spustit()
+        #     break
 
         ratacfpsF.update()
 
@@ -61,10 +66,13 @@ def zobrazovac():
     global g
     while not koniec and not klavesy.je_koniec():
         #print("z")
-        g.Displej.fill(g.farby.cervena)
+        g.Displej.fill(g.farby.modra)
+
+        levely1.zobraz()
 
         tlacidla.zobraz()
         animacie.zobraz()
+
         ratacfpsF.zobraz()
         ratacfpsZ.zobraz()
         myska.zobraz()
@@ -81,19 +89,11 @@ def spustit():
     koniec = False
     resetScreen()
     #print(tlacidla.tlacidla)
-    hrat = tlacidlo(t.testtlacidloN,t.testtlacidloA,500,500,text="hrat")
+    #hrat = tlacidlo(t.testtlacidloN,t.testtlacidloA,500,500,text="hrat")
     myska = s.mys(o.mys)
+    levely1 = s.levelSet(o.level1Panak,o.level1Pozadie,(400,100),(100,100),t.levelA,t.levelN)
     globals().update(locals())#globalne premenne rozsiri o lokalne
     gameloop()
-
-def reset():
-    global koniec,g
-    koniec = False
-    tlacidla.tlacidla = []
-    animacie.animacie = []
-    g.Displej = pygame.display.set_mode((g.displej_width, g.displej_height))
-    g.frameF = 0
-    g.frameZ = 0
 
 if __name__ == "__main__":
     spustit()
