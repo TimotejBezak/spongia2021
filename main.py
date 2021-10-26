@@ -3,7 +3,7 @@ import pygame, math, random, threading,time
 #from pygame.mask import _Offset
 
 pygame.init()
-
+pygame.mixer.init()
 from globalnepremenne import init as G_init
 G_init()
 from globalnepremenne import g
@@ -25,7 +25,7 @@ import tlacidla
 from animacie import animacia,obrazky_v_case
 import animacie
 import mys
-import vyhralsi,prehralsi,menu
+#import vyhralsi,prehralsi,menu
 import text
 import cas
 
@@ -46,7 +46,6 @@ spetDoMenu = None
 testHrac = None
 trubiroh = None
 myska = None
-paused = False
 pauza = None
 odpauza = None
 Xtlacidlo = None
@@ -54,98 +53,125 @@ testText = None
 koniec = False
 stena = None
 level = None
+loop = 'intro'
+levely1 = None
+restart = None
+hrat = None
 
 z.testMuzika.play()
 z.testMuzika.set_volume(0.3)
 def fyzika():
-    global g,paused,pauza,odpauza,koniec,stena,level
+    global g,pauza,odpauza,koniec,stena,level,levely1,loop,vyhrat,prehrat,spetDoMenu
     while not koniec and not klavesy.je_koniec():
-        if not paused:
-            mys.update()
-            klavesy.update()
+        mys.update()
+        klavesy.update()
+        tlacidla.update()
+        animacie.update()
+        ratacfpsF.update()
 
+        if loop=='main':
             if klavesy.je_keyup('v'):
                 z.test.play()
                 animacia(a.animacia,0.7,500,20,loop=False)
 
-            tlacidla.update()
-            animacie.update()
-
-            # stena.update()
             if level.update() == False:
-                koniec = True
-                vyhralsi.spustit()
-                break
-
+                spustitVyhralsi()
+                continue
 
             if vyhrat.je_keyup():
-                koniec = True
-                vyhralsi.spustit()
-                break
+                spustitVyhralsi()
+                continue
 
             if prehrat.je_keyup():
-                koniec = True
-                prehralsi.spustit()
-                break
+                spustitPrehralsi()
+                continue
 
             if spetDoMenu.je_keyup():
-                koniec = True
-                menu.spustit()
-                break
+                spustitMenu()
+                continue
 
             if pauza.je_keyup():
-                cas.pause()
-                odpauza = tlacidlo(t.odpauzaN,t.odpauzaA,700,50,text="odpauznut")
-                paused = True
+                print("spustam pauzu")
+                spustitPauza()
+                continue
 
             if Xtlacidlo.je_keyup():
                 koniec = True
                 
             #time.sleep(0.1)
-            ratacfpsF.update()
-        else:
-            mys.update()
-            tlacidla.update()
-            klavesy.update()
-
+            
+        if loop=='pauza':
             if odpauza.je_keyup():
                 cas.unpause()
-                paused = False
                 odpauza.zmazSa()
-            
+                pauza = tlacidlo(t.pauzaN,t.pauzaA,1500,50,text="pauznut")
+                vyhrat = tlacidlo(t.vyhralsiN,t.vyhralsiA,1300,500,text="vyhrat")
+                prehrat = tlacidlo(t.prehralsiN,t.prehralsiA,1410,500,text="prehrat")
+                spetDoMenu = tlacidlo(t.spetDoMenuN,t.spetDoMenuA,1520,500,text="menu")
+                loop = 'main'
+                continue
+                #spustitMain()
+        
+        if loop=='menu':
+            lvl = levely1.spustiLevel()
+            if lvl != False:
+                # koniec = True
+                spustitMain(lvl)
+                continue
+                
+        if loop=='vyhralsi':
+            if restart.je_keyup():
+                # koniec = True
+                spustitMenu()
+                continue
 
+        if loop=='prehralsi':
+            if restart.je_keyup():
+                # koniec = True
+                spustitMenu()
+                continue
+            
+        if loop=='intro':
+            if hrat.je_keyup():
+                spustitMenu()
+                continue
 
 def zobrazovac():
     global g
     while not koniec and not klavesy.je_koniec():
-        g.Displej.fill(g.farby.modra)
-
-        # stena.zobraz()
-        pygame.zobraz(o.panak,(300,475),roh="stred")
-        level.zobraz()
+        if loop=='main':
+            g.Displej.fill(g.farby.modra)
+            pygame.zobraz(o.panak,(300,475),roh="stred")
+            level.zobraz()
+        if loop=='pauza':
+            g.Displej.fill((g.farby.modra)) #nejaky iny overlay mozno
+            odpauza.zobraz()
+        if loop=='menu':
+            g.Displej.fill(g.farby.modra)
+            levely1.zobraz()
+        if loop=='vyhralsi':
+            g.Displej.fill(g.farby.zelena)
+        if loop=='prehralsi':
+            g.Displej.fill(g.farby.cervena)
+        if loop=='intro':
+            g.Displej.fill(g.farby.cervena)
 
         tlacidla.zobraz()
         animacie.zobraz()
         ratacfpsF.zobraz()
-        ratacfpsZ.zobraz()
-
-        if paused:
-            g.Displej.fill((g.farby.modra)) #nejaky iny overlay asi polotransparentny
-            odpauza.zobraz()
+        ratacfpsZ.zobraz()    
 
         myska.zobraz()
         pygame.display.update()
         ratacfpsZ.update()
 
 def gameloop():
-    global zobrazovacThread
     thread = myThread(fyzika)
     thread.start()
     zobrazovac()
 
-def spustit(levelI):
+def spustitMain(levelI):
     #global vyhrat,prehrat,testHrac,trubiroh,myska,pauza
-    koniec = False
     resetScreen()
     vyhrat = tlacidlo(t.vyhralsiN,t.vyhralsiA,1300,500,text="vyhrat")
     prehrat = tlacidlo(t.prehralsiN,t.prehralsiA,1410,500,text="prehrat")
@@ -153,15 +179,50 @@ def spustit(levelI):
     pauza = tlacidlo(t.pauzaN,t.pauzaA,1500,50,text="pauznut")
     Xtlacidlo = tlacidlo(t.XN,t.XA,g.moj_width-5,5,roh="pravy_horny")
     myska = s.mys(o.mys)
-#    stena = s.stena(o.stena,pygame.Surface((580,580)),5)
     level = s.level(*levelI)
-    
+    loop = 'main'
     globals().update(locals())
+
+def spustitMenu():
+    resetScreen()
+    myska = s.mys(o.mys)
+    levely1 = s.levelSet(o.level1Panak,o.level1Pozadie,(400,100),(100,100),t.levelA,t.levelN)
+    loop = 'menu'
+    globals().update(locals())
+
+def spustitVyhralsi():
+    resetScreen()
+    restart = tlacidlo(t.testtlacidloN,t.testtlacidloA,500,500,text="restart")
+    loop = 'vyhralsi'
+    globals().update(locals())
+
+def spustitPrehralsi():
+    resetScreen()
+    restart = tlacidlo(t.testtlacidloN,t.testtlacidloA,500,500,text="restart")
+    loop = 'prehralsi'
+    globals().update(locals())
+
+def spustitPauza():
+    resetScreen()
+    cas.pause()
+    odpauza = tlacidlo(t.odpauzaN,t.odpauzaA,700,50,text="odpauznut")
+    loop = 'pauza'
+    globals().update(locals())
+
+def spustitIntro():#spusti sa naozaj len na zaciatku
+    # resetScreen()
+    myska = s.mys(o.mys)
+    hrat = tlacidlo(t.testtlacidloN,t.testtlacidloA,500,500,text="hrat")
+    loop = 'intro'
+    globals().update(locals())
+
+if __name__ == "__main__":
+    spustitIntro()
     gameloop()
+    print("quitujem")
+    pygame.display.quit()
+    pygame.quit()
 
-
-# if __name__ == "__main__":
-#     spustit(0,0,0)
 
 '''
 co treba spravit:

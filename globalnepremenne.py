@@ -12,7 +12,7 @@ class G:
     #endregion
     #region nemenit:
     moj_width = 1700
-    moj_height = 950
+    moj_height = 965
     nezvecsovatMod = True
     if nezvecsovatMod:
         displej_width = moj_width

@@ -1,3 +1,4 @@
+from pygame import surface
 from globalnepremenne import g
 import pygame
 import klavesy
@@ -132,7 +133,7 @@ class S:
         def spustiLevel(self):#spustame levely ak su tlacidla stlacene
             if self.tlacidla[0].je_keyup():
                 #treba spustit main
-                return [0,[8,15,30],0]#input pre level
+                return [0,[7,9,11,13,15,20,25],0]#[0,[8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30],0]#input pre level
             return False
 
         def zobraz(self):
@@ -156,19 +157,21 @@ class S:
 
     class panak:
         def __init__(self):
-            self.pozicia = [0,0,0,0]#lr,pr,ln,pn
+            self.pozicia = [0,0,1,1]#lr,pr,ln,pn
             self.test = self.poziciaZKoncatin(self.pozicia)
 
         def poziciaZKoncatin(self,rozmiestnenieKoncatin):
             surface = o.vajce.copy()
             lr,pr,ln,pn = rozmiestnenieKoncatin
-            print(o.lavaRuka,o.pravaRuka)
-            pygame.zobraz(o.pravaRuka[lr],(0,0),surface=surface)
-            pygame.zobraz(o.pravaRuka[pr],(0,surface.get_width()),roh='pravy_horny',surface=surface)#pygame.zobraz(o.pravaRuka[pr],(1000,850))
+            # print(o.lavaRuka,o.pravaRuka)
+            pygame.zobraz(o.lavaRuka[lr],(0,0),surface=surface)
+            pygame.zobraz(o.pravaRuka[pr],(0,0),surface=surface)#pygame.zobraz(o.pravaRuka[pr],(1000,850))
+            pygame.zobraz(o.pravaNoha[ln],(0,0),surface=surface)
+            pygame.zobraz(o.lavaNoha[pn],(0,0),surface=surface)
             return surface
 
         def zobraz(self):
-            pygame.zobraz(self.test,(1200,200))
+            pygame.zobraz(self.test,(k.xStenoDispleja,k.yStenoDispleja),roh='stred')
 
 
     class level:
@@ -201,9 +204,10 @@ class S:
 
         def zobraz(self):#reference klavesnica poz nad vajcom
             self.klavesnica.zobraz()
-            for stena in self.steny:
-                stena.zobraz()
-            pygame.zobraz(self.surface,(k.xStenoDispleja,k.yStenoDispleja))
+            pygame.zobraz(o.jama , (0,0),surface=self.surface)
+            for i in range(len(self.steny)):#iterovat od konca
+                self.steny[len(self.steny)-1-i].zobraz()
+            pygame.zobraz(self.surface,(k.xStenoDispleja,k.yStenoDispleja),roh='stred')
             self.panak.zobraz()
 
 def init():

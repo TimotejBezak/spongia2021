@@ -13,7 +13,7 @@ class O:
     test3 = pygame.loadniObrazok(-1,-1,'test5.png')
     ostryobrazok = pygame.loadniObrazok(-1,-1,'ostryobrazok.jpg')
     mys = pygame.loadniObrazok(50,50,'mys.png')
-    stena = pygame.loadniObrazok(1000,1000,'stena.png')
+    stena = pygame.loadniObrazok(1000,1000,'stena.png',bielaNaTransparent=True)
     panak = pygame.loadniObrazok(-1,-1,'panak.png')
 
     level1Panak = pygame.loadniObrazok(150,150)
@@ -23,10 +23,13 @@ class O:
 
     pozadieKlavesu = pygame.loadniObrazok(120,120)
 
-    pravaRuka = pygame.loadniAnimaciu(-1,-1,'prava ruka')
-    lavaRuka = pygame.loadniAnimaciu(-1,-1,'lava ruka')
+    pravaRuka = pygame.loadniAnimaciu(-1,-1,'prava ruka',polotransparent=True)
+    lavaRuka = pygame.loadniAnimaciu(-1,-1,'lava ruka',polotransparent=True)
+    pravaNoha = pygame.loadniAnimaciu(-1,-1,'prava noha',polotransparent=True)
+    lavaNoha = pygame.loadniAnimaciu(-1,-1,'lava noha',polotransparent=True)
 
-    vajce = pygame.loadniObrazok(-1,-1,'vajce.png')
+    vajce = pygame.loadniObrazok(-1,-1,'vajce.png',polotransparent=True)
+    jama = pygame.loadniObrazok(580,580)
     
 class T:
     testtlacidloA = pygame.loadniObrazok(100,100)
