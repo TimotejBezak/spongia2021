@@ -23,12 +23,12 @@ class O:
 
     pozadieKlavesu = pygame.loadniObrazok(120,120)
 
-    pravaRuka = pygame.loadniAnimaciu(-1,-1,'prava ruka',polotransparent=True)
-    lavaRuka = pygame.loadniAnimaciu(-1,-1,'lava ruka',polotransparent=True)
-    pravaNoha = pygame.loadniAnimaciu(-1,-1,'prava noha',polotransparent=True)
-    lavaNoha = pygame.loadniAnimaciu(-1,-1,'lava noha',polotransparent=True)
+    pravaRuka = pygame.loadniAnimaciu(-1,-1,'prava ruka',polotransparent=False)
+    lavaRuka = pygame.loadniAnimaciu(-1,-1,'lava ruka',polotransparent=False)
+    pravaNoha = pygame.loadniAnimaciu(-1,-1,'prava noha',polotransparent=False)
+    lavaNoha = pygame.loadniAnimaciu(-1,-1,'lava noha',polotransparent=False)
 
-    vajce = pygame.loadniObrazok(-1,-1,'vajce.png',polotransparent=True)
+    vajce = pygame.loadniObrazok(-1,-1,'vajce.png',polotransparent=False)
     jama = pygame.loadniObrazok(580,580)
     
 class T:

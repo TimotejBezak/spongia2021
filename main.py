@@ -141,7 +141,6 @@ def zobrazovac():
     while not koniec and not klavesy.je_koniec():
         if loop=='main':
             g.Displej.fill(g.farby.modra)
-            pygame.zobraz(o.panak,(300,475),roh="stred")
             level.zobraz()
         if loop=='pauza':
             g.Displej.fill((g.farby.modra)) #nejaky iny overlay mozno
@@ -186,7 +185,7 @@ def spustitMain(levelI):
 def spustitMenu():
     resetScreen()
     myska = s.mys(o.mys)
-    levely1 = s.levelSet(o.level1Panak,o.level1Pozadie,(400,100),(100,100),t.levelA,t.levelN)
+    levely1 = s.levelSet(o.level1Panak,o.level1Pozadie,(400,100),(100,100),t.levelA,t.levelN,{'a':[0,0,0,2],'b':[1,2,2,0]})
     loop = 'menu'
     globals().update(locals())
 

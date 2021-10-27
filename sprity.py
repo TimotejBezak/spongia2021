@@ -10,8 +10,10 @@ from tlacidla import tlacidlo
 from loaderObrazkov import o,t,z,a
 import konstanty as k
 import math
+from funkcie import *
 
 class S:
+
     class mys:
         def __init__(self,image):
             self.image = image
@@ -115,13 +117,14 @@ class S:
 
 
     class levelSet:#menu
-        def __init__(self,obrazokPostavy,obrazokPozadia,posT,posP,levelA,levelN):
+        def __init__(self,obrazokPostavy,obrazokPozadia,posT,posP,levelA,levelN,klavesyPoz):#klavesyPoz = {'a':[0,1,0,2]...}
+            self.klavesyPoz = klavesyPoz
             self.obrazokPostavy = obrazokPostavy
             self.obrazokPozadia = obrazokPozadia
             medzeraTlacidiel = 50
             velkostTextuTlacidiel = 25
-            self.xT, self.yT = posT
-            self.xP, self.yP = posP
+            self.xT, self.yT = posT#pozicia tlacidiel
+            self.xP, self.yP = posP#pozicia postavy
             self.tlacidla = [
                 tlacidlo(levelN,levelA,self.xT+(k.sirkaLevelTlacidla+medzeraTlacidiel)*0,self.yT,text="1",velkost=velkostTextuTlacidiel),
                 tlacidlo(levelN,levelA,self.xT+(k.sirkaLevelTlacidla+medzeraTlacidiel)*1,self.yT,text="2",velkost=velkostTextuTlacidiel),
@@ -133,7 +136,7 @@ class S:
         def spustiLevel(self):#spustame levely ak su tlacidla stlacene
             if self.tlacidla[0].je_keyup():
                 #treba spustit main
-                return [0,[7,9,11,13,15,20,25],0]#[0,[8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30],0]#input pre level
+                return [0,[7,9,11,13,15,20,25],0,self.klavesyPoz]#[0,[8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30],0]#input pre level
             return False
 
         def zobraz(self):
@@ -141,7 +144,7 @@ class S:
             pygame.zobraz(self.obrazokPostavy, (self.xP,self.yP))
 
     class klavesnica:
-        def __init__(self):
+        def __init__(self,klavesyPoz):
             sirka = 120
             posun1 = 40
             posun2 = 80
@@ -150,38 +153,42 @@ class S:
                 'a':(0+posun1,sirka),'s':(sirka+posun1,sirka),'d':(sirka*2+posun1,sirka),'f':(sirka*3+posun1,sirka),'g':(sirka*4+posun1,sirka),'h':(sirka*5+posun1,sirka),'j':(sirka*6+posun1,sirka),'k':(sirka*7+posun1,sirka),'l':(sirka*8+posun1,sirka),
                 'z':(posun2,sirka*2),'x':(sirka+posun2,sirka*2),'c':(sirka*2+posun2,sirka*2),'v':(sirka*3+posun2,sirka*2),'b':(sirka*4+posun2,sirka*2),'n':(sirka*5+posun2,sirka*2),'m':(sirka*6+posun2,sirka*2)
             }
+            self.klavesyPoz = klavesyPoz
+            self.klavesObrazokPozy = {}
+            self.vytvorPozy()
+
+        def vytvorPozy(self):
+            sirka = 110
+            for pismeno in self.klavesyPoz:
+                print(f"pismeno: {pismeno}, pozicia koncatin: {self.klavesyPoz[pismeno]}")
+                obrazok = poziciaZKoncatin(self.klavesyPoz[pismeno])
+                scale = min(sirka/obrazok.get_width(),sirka/obrazok.get_height())
+                self.klavesObrazokPozy[pismeno] = pygame.transform.scale(obrazok,(int(obrazok.get_width()*scale),int(obrazok.get_height()*scale)))
 
         def zobraz(self):
             for pismeno in self.pozicie:
                 pygame.zobraz(o.pozadieKlavesu,self.pozicie[pismeno])
 
+            for pismeno in self.klavesObrazokPozy:
+                pygame.zobraz( self.klavesObrazokPozy[pismeno] , self.pozicie[pismeno] )
+
     class panak:
         def __init__(self):
-            self.pozicia = [0,0,1,1]#lr,pr,ln,pn
-            self.test = self.poziciaZKoncatin(self.pozicia)
-
-        def poziciaZKoncatin(self,rozmiestnenieKoncatin):
-            surface = o.vajce.copy()
-            lr,pr,ln,pn = rozmiestnenieKoncatin
-            # print(o.lavaRuka,o.pravaRuka)
-            pygame.zobraz(o.lavaRuka[lr],(0,0),surface=surface)
-            pygame.zobraz(o.pravaRuka[pr],(0,0),surface=surface)#pygame.zobraz(o.pravaRuka[pr],(1000,850))
-            pygame.zobraz(o.pravaNoha[ln],(0,0),surface=surface)
-            pygame.zobraz(o.lavaNoha[pn],(0,0),surface=surface)
-            return surface
+            self.pozicia = [0,0,1,2]#lr,pr,ln,pn
+            self.test = poziciaZKoncatin(self.pozicia)
 
         def zobraz(self):
             pygame.zobraz(self.test,(k.xStenoDispleja,k.yStenoDispleja),roh='stred')
 
-
     class level:
-        def __init__(self,muzika,casyStien,obrazkyStien):#na spusteni levelu
+        def __init__(self,muzika,casyStien,pismenaStien,klavesyPoz):#na spusteni levelu
             self.muzika = muzika
             self.casyStien = casyStien #casStenyPredNaburanimDoVajca je konstantny
             self.casyStien.append(1000000)
-            self.obrazkyStien = obrazkyStien
+            self.pismenaStien = pismenaStien#pismena, ktore treba stlacit
+            self.klavesyPoz = klavesyPoz#klavesyPoz = {'a':[0,1,0,2]...}
             self.indexCasu = 0
-            self.klavesnica = s.klavesnica()
+            self.klavesnica = s.klavesnica(self.klavesyPoz)
             self.casZ = cas.cas()
             self.steny = []
             self.casSteny = 5#kym stena nabura do vajca
