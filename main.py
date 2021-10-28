@@ -29,8 +29,6 @@ import mys
 import text
 import cas
 
-from funkcie import resetScreen
-
 
 class myThread (threading.Thread):
    def __init__(self, funkcia):
@@ -213,6 +211,18 @@ def spustitIntro():#spusti sa naozaj len na zaciatku
     myska = s.mys(o.mys)
     hrat = tlacidlo(t.testtlacidloN,t.testtlacidloA,500,500,text="hrat")
     loop = 'intro'
+    globals().update(locals())
+
+def resetScreen():# toto by chcelo byt rovnake vo vsetkych screenoch
+    global g
+    pygame.event.clear()
+    g.koniec = False
+    g.Displej = pygame.display.set_mode((g.displej_width, g.displej_height))
+    tlacidla.tlacidla = []
+    animacie.animacie = []
+    #g.Displej = pygame.display.set_mode((g.displej_width, g.displej_height))
+    g.frameF = 0
+    g.frameZ = 0
     globals().update(locals())
 
 if __name__ == "__main__":

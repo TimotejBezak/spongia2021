@@ -136,7 +136,7 @@ class S:
         def spustiLevel(self):#spustame levely ak su tlacidla stlacene
             if self.tlacidla[0].je_keyup():
                 #treba spustit main
-                return [0,[7,9,11,13,15,20,25],0,self.klavesyPoz]#[0,[8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30],0]#input pre level
+                return [0,[7,15,20,25],0,self.klavesyPoz]#[0,[8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30],0]#input pre level
             return False
 
         def zobraz(self):
@@ -210,12 +210,12 @@ class S:
                 return False
 
         def zobraz(self):#reference klavesnica poz nad vajcom
-            self.klavesnica.zobraz()
-            pygame.zobraz(o.jama , (0,0),surface=self.surface)
+            #self.klavesnica.zobraz()
+            #pygame.zobraz(o.jama , (0,0),surface=self.surface)
             for i in range(len(self.steny)):#iterovat od konca
                 self.steny[len(self.steny)-1-i].zobraz()
             pygame.zobraz(self.surface,(k.xStenoDispleja,k.yStenoDispleja),roh='stred')
-            self.panak.zobraz()
+            #self.panak.zobraz()
 
 def init():
     global s

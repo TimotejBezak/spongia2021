@@ -13,7 +13,7 @@ class O:
     test3 = pygame.loadniObrazok(-1,-1,'test5.png')
     ostryobrazok = pygame.loadniObrazok(-1,-1,'ostryobrazok.jpg')
     mys = pygame.loadniObrazok(50,50,'mys.png')
-    stena = pygame.loadniObrazok(1000,1000,'stena.png',bielaNaTransparent=True)
+    stena = pygame.loadniObrazok(1000,1000,'stena.png',bielaNaTransparent=False)
     panak = pygame.loadniObrazok(-1,-1,'panak.png')
 
     level1Panak = pygame.loadniObrazok(150,150)
