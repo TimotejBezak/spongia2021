@@ -5,8 +5,9 @@ from pygame.locals import *
 stlacene_klavesi = set()
 keyup_klavesi = []
 keydown_klavesi = []
-klavesy_vsetky = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','u','v','w','x','y','z']
+klavesy_vsetky = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
 koniec = False
+naposledyPismeno = ''
 
 def je_stlaceny(klaves):
     if klaves in stlacene_klavesi:
@@ -26,9 +27,11 @@ def je_keyup(klaves):
 def je_koniec():
     return koniec
 
+def naposledy_pismeno():
+    return naposledyPismeno
 
 def update():
-    global keydown_klavesi,keyup_klavesi,stlacene_klavesi, koniec
+    global keydown_klavesi,keyup_klavesi,stlacene_klavesi, koniec, naposledyPismeno
     keydown_klavesi = []
     keyup_klavesi = []
 
@@ -44,6 +47,7 @@ def update():
                     keydown_klavesi.append(pismeno)
                     if pismeno not in stlacene_klavesi:
                         stlacene_klavesi.add(pismeno)
+                    naposledyPismeno = pismeno
         
         if event.type == pygame.KEYUP:
             for pismeno in klavesy_vsetky:

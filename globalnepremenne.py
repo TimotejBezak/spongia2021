@@ -2,7 +2,6 @@ import pygame
 from pygame.locals import *
 import collections
 
-
 class G:
     #region menit:
     tlacidlovy = "fonts/theboldfont.ttf"
@@ -12,7 +11,7 @@ class G:
     #endregion
     #region nemenit:
     moj_width = 1700
-    moj_height = 965
+    moj_height = 960
     nezvecsovatMod = True
     if nezvecsovatMod:
         displej_width = moj_width

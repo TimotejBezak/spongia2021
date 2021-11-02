@@ -74,9 +74,13 @@ def fyzika():
             z.test.play()
             animacia(a.animacia,0.7,500,20,loop=False)
 
-        if level.update() == False:
+        odpoved = level.update()
+        if odpoved == True:
             spustitVyhralsi()
             return#continue
+        if odpoved == False:
+            spustitPrehralsi()
+            return
 
         if vyhrat.je_keyup():
             spustitVyhralsi()
@@ -152,8 +156,10 @@ def zobrazovac():
         levely3.zobraz()
     if loop=='vyhralsi':
         g.Displej.fill(g.farby.zelena)
+        pygame.zobraz(o.vyhra,(0,0))
     if loop=='prehralsi':
         g.Displej.fill(g.farby.cervena)
+        pygame.zobraz(o.prehra,(0,0))
     if loop=='intro':
         g.Displej.fill(g.farby.cervena)
 

@@ -7,6 +7,7 @@ from animacie import obrazky_v_case
 from rychlost import rychlost,linearnyPohyb
 import mys
 import cas
+from text import text
 from tlacidla import tlacidlo
 from loaderObrazkov import o,t,z,a
 import konstanty as k
@@ -14,7 +15,6 @@ import math
 from funkcie import *
 
 class S:
-
     class mys:
         def __init__(self,image):
             self.image = image
@@ -107,6 +107,8 @@ class S:
                 self.scale = self.rychlostScalovania * (cas.cas()-self.casZ)**3#self.scale += self.rychlostScalovania*self.dt.update()# * (cas.cas()-self.casZ)**4
             else:#koniec
                 return False
+            if self.scale > 580:
+                return 'presla'
                 # self.scale = 0
                 # self.casZ = cas.cas()
             
@@ -154,7 +156,7 @@ class S:
         
         def spustiLevel(self):#spustame levely ak su tlacidla stlacene
             if self.tlacidla[0].je_keyup():
-                return [z.testMuzika,[7],['a','b','b','b','a'],self.klavesyPoz,self.cislo,0]#[0,[8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30],0]#input pre level
+                return [z.testMuzika,[7,10,15,20,25],['a','b','b','b','a'],self.klavesyPoz,self.cislo,0]#[0,[8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30],0]#input pre level
             return False#[5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
 
         def zobraz(self):
@@ -163,14 +165,22 @@ class S:
             
     class klavesnica:
         def __init__(self,klavesyPoz):
-            sirka = 120
+            sirka = 110#aj vyska
+            self.sirka = 110
+            medzera = 10#medzi klavesmi
+            offset = [20,10]
             posun1 = 40
             posun2 = 80
             self.pozicie = {
-                'q':(0,0),'w':(sirka,0),'e':(sirka*2,0),'r':(sirka*3,0),'t':(sirka*4,0),'y':(sirka*5,0),'u':(sirka*6,0),'i':(sirka*7,0),'o':(sirka*8,0),'p':(sirka*9,0),
-                'a':(0+posun1,sirka),'s':(sirka+posun1,sirka),'d':(sirka*2+posun1,sirka),'f':(sirka*3+posun1,sirka),'g':(sirka*4+posun1,sirka),'h':(sirka*5+posun1,sirka),'j':(sirka*6+posun1,sirka),'k':(sirka*7+posun1,sirka),'l':(sirka*8+posun1,sirka),
-                'z':(posun2,sirka*2),'x':(sirka+posun2,sirka*2),'c':(sirka*2+posun2,sirka*2),'v':(sirka*3+posun2,sirka*2),'b':(sirka*4+posun2,sirka*2),'n':(sirka*5+posun2,sirka*2),'m':(sirka*6+posun2,sirka*2)
+                'q':(0+offset[0],0+offset[1]),'w':(sirka+medzera+offset[0],0+offset[1]),'e':(sirka*2+medzera*2+offset[0],0+offset[1]),'r':(sirka*3+medzera*3+offset[0],0+offset[1]),'t':(sirka*4+medzera*4+offset[0],0+offset[1]),'y':(sirka*5+medzera*5+offset[0],0+offset[1]),'u':(sirka*6+medzera*6+offset[0],0+offset[1]),'i':(sirka*7+medzera*7+offset[0],0+offset[1]),'o':(sirka*8+medzera*8+offset[0],0+offset[1]),'p':(sirka*9+medzera*9+offset[0],0+offset[1]),
+                'a':(0+posun1+offset[0],sirka+medzera+offset[1]),'s':(sirka+posun1+medzera+offset[0],sirka+medzera+offset[1]),'d':(sirka*2+posun1+medzera*2+offset[0],sirka+medzera+offset[1]),'f':(sirka*3+posun1+medzera*3+offset[0],sirka+medzera+offset[1]),'g':(sirka*4+posun1+medzera*4+offset[0],sirka+medzera+offset[1]),'h':(sirka*5+posun1+medzera*5+offset[0],sirka+medzera+offset[1]),'j':(sirka*6+posun1+medzera*6+offset[0],sirka+medzera+offset[1]),'k':(sirka*7+posun1+medzera*7+offset[0],sirka+medzera+offset[1]),'l':(sirka*8+posun1+medzera*8+offset[0],sirka+medzera+offset[1]),
+                'z':(posun2+offset[0],sirka*2+medzera*2+offset[1]),'x':(sirka+posun2+medzera+offset[0],sirka*2+medzera*2+offset[1]),'c':(sirka*2+posun2+medzera*2+offset[0],sirka*2+medzera*2+offset[1]),'v':(sirka*3+posun2+medzera*3+offset[0],sirka*2+medzera*2+offset[1]),'b':(sirka*4+posun2+medzera*4+offset[0],sirka*2+medzera*2+offset[1]),'n':(sirka*5+posun2+medzera*5+offset[0],sirka*2+medzera*2+offset[1]),'m':(sirka*6+posun2+medzera*6+offset[0],sirka*2+medzera*2+offset[1])
             }
+            self.texty = []
+            for pismeno in self.pozicie:
+                pozicia = [self.pozicie[pismeno][0]+sirka/2 , self.pozicie[pismeno][1]+sirka/2-10]
+                self.texty.append(text(pozicia[0],pozicia[1],pismeno,32,(0,0,0),g.basic_hruby_font,roh='stred'))
+
             self.klavesyPoz = klavesyPoz
             self.klavesObrazokPozy = {}
             self.vytvorPozy()
@@ -188,15 +198,26 @@ class S:
                 pygame.zobraz(o.pozadieKlavesu,self.pozicie[pismeno])
 
             for pismeno in self.klavesObrazokPozy:
-                pygame.zobraz( self.klavesObrazokPozy[pismeno] , self.pozicie[pismeno] )
+                pygame.zobraz( self.klavesObrazokPozy[pismeno] , (self.pozicie[pismeno][0]+self.sirka/2,self.pozicie[pismeno][1]+self.sirka/2) ,roh='stred')
+
+            for i in self.texty:
+                i.zobraz()
 
     class panak:
-        def __init__(self):
-            self.pozicia = [0,0,1,2]#lr,pr,ln,pn
-            self.test = poziciaZKoncatin(self.pozicia)
+        def __init__(self,klavesyPoz):
+            self.pozicia = [2,2,2,2]#lr,pr,ln,pn
+            self.surface = poziciaZKoncatin(self.pozicia)
+            self.klavesyPoz = klavesyPoz
+
+        def update(self):
+            #print(klavesy.naposledy_pismeno())
+            if len(klavesy.keydown_klavesi) > 0:
+                pismeno = klavesy.keydown_klavesi[0]
+                if pismeno in self.klavesyPoz:
+                    self.surface = poziciaZKoncatin(self.klavesyPoz[pismeno])
 
         def zobraz(self):
-            pygame.zobraz(self.test,(k.xStenoDispleja,k.yStenoDispleja),roh='stred')
+            pygame.zobraz(self.surface,(k.xStenoDispleja,k.yStenoDispleja),roh='stred')
 
     class level:
         def __init__(self,muzika,casyStien,pismenaStien,klavesyPoz,cisloSetu,cisloLevelu):#na spusteni levelu
@@ -206,6 +227,7 @@ class S:
             self.pismenaStien = pismenaStien#pismena, ktore treba stlacit
             self.klavesyPoz = klavesyPoz#klavesyPoz = {'a':[0,1,0,2]...}
             self.indexCasu = 0
+            self.indexKlavesov = 0
             self.klavesnica = s.klavesnica(self.klavesyPoz)
             self.casZ = cas.cas()
             self.steny = []
@@ -213,33 +235,35 @@ class S:
             self.cisloSetu = cisloSetu
             self.cisloLevelu = cisloLevelu
             self.surface = pygame.Surface((580,580))
-            self.panak = s.panak()
-            self.stihol = False
+            self.panak = s.panak(klavesyPoz)
+            # self.stihol = False
             self.muzika.play()
 
         def update(self):#scalovanie steny, detekovanie inputu
+            self.panak.update()
+
             if (cas.cas()-self.casZ)+self.casSteny > self.casyStien[self.indexCasu]:
                 print(f"nadisiel cas na stenu {self.indexCasu}")
-                self.steny.append(s.stena(o.stena, poziciaZKoncatin(self.klavesyPoz[self.pismenaStien[self.indexCasu]]) ,self.casSteny))#self.obrazkyStien[self.indexSteny]
+                
+                # print("grg",self.klavesyPoz[self.pismenaStien[self.indexCasu]])
+                self.steny.append(s.stena(o.steny[tuple(self.klavesyPoz[self.pismenaStien[self.indexCasu]])], self.surface ,self.casSteny))#self.obrazkyStien[self.indexSteny]
                 self.indexCasu += 1
-
-                if not self.stihol:
-                    pass#self.muzika.stop()
-                    #prehral som
-                self.stihol = False
             
             for i,stena in enumerate(self.steny):
                 if stena.update() == False:
                     del self.steny[i]
+                    Npismeno = klavesy.naposledy_pismeno()
+                    if Npismeno != self.pismenaStien[self.indexKlavesov]:
+                        self.muzika.stop()
+                        return False#prehral som
+
+                    self.indexKlavesov += 1
+                    
             
             if len(self.steny) == 0 and self.indexCasu == len(self.casyStien)-1:
                 self.updateOdomknute()
                 self.muzika.stop()
-                return False#updatnut odomknute
-
-
-            # if klavesy.je_keydown(self.pismenaStien[self.indexCasu]):#list index out of range
-            #     self.stihol = True
+                return True#updatnut odomknute
 
         def updateOdomknute(self):#ked som vyhral       treba este povedat menu, ze ktore levely sa odomkli, aby sa mohla zobrazit animacia
             odomknute = open("odomknute.txt","r")

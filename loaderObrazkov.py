@@ -25,16 +25,21 @@ class O:
     zamknutyLevel = pygame.loadniObrazok(k.sirkaLevelTlacidla,k.vyskaLevelTlacidla)
 
     kruh50 = pygame.loadniObrazok(100,100,'kruh.png')
+    kruh5 = pygame.loadniObrazok(10,10,'kruh.png')
 
-    pozadieKlavesu = pygame.loadniObrazok(120,120)
+    pozadieKlavesu = pygame.loadniObrazok(110,110)
 
     pravaRuka = pygame.loadniAnimaciu(-1,-1,'prava ruka',polotransparent=False)
     lavaRuka = pygame.loadniAnimaciu(-1,-1,'lava ruka',polotransparent=False)
     pravaNoha = pygame.loadniAnimaciu(-1,-1,'prava noha',polotransparent=False)
     lavaNoha = pygame.loadniAnimaciu(-1,-1,'lava noha',polotransparent=False)
 
-    vajce = pygame.loadniObrazok(-1,-1,'vajce.png',polotransparent=False)
+    vajce = pygame.loadniObrazok(-1,-1,'vajce.png',polotransparent=True)
     jama = pygame.loadniObrazok(580,580)
+
+    stena1 = pygame.loadniObrazok(580,580)
+    stena2 = pygame.loadniObrazok(580,580)
+    stena3 = pygame.loadniObrazok(580,580)
 
     steny = {
         (0,0,0,0): pygame.loadniObrazok(580,580,"0000.png"),
@@ -100,11 +105,11 @@ class O:
         (2,0,2,0): pygame.loadniObrazok(580,580,"2020.png"),
         (2,0,2,1): pygame.loadniObrazok(580,580,"2021.png"),
         (2,0,2,2): pygame.loadniObrazok(580,580,"2022.png"),
-
-        
-
     }
     
+    vyhra = pygame.loadniObrazok(-1,-1,'vyhra.png')
+    prehra = pygame.loadniObrazok(-1,-1,'prehra.png')
+
 class T:
     testtlacidloA = pygame.loadniObrazok(100,100)
     testtlacidloN = pygame.loadniObrazok(100,100)

@@ -14,7 +14,7 @@ def loadniObrazok(sirka,vyska,path="",polotransparent=False,bielaNaTransparent=F
         obrazok = pygame.image.load('docasnyobrazok.png').convert_alpha()
         obrazok = prefarb(obrazok,docasnefarby[ktorafarba],ignorovaneFarby=[(0,0,0)])
         ktorafarba += 1
-        print(docasnefarby[ktorafarba])
+        # print(docasnefarby[ktorafarba])
     
     if sirka == -1:
         sirka = obrazok.get_width()
@@ -106,11 +106,11 @@ def zobraz(obrazok,pozicia,surface=g.Displej,roh="lavy_horny",ui=False):#stred: 
     zobraz2(obrazok,pozicia,surface)
 
 def zobraz2(obrazok,pozicia,surface):
-    # surface.blit( obrazok, (int(pozicia[0]),int(pozicia[1])) )
-    try:
-        surface.blit( obrazok, (int(pozicia[0]),int(pozicia[1])) )
-    except:
-        pass
+    surface.blit( obrazok, (int(pozicia[0]),int(pozicia[1])) )
+    # try:
+    #     surface.blit( obrazok, (int(pozicia[0]),int(pozicia[1])) )
+    # except:
+    #     pass
 
 #def zobraz(surface,co,pozicia):
 #    surface.blit(co,pozicia)
