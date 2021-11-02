@@ -1,3 +1,4 @@
+from os import terminal_size
 from pygame import surface
 from globalnepremenne import g
 import pygame
@@ -117,7 +118,8 @@ class S:
 
 
     class levelSet:#menu
-        def __init__(self,obrazokPostavy,obrazokPozadia,posT,posP,levelA,levelN,klavesyPoz):#klavesyPoz = {'a':[0,1,0,2]...}
+        def __init__(self,obrazokPostavy,obrazokPozadia,posT,posP,levelA,levelN,klavesyPoz,cislo):#klavesyPoz = {'a':[0,1,0,2]...}
+            self.cislo = cislo#0/1/2
             self.klavesyPoz = klavesyPoz
             self.obrazokPostavy = obrazokPostavy
             self.obrazokPozadia = obrazokPozadia
@@ -125,24 +127,40 @@ class S:
             velkostTextuTlacidiel = 25
             self.xT, self.yT = posT#pozicia tlacidiel
             self.xP, self.yP = posP#pozicia postavy
-            self.tlacidla = [
-                tlacidlo(levelN,levelA,self.xT+(k.sirkaLevelTlacidla+medzeraTlacidiel)*0,self.yT,text="1",velkost=velkostTextuTlacidiel),
-                tlacidlo(levelN,levelA,self.xT+(k.sirkaLevelTlacidla+medzeraTlacidiel)*1,self.yT,text="2",velkost=velkostTextuTlacidiel),
-                tlacidlo(levelN,levelA,self.xT+(k.sirkaLevelTlacidla+medzeraTlacidiel)*2,self.yT,text="3",velkost=velkostTextuTlacidiel),
-                tlacidlo(levelN,levelA,self.xT+(k.sirkaLevelTlacidla+medzeraTlacidiel)*3,self.yT,text="4",velkost=velkostTextuTlacidiel),
-                tlacidlo(levelN,levelA,self.xT+(k.sirkaLevelTlacidla+medzeraTlacidiel)*4,self.yT,text="5",velkost=velkostTextuTlacidiel)
-            ]
+            
+            odomknute = open("odomknute.txt","r")
+            self.odomknutost = list(map(int,odomknute.readlines()[cislo].split()))
+            odomknute.close()
+
+            self.odomknute = []#od 0 po 4
+            self.zamknute = []
+            for i,v in enumerate(self.odomknutost):
+                if v == 1:
+                    self.odomknute.append(i)
+                else:
+                    self.zamknute.append(i)
+
+            self.tlacidla = []
+            for i in self.odomknute:
+                self.tlacidla.append(tlacidlo(levelN,levelA,self.xT+(k.sirkaLevelTlacidla+medzeraTlacidiel)*i,self.yT,text=f"{i+1}",velkost=velkostTextuTlacidiel))
+            
+            for i in self.zamknute:
+                self.tlacidla.append(tlacidlo(o.zamknutyLevel,o.zamknutyLevel,self.xT+(k.sirkaLevelTlacidla+medzeraTlacidiel)*i,self.yT,text=f"{i+1}",velkost=velkostTextuTlacidiel,disabled=True))
+
+            self.levelN = levelN
+            self.levelA = levelA
+            self.medzeraTlacidiel = medzeraTlacidiel
+            # print(self.odomknute,"odoodod")
         
         def spustiLevel(self):#spustame levely ak su tlacidla stlacene
             if self.tlacidla[0].je_keyup():
-                #treba spustit main
-                return [0,[7,15,20,25],0,self.klavesyPoz]#[0,[8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30],0]#input pre level
-            return False
+                return [z.testMuzika,[7],['a','b','b','b','a'],self.klavesyPoz,self.cislo,0]#[0,[8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30],0]#input pre level
+            return False#[5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
 
         def zobraz(self):
             pygame.zobraz(self.obrazokPozadia, (self.xP-50,self.yP-50))
             pygame.zobraz(self.obrazokPostavy, (self.xP,self.yP))
-
+            
     class klavesnica:
         def __init__(self,klavesyPoz):
             sirka = 120
@@ -181,7 +199,7 @@ class S:
             pygame.zobraz(self.test,(k.xStenoDispleja,k.yStenoDispleja),roh='stred')
 
     class level:
-        def __init__(self,muzika,casyStien,pismenaStien,klavesyPoz):#na spusteni levelu
+        def __init__(self,muzika,casyStien,pismenaStien,klavesyPoz,cisloSetu,cisloLevelu):#na spusteni levelu
             self.muzika = muzika
             self.casyStien = casyStien #casStenyPredNaburanimDoVajca je konstantny
             self.casyStien.append(1000000)
@@ -192,30 +210,63 @@ class S:
             self.casZ = cas.cas()
             self.steny = []
             self.casSteny = 5#kym stena nabura do vajca
+            self.cisloSetu = cisloSetu
+            self.cisloLevelu = cisloLevelu
             self.surface = pygame.Surface((580,580))
             self.panak = s.panak()
+            self.stihol = False
+            self.muzika.play()
 
         def update(self):#scalovanie steny, detekovanie inputu
-            #print((cas.cas()-self.casZ)+self.casSteny)
             if (cas.cas()-self.casZ)+self.casSteny > self.casyStien[self.indexCasu]:
                 print(f"nadisiel cas na stenu {self.indexCasu}")
-                self.steny.append(s.stena(o.stena,self.surface,self.casSteny))#self.obrazkyStien[self.indexSteny]
+                self.steny.append(s.stena(o.stena, poziciaZKoncatin(self.klavesyPoz[self.pismenaStien[self.indexCasu]]) ,self.casSteny))#self.obrazkyStien[self.indexSteny]
                 self.indexCasu += 1
+
+                if not self.stihol:
+                    pass#self.muzika.stop()
+                    #prehral som
+                self.stihol = False
             
             for i,stena in enumerate(self.steny):
                 if stena.update() == False:
                     del self.steny[i]
             
             if len(self.steny) == 0 and self.indexCasu == len(self.casyStien)-1:
-                return False
+                self.updateOdomknute()
+                self.muzika.stop()
+                return False#updatnut odomknute
+
+
+            # if klavesy.je_keydown(self.pismenaStien[self.indexCasu]):#list index out of range
+            #     self.stihol = True
+
+        def updateOdomknute(self):#ked som vyhral       treba este povedat menu, ze ktore levely sa odomkli, aby sa mohla zobrazit animacia
+            odomknute = open("odomknute.txt","r")
+            odomknutost = [
+                list(map(int,odomknute.readline().split())),
+                list(map(int,odomknute.readline().split())),
+                list(map(int,odomknute.readline().split()))
+            ]
+            odomknute.close()
+            print(odomknutost)
+            subor = open('odomknute.txt','w')
+            subor.truncate()#snad zmaze veci v nom
+            if self.cisloLevelu < 5:
+                odomknutost[self.cisloSetu][self.cisloLevelu+1] = 1
+            if self.cisloLevelu == 2 and self.cisloSetu < 2:
+                odomknutost[self.cisloSetu+1][0] = 1
+            for i in range(3):
+                subor.write(' '.join(list(map(str,odomknutost[i])))+'\n')
+            subor.close()
 
         def zobraz(self):#reference klavesnica poz nad vajcom
-            #self.klavesnica.zobraz()
-            #pygame.zobraz(o.jama , (0,0),surface=self.surface)
+            self.klavesnica.zobraz()
+            pygame.zobraz(o.jama , (0,0),surface=self.surface)
             for i in range(len(self.steny)):#iterovat od konca
                 self.steny[len(self.steny)-1-i].zobraz()
             pygame.zobraz(self.surface,(k.xStenoDispleja,k.yStenoDispleja),roh='stred')
-            #self.panak.zobraz()
+            self.panak.zobraz()
 
 def init():
     global s

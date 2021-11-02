@@ -53,119 +53,127 @@ stena = None
 level = None
 loop = 'intro'
 levely1 = None
+levely2 = None
+levely3 = None
 restart = None
 hrat = None
 
-z.testMuzika.play()
-z.testMuzika.set_volume(0.3)
+# z.testMuzika.play()
+# z.testMuzika.set_volume(0.3)
 def fyzika():
     global g,pauza,odpauza,koniec,stena,level,levely1,loop,vyhrat,prehrat,spetDoMenu
-    while not koniec and not klavesy.je_koniec():
-        mys.update()
-        klavesy.update()
-        tlacidla.update()
-        animacie.update()
-        ratacfpsF.update()
+    # while not koniec and not klavesy.je_koniec():
+    mys.update()
+    klavesy.update()
+    tlacidla.update()
+    animacie.update()
+    ratacfpsF.update()
 
-        if loop=='main':
-            if klavesy.je_keyup('v'):
-                z.test.play()
-                animacia(a.animacia,0.7,500,20,loop=False)
+    if loop=='main':
+        if klavesy.je_keyup('v'):
+            z.test.play()
+            animacia(a.animacia,0.7,500,20,loop=False)
 
-            if level.update() == False:
-                spustitVyhralsi()
-                continue
+        if level.update() == False:
+            spustitVyhralsi()
+            return#continue
 
-            if vyhrat.je_keyup():
-                spustitVyhralsi()
-                continue
+        if vyhrat.je_keyup():
+            spustitVyhralsi()
+            return
 
-            if prehrat.je_keyup():
-                spustitPrehralsi()
-                continue
+        if prehrat.je_keyup():
+            spustitPrehralsi()
+            return
 
-            if spetDoMenu.je_keyup():
-                spustitMenu()
-                continue
+        if spetDoMenu.je_keyup():
+            spustitMenu()
+            return
 
-            if pauza.je_keyup():
-                print("spustam pauzu")
-                spustitPauza()
-                continue
+        if pauza.je_keyup():
+            print("spustam pauzu")
+            spustitPauza()
+            return
 
-            if Xtlacidlo.je_keyup():
-                koniec = True
-                
-            #time.sleep(0.1)
+        if Xtlacidlo.je_keyup():
+            koniec = True
             
-        if loop=='pauza':
-            if odpauza.je_keyup():
-                cas.unpause()
-                odpauza.zmazSa()
-                pauza = tlacidlo(t.pauzaN,t.pauzaA,1500,50,text="pauznut")
-                vyhrat = tlacidlo(t.vyhralsiN,t.vyhralsiA,1300,500,text="vyhrat")
-                prehrat = tlacidlo(t.prehralsiN,t.prehralsiA,1410,500,text="prehrat")
-                spetDoMenu = tlacidlo(t.spetDoMenuN,t.spetDoMenuA,1520,500,text="menu")
-                loop = 'main'
-                continue
-                #spustitMain()
+        #time.sleep(0.1)
         
-        if loop=='menu':
-            lvl = levely1.spustiLevel()
-            if lvl != False:
-                # koniec = True
-                spustitMain(lvl)
-                continue
-                
-        if loop=='vyhralsi':
-            if restart.je_keyup():
-                # koniec = True
-                spustitMenu()
-                continue
-
-        if loop=='prehralsi':
-            if restart.je_keyup():
-                # koniec = True
-                spustitMenu()
-                continue
+    if loop=='pauza':
+        if odpauza.je_keyup():
+            cas.unpause()
+            odpauza.zmazSa()
+            pauza = tlacidlo(t.pauzaN,t.pauzaA,1500,50,text="pauznut")
+            vyhrat = tlacidlo(t.vyhralsiN,t.vyhralsiA,1300,500,text="vyhrat")
+            prehrat = tlacidlo(t.prehralsiN,t.prehralsiA,1410,500,text="prehrat")
+            spetDoMenu = tlacidlo(t.spetDoMenuN,t.spetDoMenuA,1520,500,text="menu")
+            loop = 'main'
+            return
+            #spustitMain()
+    
+    if loop=='menu':
+        lvl = levely1.spustiLevel()
+        if lvl != False:
+            # koniec = True
+            spustitMain(lvl)
+            return
             
-        if loop=='intro':
+    if loop=='vyhralsi':
+        if restart.je_keyup():
+            # koniec = True
+            spustitMenu()
+            return
+
+    if loop=='prehralsi':
+        if restart.je_keyup():
+            # koniec = True
+            spustitMenu()
+            return
+        
+    if loop=='intro':
             if hrat.je_keyup():
                 spustitMenu()
-                continue
+                return
 
 def zobrazovac():
     global g
-    while not koniec and not klavesy.je_koniec():
-        if loop=='main':
-            g.Displej.fill(g.farby.modra)
-            level.zobraz()
-        if loop=='pauza':
-            g.Displej.fill((g.farby.modra)) #nejaky iny overlay mozno
-            odpauza.zobraz()
-        if loop=='menu':
-            g.Displej.fill(g.farby.modra)
-            levely1.zobraz()
-        if loop=='vyhralsi':
-            g.Displej.fill(g.farby.zelena)
-        if loop=='prehralsi':
-            g.Displej.fill(g.farby.cervena)
-        if loop=='intro':
-            g.Displej.fill(g.farby.cervena)
+    # while not koniec and not klavesy.je_koniec():
+    if loop=='main':
+        g.Displej.fill(g.farby.modra)
+        level.zobraz()
+    if loop=='pauza':
+        g.Displej.fill((g.farby.modra)) #nejaky iny overlay mozno
+        odpauza.zobraz()
+    if loop=='menu':
+        g.Displej.fill(g.farby.modra)
+        levely1.zobraz()
+        levely2.zobraz()
+        levely3.zobraz()
+    if loop=='vyhralsi':
+        g.Displej.fill(g.farby.zelena)
+    if loop=='prehralsi':
+        g.Displej.fill(g.farby.cervena)
+    if loop=='intro':
+        g.Displej.fill(g.farby.cervena)
 
-        tlacidla.zobraz()
-        animacie.zobraz()
-        ratacfpsF.zobraz()
-        ratacfpsZ.zobraz()    
+    tlacidla.zobraz()
+    animacie.zobraz()
+    ratacfpsF.zobraz()
+    ratacfpsZ.zobraz()    
 
-        myska.zobraz()
-        pygame.display.update()
-        ratacfpsZ.update()
+    myska.zobraz()
+    pygame.display.update()
+    ratacfpsZ.update()
 
 def gameloop():
-    thread = myThread(fyzika)
-    thread.start()
-    zobrazovac()
+    # thread = myThread(fyzika)
+    # thread.start()
+    # zobrazovac()
+    while not koniec and not klavesy.je_koniec():
+        fyzika()
+        zobrazovac()
+
 
 def spustitMain(levelI):
     #global vyhrat,prehrat,testHrac,trubiroh,myska,pauza
@@ -183,7 +191,9 @@ def spustitMain(levelI):
 def spustitMenu():
     resetScreen()
     myska = s.mys(o.mys)
-    levely1 = s.levelSet(o.level1Panak,o.level1Pozadie,(400,100),(100,100),t.levelA,t.levelN,{'a':[0,0,0,2],'b':[1,2,2,0]})
+    levely1 = s.levelSet(o.level1Panak,o.level1Pozadie,(400,100),(100,100),t.levelA,t.levelN,{'a':[0,0,0,2],'b':[1,2,2,0]},0)
+    levely2 = s.levelSet(o.level2Panak,o.level2Pozadie,(400,400),(100,400),t.levelA,t.levelN,{'a':[0,0,0,2],'b':[1,2,2,0]},1)
+    levely3 = s.levelSet(o.level3Panak,o.level3Pozadie,(400,700),(100,700),t.levelA,t.levelN,{'a':[0,0,0,2],'b':[1,2,2,0]},2)
     loop = 'menu'
     globals().update(locals())
 

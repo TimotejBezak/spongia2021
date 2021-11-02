@@ -20,7 +20,8 @@ def zobraz():
         i.zobraz()
 
 class tlacidlo:
-    def __init__(self, Nobrazok, Aobrazok, x, y,text="",velkost=15,farba=(0,0,0),font=g.tlacidlovy,roh="lavy_horny"):#dorobit roh podla ktoreho sa zobrazuje
+    def __init__(self, Nobrazok, Aobrazok, x, y,text="",velkost=15,farba=(0,0,0),font=g.tlacidlovy,roh="lavy_horny",disabled=False):#dorobit roh podla ktoreho sa zobrazuje
+        self.disabled = disabled
         self.Nobrazok = Nobrazok
         self.Aobrazok = Aobrazok
         self.surface = Nobrazok
@@ -76,15 +77,23 @@ class tlacidlo:
         pygame.zobraz(self.kompletSurface,(self.x,self.y), ui=True)
 
     def je_stlacene(self):
+        if self.disabled:
+            return False
         return self.jeStlacene
 
     def je_keydown(self):
+        if self.disabled:
+            return False
         return self.jeKeydown
 
     def je_keyup(self):
+        if self.disabled:
+            return False
         return self.jeKeyup
 
     def je_zmena_hover(self):#minuly frame bol kurzor mimo, teraz je v alebo naopak
+        if self.disabled:
+            return False
         return self.zmenaHover
 
     def zmazSa(self):
