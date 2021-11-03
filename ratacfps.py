@@ -34,7 +34,11 @@ class ratacfps:
             frame = g.frameZ
         if frame % self.akoCastoUpdatovat == 0:
             self.sucet -= self.framy.get()
-            hodnota = int(1/(time.time()-self.cas))
+            rozdiel = time.time()-self.cas
+            if rozdiel != 0:
+                hodnota = int(1/(rozdiel))
+            else:
+                hodnota = 1000
             self.sucet += hodnota
             self.framy.put(hodnota)
             self.aktualne_fps = self.sucet/self.pocet
