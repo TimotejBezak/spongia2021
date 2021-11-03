@@ -13,6 +13,7 @@ from loaderObrazkov import o,t,z,a
 import konstanty as k
 import math
 from funkcie import *
+import time
 
 class S:
     class mys:
@@ -107,17 +108,17 @@ class S:
                 self.scale = self.rychlostScalovania * (cas.cas()-self.casZ)**3#self.scale += self.rychlostScalovania*self.dt.update()# * (cas.cas()-self.casZ)**4
             else:#koniec
                 return False
-            # if self.scale > 580:
-            #     return 'presla'
+            
                 # self.scale = 0
                 # self.casZ = cas.cas()
             
             self.obrazok = pygame.transform.scale(self.povodnyObrazok, (int(self.scale),int(self.scale)) )
-            
+            if self.scale > 580:
+                self.rychlostScalovania *= 1.04
+                return 'presla'
         def zobraz(self):
             pygame.zobraz(self.obrazok,(290,290),roh="stred",surface=self.surface)
             #pygame.zobraz(self.surface,(k.xStenoDispleja,k.yStenoDispleja))
-
 
     class levelSet:#menu
         def __init__(self,obrazokPostavy,obrazokPozadia,posT,posP,klavesyPoz,cislo):#klavesyPoz = {'a':[0,1,0,2]...}
@@ -164,7 +165,7 @@ class S:
         def zobraz(self):
             pygame.zobraz(self.obrazokPozadia, (self.xP-50,self.yP-50))
             pygame.zobraz(self.obrazokPostavy, (self.xP,self.yP))
-            
+
     class klavesnica:
         def __init__(self,klavesyPoz):
             sirka = 110#aj vyska
@@ -240,6 +241,9 @@ class S:
             self.panak = s.panak(klavesyPoz)
             # self.stihol = False
             self.muzika.play()
+            self.minulePresla = None
+            self.casNaburania = None
+            self.freeznutyScreen = None
 
         def update(self):#scalovanie steny, detekovanie inputu
             self.panak.update()
@@ -252,15 +256,27 @@ class S:
                 self.indexCasu += 1
             
             for i,stena in enumerate(self.steny):
-                if stena.update() == False:
+                supdate = stena.update()
+                if supdate == False:
                     del self.steny[i]
-                    # Npismeno = klavesy.naposledy_pismeno()
-                    # if Npismeno != self.pismenaStien[self.indexKlavesov]:
-                    #     self.muzika.stop()
-                    #     return False#prehral som
+                
+                if supdate == 'presla' and stena != self.minulePresla:
+                    Npismeno = klavesy.naposledy_pismeno()
+                    print("Npismeno",Npismeno,"malo byt",self.pismenaStien[self.indexKlavesov])
+                    if Npismeno != self.pismenaStien[self.indexKlavesov]:
+                        self.muzika.stop()
+                        self.casNaburania = time.time()
+                        self.freeznutyScreen = g.Displej.copy()
+                        #cas.pause()
+                        #return 'f'
+                        #return False#nabural som
 
-                    # self.indexKlavesov += 1
-                    
+                    self.indexKlavesov += 1
+                    self.minulePresla = stena
+
+            if self.casNaburania != None:
+                if time.time()-self.casNaburania > 2:
+                    return False
             
             if len(self.steny) == 0 and self.indexCasu == len(self.casyStien)-1:
                 self.updateOdomknute()
@@ -293,6 +309,9 @@ class S:
                 self.steny[len(self.steny)-1-i].zobraz()
             pygame.zobraz(self.surface,(k.xStenoDispleja,k.yStenoDispleja),roh='stred')
             self.panak.zobraz()
+
+            if self.freeznutyScreen != None:
+                pygame.zobraz(self.freeznutyScreen,(0,0))
 
 def init():
     global s

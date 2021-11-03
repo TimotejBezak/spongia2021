@@ -82,14 +82,6 @@ def fyzika():
             spustitPrehralsi()
             return
 
-        if vyhrat.je_keyup():
-            spustitVyhralsi()
-            return
-
-        if prehrat.je_keyup():
-            spustitPrehralsi()
-            return
-
         if spetDoMenu.je_keyup():
             spustitMenu()
             return
@@ -176,7 +168,7 @@ def zobrazovac():
     tlacidla.zobraz()
     animacie.zobraz()
     ratacfpsF.zobraz()
-    ratacfpsZ.zobraz()    
+    ratacfpsZ.zobraz()
 
     myska.zobraz()
     pygame.display.update()
@@ -194,8 +186,6 @@ def gameloop():
 def spustitMain(levelI):
     #global vyhrat,prehrat,testHrac,trubiroh,myska,pauza
     resetScreen()
-    vyhrat = tlacidlo(t.vyhralsiN,t.vyhralsiA,1300,500,text="vyhrat")
-    prehrat = tlacidlo(t.prehralsiN,t.prehralsiA,1410,500,text="prehrat")
     spetDoMenu = tlacidlo(t.spetDoMenuN,t.spetDoMenuA,1520,500,text="menu")
     pauza = tlacidlo(t.pauzaN,t.pauzaA,1500,50,text="pauznut")
     Xtlacidlo = tlacidlo(t.XN,t.XA,g.moj_width-5,5,roh="pravy_horny")
