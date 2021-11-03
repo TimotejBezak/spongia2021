@@ -8,12 +8,12 @@ while True:
     dobre = True
     for i in farby:
         sucetrozdielov = abs(r-i[0])+abs(g-i[1])+abs(b-i[2])
-        if sucetrozdielov < 50:
+        if sucetrozdielov < 40:
             dobre = False
             break
     if dobre == True:
         farby.append([r,g,b])
-    if len(farby) == 150:
+    if len(farby) == 350:
         break
 
 print(farby)

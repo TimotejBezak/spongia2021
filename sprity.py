@@ -107,8 +107,8 @@ class S:
                 self.scale = self.rychlostScalovania * (cas.cas()-self.casZ)**3#self.scale += self.rychlostScalovania*self.dt.update()# * (cas.cas()-self.casZ)**4
             else:#koniec
                 return False
-            if self.scale > 580:
-                return 'presla'
+            # if self.scale > 580:
+            #     return 'presla'
                 # self.scale = 0
                 # self.casZ = cas.cas()
             
@@ -120,13 +120,13 @@ class S:
 
 
     class levelSet:#menu
-        def __init__(self,obrazokPostavy,obrazokPozadia,posT,posP,levelA,levelN,klavesyPoz,cislo):#klavesyPoz = {'a':[0,1,0,2]...}
+        def __init__(self,obrazokPostavy,obrazokPozadia,posT,posP,klavesyPoz,cislo):#klavesyPoz = {'a':[0,1,0,2]...}
             self.cislo = cislo#0/1/2
             self.klavesyPoz = klavesyPoz
             self.obrazokPostavy = obrazokPostavy
             self.obrazokPozadia = obrazokPozadia
             medzeraTlacidiel = 50
-            velkostTextuTlacidiel = 25
+            velkostTextuTlacidiel = 60
             self.xT, self.yT = posT#pozicia tlacidiel
             self.xP, self.yP = posP#pozicia postavy
             
@@ -144,19 +144,22 @@ class S:
 
             self.tlacidla = []
             for i in self.odomknute:
-                self.tlacidla.append(tlacidlo(levelN,levelA,self.xT+(k.sirkaLevelTlacidla+medzeraTlacidiel)*i,self.yT,text=f"{i+1}",velkost=velkostTextuTlacidiel))
+                self.tlacidla.append(tlacidlo(t.levelyN[i+cislo*5],t.levelyA[i+cislo*5],self.xT+(k.sirkaLevelTlacidla+medzeraTlacidiel)*i,self.yT,text=f"{i+cislo*5+1}",velkost=velkostTextuTlacidiel))
             
             for i in self.zamknute:
-                self.tlacidla.append(tlacidlo(o.zamknutyLevel,o.zamknutyLevel,self.xT+(k.sirkaLevelTlacidla+medzeraTlacidiel)*i,self.yT,text=f"{i+1}",velkost=velkostTextuTlacidiel,disabled=True))
+                self.tlacidla.append(tlacidlo(t.levelyN[i+cislo*5],t.levelyN[i+cislo*5],self.xT+(k.sirkaLevelTlacidla+medzeraTlacidiel)*i,self.yT,text=f"{i+cislo*5+1}",velkost=velkostTextuTlacidiel,disabled=True))
 
-            self.levelN = levelN
-            self.levelA = levelA
+            # self.levelN = levelN
+            # self.levelA = levelA
             self.medzeraTlacidiel = medzeraTlacidiel
             # print(self.odomknute,"odoodod")
         
         def spustiLevel(self):#spustame levely ak su tlacidla stlacene
-            if self.tlacidla[0].je_keyup():
-                return [z.testMuzika,[7,10,15,20,25],['a','b','b','b','a'],self.klavesyPoz,self.cislo,0]#[0,[8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30],0]#input pre level
+            if self.cislo == 0:
+                if self.tlacidla[0].je_keyup():
+                    return [z.testMuzika,[7,10,15,20,25],['x','l','g','y','x'],self.klavesyPoz,self.cislo,0]#[0,[8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30],0]#input pre level
+            
+            
             return False#[5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
 
         def zobraz(self):
@@ -245,19 +248,19 @@ class S:
             if (cas.cas()-self.casZ)+self.casSteny > self.casyStien[self.indexCasu]:
                 print(f"nadisiel cas na stenu {self.indexCasu}")
                 
-                # print("grg",self.klavesyPoz[self.pismenaStien[self.indexCasu]])
-                self.steny.append(s.stena(o.steny[tuple(self.klavesyPoz[self.pismenaStien[self.indexCasu]])], self.surface ,self.casSteny))#self.obrazkyStien[self.indexSteny]
+                print("grg",tuple(self.klavesyPoz[self.pismenaStien[self.indexCasu]]))
+                self.steny.append(s.stena(o.steny[self.cisloSetu][tuple(self.klavesyPoz[self.pismenaStien[self.indexCasu]])], self.surface ,self.casSteny))#self.obrazkyStien[self.indexSteny]
                 self.indexCasu += 1
             
             for i,stena in enumerate(self.steny):
                 if stena.update() == False:
                     del self.steny[i]
-                    Npismeno = klavesy.naposledy_pismeno()
-                    if Npismeno != self.pismenaStien[self.indexKlavesov]:
-                        self.muzika.stop()
-                        return False#prehral som
+                    # Npismeno = klavesy.naposledy_pismeno()
+                    # if Npismeno != self.pismenaStien[self.indexKlavesov]:
+                    #     self.muzika.stop()
+                    #     return False#prehral som
 
-                    self.indexKlavesov += 1
+                    # self.indexKlavesov += 1
                     
             
             if len(self.steny) == 0 and self.indexCasu == len(self.casyStien)-1:

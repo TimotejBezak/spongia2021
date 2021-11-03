@@ -122,6 +122,16 @@ def fyzika():
             # koniec = True
             spustitMain(lvl)
             return
+        lvl = levely2.spustiLevel()
+        if lvl != False:
+            # koniec = True
+            spustitMain(lvl)
+            return
+        lvl = levely3.spustiLevel()
+        if lvl != False:
+            # koniec = True
+            spustitMain(lvl)
+            return
             
     if loop=='vyhralsi':
         if restart.je_keyup():
@@ -197,9 +207,9 @@ def spustitMain(levelI):
 def spustitMenu():
     resetScreen()
     myska = s.mys(o.mys)
-    levely1 = s.levelSet(o.level1Panak,o.level1Pozadie,(400,100),(100,100),t.levelA,t.levelN,{'a':[0,0,0,2],'b':[1,2,2,0]},0)
-    levely2 = s.levelSet(o.level2Panak,o.level2Pozadie,(400,400),(100,400),t.levelA,t.levelN,{'a':[0,0,0,2],'b':[1,2,2,0]},1)
-    levely3 = s.levelSet(o.level3Panak,o.level3Pozadie,(400,700),(100,700),t.levelA,t.levelN,{'a':[0,0,0,2],'b':[1,2,2,0]},2)
+    levely1 = s.levelSet(o.level1Panak,o.level1Pozadie,(400,100),(100,100),{'x':[0,1,2,1],'l':[1,2,1,1],'g':[0,0,2,1],'y':[1,1,1,2],'i':[2,1,1,2],'e':[1,1,0,1]},0)
+    levely2 = s.levelSet(o.level2Panak,o.level2Pozadie,(400,400),(100,400),{'k':[2,1,2,1],'v':[2,0,0,0],'a':[1,2,2,0],'p':[2,0,0,1],'j':[1,2,0,2],'x':[2,1,1,0],'c':[0,2,2,1],'b':[0,2,1,1],'l':[0,2,1,1],'q':[1,1,0,2],'o':[2,0,1,1]},1)
+    levely3 = s.levelSet(o.level3Panak,o.level3Pozadie,(400,700),(100,700),{'a':[0,0,0,2],'b':[1,2,2,0]},2)
     loop = 'menu'
     globals().update(locals())
 

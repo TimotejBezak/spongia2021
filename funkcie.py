@@ -20,6 +20,6 @@ def poziciaZKoncatin(rozmiestnenieKoncatin):
     # print(o.lavaRuka,o.pravaRuka)
     pygame.zobraz(o.lavaRuka[lr],(0,0),surface=surface)
     pygame.zobraz(o.pravaRuka[pr],(0,0),surface=surface)#pygame.zobraz(o.pravaRuka[pr],(1000,850))
-    pygame.zobraz(o.pravaNoha[ln],(0,0),surface=surface)
-    pygame.zobraz(o.lavaNoha[pn],(0,0),surface=surface)
+    pygame.zobraz(o.lavaNoha[ln],(0,0),surface=surface)
+    pygame.zobraz(o.pravaNoha[pn],(0,0),surface=surface)
     return surface
