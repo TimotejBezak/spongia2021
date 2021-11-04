@@ -23,7 +23,7 @@ class O:
     level2Pozadie = p.loadniObrazok(1150,250)
     level3Panak = p.loadniObrazok(150,150)
     level3Pozadie = p.loadniObrazok(1150,250)
-    zamknutyLevel = p.loadniObrazok(k.sirkaLevelTlacidla,k.vyskaLevelTlacidla)
+    zamok = p.loadniObrazok(-1,-1,"zamok/1.png")
 
     # kruh50 = p.loadniObrazok(100,100,'kruh.png')
     # kruh5 = p.loadniObrazok(10,10,'kruh.png')
@@ -331,7 +331,6 @@ class T:
     XA = p.loadniObrazok(25,25)
     XN = p.loadniObrazok(25,25)
 
-    levelA = p.loadniObrazok(k.sirkaLevelTlacidla,k.vyskaLevelTlacidla)
     levelyN = [
         p.loadniObrazok(k.sirkaLevelTlacidla,k.vyskaLevelTlacidla,'tlacidlaLevelov/tlacidlo1.png'),
         p.loadniObrazok(k.sirkaLevelTlacidla,k.vyskaLevelTlacidla,'tlacidlaLevelov/tlacidlo2.png'),
@@ -358,10 +357,52 @@ class T:
 class A:
     animacia = p.loadniAnimaciu(1000,800,path_foldera='animciaNemasDostPenazi')
     zaciatokLevelu = p.loadniAnimaciu(1700,960,path_foldera='animciaNemasDostPenazi')
+    zamok = p.loadniAnimaciu(-1,-1,'zamok')
+    
+    #region koncatiny
+    pr01 = p.loadniAnimaciu(-1,-1,pocet_filov=5)
+    pr02 = p.loadniAnimaciu(-1,-1,pocet_filov=5)
+    pr12 = p.loadniAnimaciu(-1,-1,pocet_filov=5)
+
+    lr01 = p.loadniAnimaciu(-1,-1,pocet_filov=5)
+    lr02 = p.loadniAnimaciu(-1,-1,pocet_filov=5)
+    lr12 = p.loadniAnimaciu(-1,-1,pocet_filov=5)
+
+    pn01 = p.loadniAnimaciu(-1,-1,pocet_filov=5)
+    pn02 = p.loadniAnimaciu(-1,-1,pocet_filov=5)
+    pn12 = p.loadniAnimaciu(-1,-1,pocet_filov=5)
+
+    ln01 = p.loadniAnimaciu(-1,-1,pocet_filov=5)
+    ln02 = p.loadniAnimaciu(-1,-1,'ln02')
+    ln12 = p.loadniAnimaciu(-1,-1,pocet_filov=5)
+    print(lr02,"gheiu")
+    #endregion
 
 class Z:
     test = p.loadniZvuk('maybe-next-time-huh.wav')#zvuk.play
     testMuzika = p.loadniZvuk('muzika.wav')#existuje zvuk.set_volume() od 0 do 1
+    muzikyLevelov = [[
+        p.loadniZvuk('muzikyLevelov/1.wav'),
+        p.loadniZvuk('muzikyLevelov/2.wav'),
+        p.loadniZvuk('muzikyLevelov/3.wav'),
+        p.loadniZvuk('muzikyLevelov/4.wav'),
+        p.loadniZvuk('muzikyLevelov/5.wav')
+    ],
+    [
+        p.loadniZvuk('muzikyLevelov/6.wav'),
+        p.loadniZvuk('muzikyLevelov/7.wav'),
+        p.loadniZvuk('muzikyLevelov/8.wav'),
+        p.loadniZvuk('muzikyLevelov/9.wav'),
+        p.loadniZvuk('muzikyLevelov/10.wav')
+    ],
+    [
+        p.loadniZvuk('muzikyLevelov/11.wav'),
+        p.loadniZvuk('muzikyLevelov/12.wav'),
+        p.loadniZvuk('muzikyLevelov/13.wav'),
+        p.loadniZvuk('muzikyLevelov/14.wav'),
+        p.loadniZvuk('muzikyLevelov/15.wav')
+    ]
+    ]
 
 o = O()
 t = T()

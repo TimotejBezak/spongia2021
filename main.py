@@ -82,10 +82,6 @@ def fyzika():
             spustitPrehralsi()
             return
 
-        if spetDoMenu.je_keyup():
-            spustitMenu()
-            return
-
         if pauza.je_keyup():
             print("spustam pauzu")
             spustitPauza()
@@ -186,7 +182,6 @@ def gameloop():
 def spustitMain(levelI):
     #global vyhrat,prehrat,testHrac,trubiroh,myska,pauza
     resetScreen()
-    spetDoMenu = tlacidlo(t.spetDoMenuN,t.spetDoMenuA,1520,500,text="menu")
     pauza = tlacidlo(t.pauzaN,t.pauzaA,1500,50,text="pauznut")
     Xtlacidlo = tlacidlo(t.XN,t.XA,g.moj_width-5,5,roh="pravy_horny")
     myska = s.mys(o.mys)

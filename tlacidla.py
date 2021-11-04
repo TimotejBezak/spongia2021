@@ -20,14 +20,15 @@ def zobraz():
         i.zobraz()
 
 class tlacidlo:
-    def __init__(self, Nobrazok, Aobrazok, x, y,text="",velkost=15,farba=(0,0,0),font=g.tlacidlovy,roh="lavy_horny",disabled=False):#dorobit roh podla ktoreho sa zobrazuje
+    def __init__(self, Nobrazok, Aobrazok, x, y,text="",velkost=15,farba=(0,0,0),font=g.tlacidlovy,roh="lavy_horny",disabled=False,textOffset=[0,0]):#dorobit roh podla ktoreho sa zobrazuje
+        # self.textOffset = textOffset
         self.disabled = disabled
         self.Nobrazok = Nobrazok
         self.Aobrazok = Aobrazok
         self.surface = Nobrazok
         self.kompletSurface = Nobrazok
         self.x,self.y = pygame.rohUpdate([x,y],Nobrazok,roh)
-        self.text = Text.text(self.surface.get_width()/2,self.surface.get_height()/2,text,velkost,farba,font,roh="stred")#x, y,co,velkost,farba,font
+        self.text = Text.text(self.surface.get_width()/2+textOffset[0],self.surface.get_height()/2+textOffset[1],text,velkost,farba,font,roh="stred")#x, y,co,velkost,farba,font
         self.jeStlacene = False
         self.jeKeydown = False
         self.jeKeyup = False

@@ -22,6 +22,7 @@ class obrazky_v_case:
 
         self.cas = cas
         self.loop = loop
+        self.skoncilSom = False
 
         self.reset()
 
@@ -48,12 +49,16 @@ class obrazky_v_case:
                 else:
                     print("animacia trvala:",time.time()-self.zaciatocnyCas,"mala trvat:",self.cas)
                     self.koniec()
+                    self.skoncilSom = True
                     return
         
         # self.zobraz()
 
     def zobraz(self):
         pass
+
+    def skoncil_som(self):
+        return self.skoncilSom
 
     def koniec(self):
         animacie.remove(self)

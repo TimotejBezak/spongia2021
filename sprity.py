@@ -3,7 +3,7 @@ from pygame import surface
 from globalnepremenne import g
 import pygame
 import klavesy
-from animacie import obrazky_v_case
+from animacie import animacia, obrazky_v_case
 from rychlost import rychlost,linearnyPohyb
 import mys
 import cas
@@ -66,9 +66,16 @@ class S:
         def __init__(self,obrazok,surface,casDokopy):#chcem vyratat rychlost(zrychlenie) podla casDakopy
             self.povodnyObrazok = obrazok
             self.obrazok = obrazok
+
             self.scale = 0#-obrazok.get_width()
             self.koniecScale = 2500
-            self.rychlostScalovania = 580/(casDokopy**3)# pixelov za sekundu
+            self.rychlostScalovania = 580/(casDokopy**5)# pixelov za sekundu
+
+            zacScale = 20
+            self.zacCas = (zacScale/self.rychlostScalovania)**(1/5)
+            print("zacCas",self.zacCas)
+            self.rychlostScalovania = 580/((casDokopy+self.zacCas)**5)
+            
             self.dt = cas.dt()
             self.casZ = cas.cas()
             self.surface = surface
@@ -105,7 +112,7 @@ class S:
 
         def update(self):
             if self.scale < self.koniecScale:
-                self.scale = self.rychlostScalovania * (cas.cas()-self.casZ)**3#self.scale += self.rychlostScalovania*self.dt.update()# * (cas.cas()-self.casZ)**4
+                self.scale = self.rychlostScalovania * (self.zacCas+cas.cas()-self.casZ)**5#self.scale += self.rychlostScalovania*self.dt.update()# * (cas.cas()-self.casZ)**4
             else:#koniec
                 return False
             
@@ -115,6 +122,7 @@ class S:
             self.obrazok = pygame.transform.scale(self.povodnyObrazok, (int(self.scale),int(self.scale)) )
             if self.scale > 580:
                 self.rychlostScalovania *= 1.04
+                # print("stena prechadza, trvalo",cas.cas()-self.casZ)
                 return 'presla'
         def zobraz(self):
             pygame.zobraz(self.obrazok,(290,290),roh="stred",surface=self.surface)
@@ -145,22 +153,45 @@ class S:
 
             self.tlacidla = []
             for i in self.odomknute:
-                self.tlacidla.append(tlacidlo(t.levelyN[i+cislo*5],t.levelyA[i+cislo*5],self.xT+(k.sirkaLevelTlacidla+medzeraTlacidiel)*i,self.yT,text=f"{i+cislo*5+1}",velkost=velkostTextuTlacidiel))
+                self.tlacidla.append(tlacidlo(t.levelyN[i+cislo*5],t.levelyA[i+cislo*5],self.xT+(k.sirkaLevelTlacidla+medzeraTlacidiel)*i,self.yT,text=f"{i+cislo*5+1}",velkost=velkostTextuTlacidiel,textOffset=[0,7]))
             
             for i in self.zamknute:
-                self.tlacidla.append(tlacidlo(t.levelyN[i+cislo*5],t.levelyN[i+cislo*5],self.xT+(k.sirkaLevelTlacidla+medzeraTlacidiel)*i,self.yT,text=f"{i+cislo*5+1}",velkost=velkostTextuTlacidiel,disabled=True))
+                self.tlacidla.append(tlacidlo(t.levelyN[i+cislo*5],t.levelyN[i+cislo*5],self.xT+(k.sirkaLevelTlacidla+medzeraTlacidiel)*i,self.yT,text=f"{i+cislo*5+1}",velkost=velkostTextuTlacidiel,disabled=True,textOffset=[0,7]))
+                self.tlacidla.append(tlacidlo(o.zamok,o.zamok,self.xT+(k.sirkaLevelTlacidla+medzeraTlacidiel)*i,self.yT,text=f"",velkost=velkostTextuTlacidiel,disabled=True))
+
+            for i in g.unlocknuteLevely:
+                s,l = i#set,level
+                animacia(a.zamok,2,self.xT+(k.sirkaLevelTlacidla+medzeraTlacidiel)*l,self.yT)
 
             # self.levelN = levelN
             # self.levelA = levelA
             self.medzeraTlacidiel = medzeraTlacidiel
             # print(self.odomknute,"odoodod")
         
-        def spustiLevel(self):#spustame levely ak su tlacidla stlacene
+        def spustiLevel(self):#cisla levelov su [0,4]
             if self.cislo == 0:
                 if self.tlacidla[0].je_keyup():
-                    return [z.testMuzika,[7,10,15,20,25],['x','l','g','y','x'],self.klavesyPoz,self.cislo,0]#[0,[8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30],0]#input pre level
-            
-            return False#[5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
+                    casy = [1.5, 3.5, 5.5, 8.0, 10.5, 13.0, 15.0, 18.0, 22.0, 25.0, 27.0, 29.5, 32.0, 34.5, 36.5, 38.5, 41.5, 43.5, 47.0, 49.5, 52.0, 54.0, 56.0, 58.0, 60.5, 62.5, 64.5, 67.0, 69.5, 71.5, 73.0, 75.0, 78.0, 80.0, 82.5, 85.0, 87.5, 90.0, 94.0, 96.0, 98.0, 100.0, 103.0, 105.0, 107.5, 110.0, 112.0, 114.0, 116.5, 118.5, 121.0, 125.0, 127.0, 129.0, 134.5, 137.0, 139.0, 141.5, 144.0, 146.0, 147.5, 149.0, 150.5, 152.0, 153.5, 155.0, 157.0, 159.0, 161.0, 163.0, 165.0, 166.5]
+                    pismena = ['x', 'x', 'l', 'l', 'x', 'x', 'x', 'l', 'l', 'x', 'x', 'x', 'l', 'l', 'x', 'l', 'x', 'l', 'x', 'x', 'x', 'l', 'l', 'l', 'x', 'x', 'l', 'l', 'x', 'x', 'x', 'x', 'l', 'l', 'l', 'x', 'x', 'l', 'x', 'x', 'x', 'x', 'l', 'l', 'l', 'l', 'l', 'x', 'l', 'x', 'l', 'x', 'x', 'x', 'l', 'l', 'l', 'l', 'x', 'x', 'l', 'l', 'x', 'l', 'x', 'l', 'x', 'x', 'l', 'l', 'l', 'x']
+                    return [casy,pismena,self.klavesyPoz,1.5,self.cislo,0]#[0,[8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30],0]#input pre level
+                if self.tlacidla[1].je_keyup():
+                    casy = [1.0, 2.5, 4.5, 6.0, 7.5, 9.5, 12.0, 13.5, 16.0, 18.0, 20.0, 22.0, 24.0, 26.0, 27.5, 29.5, 31.0, 33.0, 35.0, 37.0, 39.0, 41.0, 43.0, 45.0, 47.0, 48.5, 50.0, 51.5, 53.0, 55.0, 57.0, 59.0, 61.0, 63.0, 65.0, 67.0, 69.0, 71.0, 73.0, 75.0, 77.0, 79.0, 80.5, 82.0, 83.5, 85.0, 88.0, 89.3, 90.6, 91.9, 96.0, 97.3, 98.6, 99.9, 102.0, 104.0, 106.0, 108.0, 110.0, 112.0, 114.0, 116.0, 118.0, 120.0, 122.0, 124.0, 126.0, 128.0, 130.0, 132.0, 134.0, 136.0, 137.3, 138.6, 139.9, 141.2, 142.5, 143.8, 145.1, 146.4, 147.7, 150.0, 152.0, 154.0, 156.0, 158.0, 160.0, 162.0, 164.0, 165.3]
+                    pismena = ['x', 'l', 'g', 'x', 'g', 'l', 'l', 'g', 'x', 'g', 'l', 'x', 'x', 'x', 'l', 'l', 'g', 'g', 'l', 'l', 'g', 'g', 'x', 'x', 'l', 'l', 'l', 'x', 'x', 'x', 'g', 'g', 'g', 'x', 'l', 'g', 'x', 'l', 'g', 'x', 'l', 'g', 'x', 'x', 'x', 'x', 'g', 'g', 'g', 'g', 'l', 'l', 'l', 'l', 'g', 'l', 'x', 'l', 'g', 'x', 'x', 'l', 'g', 'x', 'g', 'l', 'g', 'l', 'x', 'g', 'x', 'l', 'g', 'g', 'x', 'l', 'l', 'g', 'x', 'x', 'l', 'x', 'x', 'l', 'l', 'g', 'g', 'g', 'x', 'l']
+                    return[casy,pismena,self.klavesyPoz,1.3,self.cislo,1]
+                if self.tlacidla[2].je_keyup():
+                    casy = []
+                    pismena = []
+                    return[casy,pismena,self.klavesyPoz,2.5,self.cislo,2]
+                if self.tlacidla[3].je_keyup():
+                    casy = []
+                    pismena = []
+                    return[casy,pismena,self.klavesyPoz,2.5,self.cislo,3]
+                if self.tlacidla[4].je_keyup():
+                    casy = []
+                    pismena = []
+                    return[casy,pismena,self.klavesyPoz,2.5,self.cislo,4]
+
+            return False#[5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20],['x','l','g','y','x']
 
         def zobraz(self):
             pygame.zobraz(self.obrazokPozadia, (self.xP-50,self.yP-50))
@@ -211,20 +242,77 @@ class S:
             self.pozicia = [2,2,2,2]#lr,pr,ln,pn
             self.surface = poziciaZKoncatin(self.pozicia)
             self.klavesyPoz = klavesyPoz
+            self.beziAnimacia = False
+            self.animacia = None
+            self.casAnimacie = 0.1
+
+        def animacia_obrazky(self,koncatina,koncatina2,p1,p2):#koncatina lr,pr...
+            obrazky = []
+            kn = koncatina
+            kn2 = koncatina2
+            if p1 == 0:
+                if p2 == 0:
+                    obrazky = [eval(f"o.{kn2}[0]")]
+                if p2 == 1:
+                    obrazky = eval(f"a.{kn}01.copy()")
+                if p2 == 2:
+                    obrazky = eval(f"a.{kn}02.copy()")
+            if p1 == 1:
+                if p2 == 0:
+                    obrazky = eval(f"a.{kn}01.copy()")
+                    obrazky.reverse()
+                if p2 == 1:
+                    obrazky = [eval(f"o.{kn2}[1]")]
+                if p2 == 2:
+                    obrazky = eval(f"a.{kn}12.copy()")
+            if p1 == 2:
+                if p2 == 0:
+                    obrazky = eval(f"a.{kn}02.copy()")
+                    print(obrazky)
+                    obrazky.reverse()
+                if p2 == 1:
+                    obrazky = eval(f"a.{kn}12.copy()")
+                    obrazky.reverse()
+                if p2 == 2:
+                    obrazky = [eval(f"o.{kn2}[2]")]
+
+            if len(obrazky) != 1:
+                del obrazky[0]
+
+            return obrazky
 
         def update(self):
             #print(klavesy.naposledy_pismeno())
             if len(klavesy.keydown_klavesi) > 0:
                 pismeno = klavesy.keydown_klavesi[0]
                 if pismeno in self.klavesyPoz:
-                    self.surface = poziciaZKoncatin(self.klavesyPoz[pismeno])
+                    p1 = self.pozicia
+                    p2 = self.klavesyPoz[pismeno]
+                    
+                    self.alr = obrazky_v_case(self.animacia_obrazky('lr','lavaRuka',p1[0],p2[0]),self.casAnimacie)
+                    self.apr = obrazky_v_case(self.animacia_obrazky('pr','pravaRuka',p1[1],p2[1]),self.casAnimacie)
+                    self.aln = obrazky_v_case(self.animacia_obrazky('ln','lavaNoha',p1[2],p2[2]),self.casAnimacie)
+                    self.apn = obrazky_v_case(self.animacia_obrazky('pn','pravaNoha',p1[3],p2[3]),self.casAnimacie)
+                    self.beziAnimacia = True
+
+                    self.pozicia = self.klavesyPoz[pismeno]
+                    # self.surface = poziciaZKoncatin(self.pozicia)
+            if self.beziAnimacia == True:
+                if self.alr.skoncil_som():
+                    self.beziAnimacia = False
+                    self.surface = poziciaZKoncatin(self.pozicia)
 
         def zobraz(self):
+            if self.beziAnimacia:
+                self.surface = o.vajce.copy()
+                pygame.zobraz(self.alr.aktualnyObrazok(),(0,0),surface=self.surface)
+                pygame.zobraz(self.apr.aktualnyObrazok(),(0,0),surface=self.surface)
+                pygame.zobraz(self.aln.aktualnyObrazok(),(0,0),surface=self.surface)
+                pygame.zobraz(self.apn.aktualnyObrazok(),(0,0),surface=self.surface)
             pygame.zobraz(self.surface,(k.xStenoDispleja,k.yStenoDispleja),roh='stred')
 
     class level:
-        def __init__(self,muzika,casyStien,pismenaStien,klavesyPoz,cisloSetu,cisloLevelu):#na spusteni levelu
-            self.muzika = muzika
+        def __init__(self,casyStien,pismenaStien,klavesyPoz,casSteny,cisloSetu,cisloLevelu):#na spusteni levelu
             self.casyStien = casyStien #casStenyPredNaburanimDoVajca je konstantny
             self.casyStien.append(1000000)
             self.pismenaStien = pismenaStien#pismena, ktore treba stlacit
@@ -234,16 +322,18 @@ class S:
             self.klavesnica = s.klavesnica(self.klavesyPoz)
             self.casZ = cas.cas()
             self.steny = []
-            self.casSteny = 5#kym stena nabura do vajca
-            self.cisloSetu = cisloSetu
-            self.cisloLevelu = cisloLevelu
+            self.casSteny = casSteny#kym stena nabura do vajca
+            self.cisloSetu = cisloSetu#[0,2]
+            self.cisloLevelu = cisloLevelu#[0,4]
             self.surface = pygame.Surface((580,580))
             self.panak = s.panak(klavesyPoz)
-            # self.stihol = False
+            self.muzika = z.muzikyLevelov[self.cisloSetu][self.cisloLevelu]#muzika
             self.muzika.play()
             self.minulePresla = None
             self.casNaburania = None
             self.freeznutyScreen = None
+            g.unlocknuteLevely = []
+            klavesy.naposledyPismeno = ''
 
         def update(self):#scalovanie steny, detekovanie inputu
             self.panak.update()
@@ -275,7 +365,7 @@ class S:
                     self.minulePresla = stena
 
             if self.casNaburania != None:
-                if time.time()-self.casNaburania > 2:
+                if time.time()-self.casNaburania > 0.6:
                     return False
             
             if len(self.steny) == 0 and self.indexCasu == len(self.casyStien)-1:
@@ -295,9 +385,13 @@ class S:
             subor = open('odomknute.txt','w')
             subor.truncate()#snad zmaze veci v nom
             if self.cisloLevelu < 5:
-                odomknutost[self.cisloSetu][self.cisloLevelu+1] = 1
+                if odomknutost[self.cisloSetu][self.cisloLevelu+1] == 0:
+                    odomknutost[self.cisloSetu][self.cisloLevelu+1] = 1
+                    g.unlocknuteLevely.append([self.cisloSetu,self.cisloLevelu+1])
             if self.cisloLevelu == 2 and self.cisloSetu < 2:
-                odomknutost[self.cisloSetu+1][0] = 1
+                if odomknutost[self.cisloSetu+1][0] == 0:
+                    odomknutost[self.cisloSetu+1][0] = 1
+                    g.unlocknuteLevely.append([self.cisloSetu+1,0])
             for i in range(3):
                 subor.write(' '.join(list(map(str,odomknutost[i])))+'\n')
             subor.close()

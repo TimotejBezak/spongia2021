@@ -30,7 +30,7 @@ class G:
         print(sirkaPocitaca,vyskaPocitaca)
     Hodiny = pygame.time.Clock()
 
-    
+    unlocknuteLevely = []
     #click = pygame.mouse.get_pressed()
     #poziciamyse = pygame.mouse.get_pos()
     frameF = 0
