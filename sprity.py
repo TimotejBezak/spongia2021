@@ -195,6 +195,12 @@ class S:
                     casy = [5,7]
                     pismena = ['k','k']
                     return[casy,pismena,self.klavesyPoz,2.5,self.cislo,0]
+            if self.cislo == 2:
+                if self.tlacidla[0].je_keyup():
+                    casy = [100]
+                    pismena = ['a']
+                    return[casy,pismena,self.klavesyPoz,2.5,self.cislo,0]
+
             return False#[5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20],['x','l','g','y','x']
 
         def zobraz(self):

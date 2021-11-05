@@ -362,21 +362,21 @@ class A:
     zamok = p.loadniAnimaciu(-1,-1,'zamok')
     
     #region koncatiny
-    pr01 = p.loadniAnimaciu(-1,-1,pocet_filov=5)
-    pr02 = p.loadniAnimaciu(-1,-1,pocet_filov=5)
-    pr12 = p.loadniAnimaciu(-1,-1,pocet_filov=5)
+    pr01 = p.loadniAnimaciu(-1,-1,'pr01',polotransparent=True)
+    pr02 = p.loadniAnimaciu(-1,-1,'pr02',polotransparent=True)
+    pr12 = p.loadniAnimaciu(-1,-1,'pr12',polotransparent=True)
 
-    lr01 = p.loadniAnimaciu(-1,-1,pocet_filov=5)
-    lr02 = p.loadniAnimaciu(-1,-1,pocet_filov=5)
-    lr12 = p.loadniAnimaciu(-1,-1,pocet_filov=5)
+    lr01 = p.loadniAnimaciu(-1,-1,'lr01',polotransparent=True)
+    lr02 = p.loadniAnimaciu(-1,-1,'lr02',polotransparent=True)
+    lr12 = p.loadniAnimaciu(-1,-1,'lr12',polotransparent=True)
 
-    pn01 = p.loadniAnimaciu(-1,-1,pocet_filov=5)
-    pn02 = p.loadniAnimaciu(-1,-1,pocet_filov=5)
-    pn12 = p.loadniAnimaciu(-1,-1,pocet_filov=5)
+    pn01 = p.loadniAnimaciu(-1,-1,'pn01',polotransparent=True)
+    pn02 = p.loadniAnimaciu(-1,-1,'pn02',polotransparent=True)
+    pn12 = p.loadniAnimaciu(-1,-1,'pn12',polotransparent=True)
 
-    ln01 = p.loadniAnimaciu(-1,-1,pocet_filov=5)
-    ln02 = p.loadniAnimaciu(-1,-1,'ln02')
-    ln12 = p.loadniAnimaciu(-1,-1,pocet_filov=5)
+    ln01 = p.loadniAnimaciu(-1,-1,'ln01',polotransparent=True)
+    ln02 = p.loadniAnimaciu(-1,-1,'ln02',polotransparent=True)
+    ln12 = p.loadniAnimaciu(-1,-1,'ln12',polotransparent=True)
     print(lr02,"gheiu")
     #endregion
 

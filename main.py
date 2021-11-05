@@ -70,6 +70,8 @@ def fyzika():
     tlacidla.update()
     animacie.update()
     ratacfpsF.update()
+    if Xtlacidlo.je_keyup():
+        koniec = True
 
     if loop=='main':
         if klavesy.je_keyup('v'):
@@ -88,9 +90,6 @@ def fyzika():
             print("spustam pauzu")
             spustitPauza()
             return
-
-        if Xtlacidlo.je_keyup():
-            koniec = True
             
         #time.sleep(0.1)
         
@@ -131,12 +130,14 @@ def fyzika():
     if loop=='vyhralsi':
         if restart.je_keyup():
             # koniec = True
+            z.vyhralsi.stop()
             spustitMenu()
             return
 
     if loop=='prehralsi':
         if restart.je_keyup():
             # koniec = True
+            z.prehralsi.stop()
             spustitMenu()
             return
         
@@ -211,6 +212,7 @@ def spustitZacLevel(lvl):
 def spustitMenu():
     resetScreen()
     myska = s.mys(o.mys)
+    Xtlacidlo = tlacidlo(t.XN,t.XA,g.moj_width-5,5,roh="pravy_horny")
     levely1 = s.levelSet(o.level1Panak,o.level1Pozadie,(400,100),(100,100),{'x':[0,1,2,1],'l':[1,2,1,1],'g':[0,0,2,1],'y':[1,1,1,2],'i':[2,1,1,2],'e':[1,1,0,1]},0)
     levely2 = s.levelSet(o.level2Panak,o.level2Pozadie,(400,400),(100,400),{'k':[2,1,2,1],'v':[2,0,0,0],'a':[1,2,2,0],'p':[2,0,0,1],'j':[1,2,0,2],'x':[2,1,1,0],'c':[0,2,2,1],'b':[0,2,1,1],'l':[0,2,1,1],'q':[1,1,0,2],'o':[2,0,1,1]},1)
     levely3 = s.levelSet(o.level3Panak,o.level3Pozadie,(400,700),(100,700),{'a':[0,0,0,2],'b':[1,2,2,0]},2)
@@ -220,6 +222,7 @@ def spustitMenu():
 def spustitVyhralsi():
     resetScreen()
     z.vyhralsi.play()
+    Xtlacidlo = tlacidlo(t.XN,t.XA,g.moj_width-5,5,roh="pravy_horny")
     restart = tlacidlo(t.testtlacidloN,t.testtlacidloA,500,500,text="restart")
     loop = 'vyhralsi'
     globals().update(locals())
@@ -227,6 +230,7 @@ def spustitVyhralsi():
 def spustitPrehralsi():
     resetScreen()
     z.prehralsi.play()
+    Xtlacidlo = tlacidlo(t.XN,t.XA,g.moj_width-5,5,roh="pravy_horny")
     restart = tlacidlo(t.testtlacidloN,t.testtlacidloA,500,500,text="restart")
     loop = 'prehralsi'
     globals().update(locals())
@@ -234,14 +238,16 @@ def spustitPrehralsi():
 def spustitPauza():
     resetScreen()
     cas.pause()
+    
     odpauza = tlacidlo(t.odpauzaN,t.odpauzaA,700,50,text="odpauznut")
     loop = 'pauza'
     globals().update(locals())
 
 def spustitIntro():#spusti sa naozaj len na zaciatku
-    # resetScreen()
+    #resetScreen()
     myska = s.mys(o.mys)
     hrat = tlacidlo(t.testtlacidloN,t.testtlacidloA,500,500,text="hrat")
+    Xtlacidlo = tlacidlo(t.XN,t.XA,g.moj_width-5,5,roh="pravy_horny")
     loop = 'intro'
     globals().update(locals())
 

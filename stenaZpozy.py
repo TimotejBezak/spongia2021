@@ -59,7 +59,7 @@ lavaNoha = loadniAnimaciu(-1,-1,'lava noha')
 
 sirkaT = 5#sirka transparentneho obvodu
 sirkaF = 8#sirka farebneho obvodu
-stenaOriginal = loadniObrazok(580,580,'stenatextura1.png')
+stenaOriginal = loadniObrazok(580,580,'stena3.png')
 kruhT = loadniObrazok(sirkaT*2,sirkaT*2,'kruh.png')
 kruhF = loadniObrazok((sirkaF+sirkaT)*2,(sirkaF+sirkaT)*2,'kruh.png')
 
@@ -98,7 +98,7 @@ def zrob(koncatiny):#[0,0,1,0]
                             if ak != 0:#ak to je v kruhu
                                 pos = (x+offset[0]+xk-(sirkaT+sirkaF), y+offset[1]+yk-(sirkaT+sirkaF))
                                 if stena.get_at(pos) != (0,0,0,0):
-                                    stena.set_at(pos, pygame.Color(255,215,0,255))
+                                    stena.set_at(pos, pygame.Color(75,139,59,255))
                     # for xk in range(sirkaT*2):
                     #     for yk in range(sirkaT*2):
                     #         ak = kruhT.get_at((xk,yk))[3]
@@ -128,7 +128,7 @@ def zrob(koncatiny):#[0,0,1,0]
                                 # if stena.get_at(pos) != (0,0,0,255):
                                 stena.set_at(pos, pygame.Color(0,0,0,0))
 
-    pygame.image.save(stena,f"steny1/{''.join(list(map(str,koncatiny)))}.png")
+    pygame.image.save(stena,f"steny3/{''.join(list(map(str,koncatiny)))}.png")
 
 for a in range(3):
     for b in range(3):

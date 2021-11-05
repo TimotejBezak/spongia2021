@@ -14,7 +14,7 @@ def loadniObrazok(sirka,vyska,path="",polotransparent=False,bielaNaTransparent=F
         obrazok = pygame.image.load('docasnyobrazok.png').convert_alpha()
         obrazok = prefarb(obrazok,docasnefarby[ktorafarba],ignorovaneFarby=[(0,0,0)])
         ktorafarba += 1
-        print(docasnefarby[ktorafarba])
+        # print(docasnefarby[ktorafarba])
     
     if sirka == -1:
         sirka = obrazok.get_width()
@@ -24,8 +24,11 @@ def loadniObrazok(sirka,vyska,path="",polotransparent=False,bielaNaTransparent=F
     obrazok = pygame.transform.smoothscale( obrazok, (int(obrazok.get_width()*g.scaleObrazovky),int(obrazok.get_height()*g.scaleObrazovky)) )
     if polotransparent:
         obrazok = polotransparentnut(obrazok)
+        if path != "":
+            pygame.image.save(obrazok,path)
     if bielaNaTransparent:
         obrazok = bieleNaTransparentne(obrazok)
+    
     return obrazok
 
 def polotransparentnut(obrazok,a=200):
