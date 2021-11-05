@@ -14,6 +14,7 @@ import konstanty as k
 import math
 from funkcie import *
 import time
+import random
 
 class S:
     class mys:
@@ -289,6 +290,9 @@ class S:
             if len(obrazky) != 1:
                 del obrazky[0]
 
+            if len(obrazky) == 0:
+                obrazky = [o.vajce]
+
             return obrazky
 
         def update(self):
@@ -321,6 +325,23 @@ class S:
                 pygame.zobraz(self.apn.aktualnyObrazok(),(0,0),surface=self.surface)
             pygame.zobraz(self.surface,(k.xStenoDispleja,k.yStenoDispleja),roh='stred')
 
+    class vtipy:
+        def __init__(self):
+            self.vtip = self.losujVtip()
+            self.vtipoCas = 15#takto dlho zostane kazdy vtip zobrazeny
+            self.casMinuleho = time.time()
+
+        def update(self):
+            if time.time() > self.casMinuleho + self.vtipoCas:
+                self.vtip = self.losujVtip()
+                self.casMinuleho = time.time()
+
+        def zobraz(self):
+            pygame.zobraz(self.vtip,(1250,500))
+
+        def losujVtip(self):
+            return o.vtipy[random.randint(0,len(o.vtipy)-1)]
+
     class level:
         def __init__(self,casyStien,pismenaStien,klavesyPoz,casSteny,cisloSetu,cisloLevelu):#na spusteni levelu
             self.casyStien = casyStien #casStenyPredNaburanimDoVajca je konstantny
@@ -347,10 +368,11 @@ class S:
             klavesy.naposledyPismeno = ''
             self.panvica = None
             self.ValeboP = ''
+            self.vtipy = s.vtipy()
 
         def update(self):#scalovanie steny, detekovanie inputu
             self.panak.update()
-
+            self.vtipy.update()
             if (cas.cas()-self.casZ)+self.casSteny > self.casyStien[self.indexCasu]:
                 print(f"nadisiel cas na stenu {self.indexCasu}")
                 
@@ -436,6 +458,7 @@ class S:
                 self.panvica.zobraz()
             pygame.zobraz(self.surface,(k.xStenoDispleja,k.yStenoDispleja),roh='stred')
             self.panak.zobraz()
+            self.vtipy.zobraz()
 
             if self.freeznutyScreen != None:
                 pygame.zobraz(self.freeznutyScreen,(0,0))

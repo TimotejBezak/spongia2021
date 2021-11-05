@@ -86,11 +86,6 @@ def fyzika():
             spustitPrehralsi()
             return
 
-        if pauza.je_keyup():
-            print("spustam pauzu")
-            spustitPauza()
-            return
-            
         #time.sleep(0.1)
         
     if loop=='zaclevel':
@@ -192,7 +187,6 @@ def gameloop():
 def spustitMain(levelI):
     #global vyhrat,prehrat,testHrac,trubiroh,myska,pauza
     resetScreen()
-    pauza = tlacidlo(t.pauzaN,t.pauzaA,1500,50,text="pauznut")
     Xtlacidlo = tlacidlo(t.XN,t.XA,g.moj_width-5,5,roh="pravy_horny")
     myska = s.mys(o.mys)
     level = s.level(*levelI)
@@ -201,7 +195,6 @@ def spustitMain(levelI):
 
 def spustitZacLevel(lvl):
     resetScreen()
-    pauza = tlacidlo(t.pauzaN,t.pauzaA,1500,50,text="pauznut")
     Xtlacidlo = tlacidlo(t.XN,t.XA,g.moj_width-5,5,roh="pravy_horny")
     myska = s.mys(o.mys)
     animaciaZacLevel = animacia(a.zaciatokLevelu,2,0,0)
@@ -223,7 +216,7 @@ def spustitVyhralsi():
     resetScreen()
     z.vyhralsi.play()
     Xtlacidlo = tlacidlo(t.XN,t.XA,g.moj_width-5,5,roh="pravy_horny")
-    restart = tlacidlo(t.testtlacidloN,t.testtlacidloA,500,500,text="restart")
+    restart = tlacidlo(t.restartVyhralsiN,t.restartVyhralsiA,500,500,text="continue",velkost=70)
     loop = 'vyhralsi'
     globals().update(locals())
 
@@ -231,7 +224,7 @@ def spustitPrehralsi():
     resetScreen()
     z.prehralsi.play()
     Xtlacidlo = tlacidlo(t.XN,t.XA,g.moj_width-5,5,roh="pravy_horny")
-    restart = tlacidlo(t.testtlacidloN,t.testtlacidloA,500,500,text="restart")
+    restart = tlacidlo(t.restartPrehralsiN,t.restartPrehralsiA,500,500,text="continue",velkost=70)
     loop = 'prehralsi'
     globals().update(locals())
 
@@ -246,7 +239,7 @@ def spustitPauza():
 def spustitIntro():#spusti sa naozaj len na zaciatku
     #resetScreen()
     myska = s.mys(o.mys)
-    hrat = tlacidlo(t.testtlacidloN,t.testtlacidloA,500,500,text="hrat")
+    hrat = tlacidlo(t.hratN,t.hratA,500,500,text="play",velkost=70)
     Xtlacidlo = tlacidlo(t.XN,t.XA,g.moj_width-5,5,roh="pravy_horny")
     loop = 'intro'
     globals().update(locals())

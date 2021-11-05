@@ -316,7 +316,17 @@ class O:
     vyhra = p.loadniObrazok(-1,-1,'vyhra.png')
     prehra = p.loadniObrazok(-1,-1,'prehra.png')
 
+    vtipy = p.loadniAnimaciu(300,300,pocet_filov=10)#p.loadniAnimaciu(-1,-1,'vtipy')
+    
+
 class T:
+    hratN = p.loadniObrazok(-1,-1,'hrat.png')
+    hratA = p.tlacidloA(hratN)
+    restartVyhralsiN = p.loadniObrazok(-1,-1,'restartV.png')
+    restartVyhralsiA = p.tlacidloA(restartVyhralsiN)
+    restartPrehralsiN = p.loadniObrazok(-1,-1,'restartP.png')
+    restartPrehralsiA = p.tlacidloA(restartPrehralsiN)
+
     testtlacidloA = p.loadniObrazok(100,100)
     testtlacidloN = p.loadniObrazok(100,100)
     vyhralsiA = p.loadniObrazok(100,100)
@@ -362,21 +372,21 @@ class A:
     zamok = p.loadniAnimaciu(-1,-1,'zamok')
     
     #region koncatiny
-    pr01 = p.loadniAnimaciu(-1,-1,'pr01',polotransparent=True)
-    pr02 = p.loadniAnimaciu(-1,-1,'pr02',polotransparent=True)
-    pr12 = p.loadniAnimaciu(-1,-1,'pr12',polotransparent=True)
+    pr01 = p.loadniAnimaciu(-1,-1,'pr01')
+    pr02 = p.loadniAnimaciu(-1,-1,'pr02')
+    pr12 = p.loadniAnimaciu(-1,-1,'pr12')
 
-    lr01 = p.loadniAnimaciu(-1,-1,'lr01',polotransparent=True)
-    lr02 = p.loadniAnimaciu(-1,-1,'lr02',polotransparent=True)
-    lr12 = p.loadniAnimaciu(-1,-1,'lr12',polotransparent=True)
+    lr01 = p.loadniAnimaciu(-1,-1,'lr01')
+    lr02 = p.loadniAnimaciu(-1,-1,'lr02')
+    lr12 = p.loadniAnimaciu(-1,-1,'lr12')
 
-    pn01 = p.loadniAnimaciu(-1,-1,'pn01',polotransparent=True)
-    pn02 = p.loadniAnimaciu(-1,-1,'pn02',polotransparent=True)
-    pn12 = p.loadniAnimaciu(-1,-1,'pn12',polotransparent=True)
+    pn01 = p.loadniAnimaciu(-1,-1,'pn01')
+    pn02 = p.loadniAnimaciu(-1,-1,'pn02')
+    pn12 = p.loadniAnimaciu(-1,-1,'pn12')
 
-    ln01 = p.loadniAnimaciu(-1,-1,'ln01',polotransparent=True)
-    ln02 = p.loadniAnimaciu(-1,-1,'ln02',polotransparent=True)
-    ln12 = p.loadniAnimaciu(-1,-1,'ln12',polotransparent=True)
+    ln01 = p.loadniAnimaciu(-1,-1,'ln01')
+    ln02 = p.loadniAnimaciu(-1,-1,'ln02')
+    ln12 = p.loadniAnimaciu(-1,-1,'ln12')
     print(lr02,"gheiu")
     #endregion
 

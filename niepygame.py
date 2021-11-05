@@ -115,16 +115,19 @@ def zobraz(obrazok,pozicia,surface=g.Displej,roh="lavy_horny",ui=False):#stred: 
     pozicia = [pozicia[0]-offset[0],pozicia[1]-offset[1]]
     pozicia = [pozicia[0]*g.scaleObrazovky,pozicia[1]*g.scaleObrazovky]
 
-    rohUpdate(pozicia,obrazok,roh)
-    
+    try:
+        rohUpdate(pozicia,obrazok,roh)
+    except:
+        pass
+
     zobraz2(obrazok,pozicia,surface)
 
 def zobraz2(obrazok,pozicia,surface):
-    surface.blit( obrazok, (int(pozicia[0]),int(pozicia[1])) )
-    # try:
-    #     surface.blit( obrazok, (int(pozicia[0]),int(pozicia[1])) )
-    # except:
-    #     pass
+    #surface.blit( obrazok, (int(pozicia[0]),int(pozicia[1])) )
+    try:
+        surface.blit( obrazok, (int(pozicia[0]),int(pozicia[1])) )
+    except:
+        pass
 
 #def zobraz(surface,co,pozicia):
 #    surface.blit(co,pozicia)
