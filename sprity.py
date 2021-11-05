@@ -190,7 +190,11 @@ class S:
                     casy = []
                     pismena = []
                     return[casy,pismena,self.klavesyPoz,2.5,self.cislo,4]
-
+            if self.cislo == 1:
+                if self.tlacidla[0].je_keyup():
+                    casy = [5,7]
+                    pismena = ['k','k']
+                    return[casy,pismena,self.klavesyPoz,2.5,self.cislo,0]
             return False#[5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20],['x','l','g','y','x']
 
         def zobraz(self):
@@ -316,6 +320,7 @@ class S:
             self.casyStien = casyStien #casStenyPredNaburanimDoVajca je konstantny
             self.casyStien.append(1000000)
             self.pismenaStien = pismenaStien#pismena, ktore treba stlacit
+            self.casPanvice = self.casyStien[len(pismenaStien)-1]+4
             self.klavesyPoz = klavesyPoz#klavesyPoz = {'a':[0,1,0,2]...}
             self.indexCasu = 0
             self.indexKlavesov = 0
@@ -334,6 +339,8 @@ class S:
             self.freeznutyScreen = None
             g.unlocknuteLevely = []
             klavesy.naposledyPismeno = ''
+            self.panvica = None
+            self.ValeboP = ''
 
         def update(self):#scalovanie steny, detekovanie inputu
             self.panak.update()
@@ -345,6 +352,12 @@ class S:
                 self.steny.append(s.stena(o.steny[self.cisloSetu][tuple(self.klavesyPoz[self.pismenaStien[self.indexCasu]])], self.surface ,self.casSteny))#self.obrazkyStien[self.indexSteny]
                 self.indexCasu += 1
             
+            if (cas.cas()-self.casZ)+self.casSteny > self.casPanvice and self.panvica == None:
+                self.panvica = s.stena(o.panvica,self.surface,self.casSteny)
+                print("panvicaaaaaaa")
+                
+
+
             for i,stena in enumerate(self.steny):
                 supdate = stena.update()
                 if supdate == False:
@@ -357,6 +370,8 @@ class S:
                         self.muzika.stop()
                         self.casNaburania = time.time()
                         self.freeznutyScreen = g.Displej.copy()
+                        self.ValeboP = False
+                        self.casCakania = 0.5
                         #cas.pause()
                         #return 'f'
                         #return False#nabural som
@@ -365,13 +380,23 @@ class S:
                     self.minulePresla = stena
 
             if self.casNaburania != None:
-                if time.time()-self.casNaburania > 0.6:
-                    return False
+                if time.time()-self.casNaburania > self.casCakania:
+                    return self.ValeboP
             
-            if len(self.steny) == 0 and self.indexCasu == len(self.casyStien)-1:
-                self.updateOdomknute()
-                self.muzika.stop()
-                return True#updatnut odomknute
+            if self.panvica != None:
+                if self.panvica.update() == 'presla' and self.ValeboP != True:
+                    print('bu')
+                    self.updateOdomknute()
+                    self.muzika.stop()
+                    self.casNaburania = time.time()
+                    self.freeznutyScreen = g.Displej.copy()
+                    self.ValeboP = True#updatnut odomknute
+                    self.casCakania = 1#cas animacie rozplesknutia vajca na prazenicu
+                    animacia(a.rozplastenieNaPanvici,self.casCakania,k.xStenoDispleja-580/2,k.yStenoDispleja-580/2)
+            # if len(self.steny) == 0 and self.indexCasu == len(self.casyStien)-1:
+                # self.updateOdomknute()
+                # self.muzika.stop()
+                # return True#updatnut odomknute
 
         def updateOdomknute(self):#ked som vyhral       treba este povedat menu, ze ktore levely sa odomkli, aby sa mohla zobrazit animacia
             odomknute = open("odomknute.txt","r")
@@ -401,6 +426,8 @@ class S:
             pygame.zobraz(o.jama , (0,0),surface=self.surface)
             for i in range(len(self.steny)):#iterovat od konca
                 self.steny[len(self.steny)-1-i].zobraz()
+            if self.panvica != None:
+                self.panvica.zobraz()
             pygame.zobraz(self.surface,(k.xStenoDispleja,k.yStenoDispleja),roh='stred')
             self.panak.zobraz()
 

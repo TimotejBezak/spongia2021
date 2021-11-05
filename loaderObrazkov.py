@@ -56,6 +56,7 @@ class O:
     
 
     jama = p.loadniObrazok(580,580)
+    panvica = p.loadniObrazok(580,580,'kruh.png')
 
     stena1 = p.loadniObrazok(580,580)
     stena2 = p.loadniObrazok(580,580)
@@ -357,6 +358,7 @@ class T:
 class A:
     animacia = p.loadniAnimaciu(1000,800,path_foldera='animciaNemasDostPenazi')
     zaciatokLevelu = p.loadniAnimaciu(1700,960,path_foldera='animciaNemasDostPenazi')
+    rozplastenieNaPanvici = p.loadniAnimaciu(580,580,path_foldera='animciaNemasDostPenazi')#posledny obrazok mozem potom nakopirovat este zopar krat
     zamok = p.loadniAnimaciu(-1,-1,'zamok')
     
     #region koncatiny
@@ -381,6 +383,8 @@ class A:
 class Z:
     test = p.loadniZvuk('maybe-next-time-huh.wav')#zvuk.play
     testMuzika = p.loadniZvuk('muzika.wav')#existuje zvuk.set_volume() od 0 do 1
+    vyhralsi = p.loadniZvuk('vyhralsi.wav')
+    prehralsi = p.loadniZvuk('prehralsi.wav')
     muzikyLevelov = [[
         p.loadniZvuk('muzikyLevelov/1.wav'),
         p.loadniZvuk('muzikyLevelov/2.wav'),

@@ -57,6 +57,8 @@ levely2 = None
 levely3 = None
 restart = None
 hrat = None
+animaciaZacLevel = None
+inputPreLevel = None
 
 # z.testMuzika.play()
 # z.testMuzika.set_volume(0.3)
@@ -92,6 +94,11 @@ def fyzika():
             
         #time.sleep(0.1)
         
+    if loop=='zaclevel':
+        if animaciaZacLevel.skoncil_som() == True:
+            spustitMain(inputPreLevel)
+            return
+
     if loop=='pauza':
         if odpauza.je_keyup():
             cas.unpause()
@@ -108,17 +115,17 @@ def fyzika():
         lvl = levely1.spustiLevel()
         if lvl != False:
             # koniec = True
-            spustitMain(lvl)
+            spustitZacLevel(lvl)
             return
         lvl = levely2.spustiLevel()
         if lvl != False:
             # koniec = True
-            spustitMain(lvl)
+            spustitZacLevel(lvl)
             return
         lvl = levely3.spustiLevel()
         if lvl != False:
             # koniec = True
-            spustitMain(lvl)
+            spustitZacLevel(lvl)
             return
             
     if loop=='vyhralsi':
@@ -160,6 +167,8 @@ def zobrazovac():
         pygame.zobraz(o.prehra,(0,0))
     if loop=='intro':
         g.Displej.fill(g.farby.cervena)
+    if loop=='zaclevel':
+        g.Displej.fill((255,255,0))
 
     tlacidla.zobraz()
     animacie.zobraz()
@@ -189,6 +198,16 @@ def spustitMain(levelI):
     loop = 'main'
     globals().update(locals())
 
+def spustitZacLevel(lvl):
+    resetScreen()
+    pauza = tlacidlo(t.pauzaN,t.pauzaA,1500,50,text="pauznut")
+    Xtlacidlo = tlacidlo(t.XN,t.XA,g.moj_width-5,5,roh="pravy_horny")
+    myska = s.mys(o.mys)
+    animaciaZacLevel = animacia(a.zaciatokLevelu,2,0,0)
+    inputPreLevel = lvl
+    loop = 'zaclevel'
+    globals().update(locals())
+
 def spustitMenu():
     resetScreen()
     myska = s.mys(o.mys)
@@ -200,12 +219,14 @@ def spustitMenu():
 
 def spustitVyhralsi():
     resetScreen()
+    z.vyhralsi.play()
     restart = tlacidlo(t.testtlacidloN,t.testtlacidloA,500,500,text="restart")
     loop = 'vyhralsi'
     globals().update(locals())
 
 def spustitPrehralsi():
     resetScreen()
+    z.prehralsi.play()
     restart = tlacidlo(t.testtlacidloN,t.testtlacidloA,500,500,text="restart")
     loop = 'prehralsi'
     globals().update(locals())
