@@ -12,12 +12,12 @@ class G:
     #region nemenit:
     moj_width = 1700
     moj_height = 960
-    nezvecsovatMod = True
+    nezvecsovatMod = False
     if nezvecsovatMod:
         displej_width = moj_width
         displej_height = moj_height
-        Displej = pygame.display.set_mode((displej_width, displej_height),pygame.NOFRAME)
-        pygame.display.toggle_fullscreen()
+        Displej = pygame.display.set_mode((displej_width, displej_height),FULLSCREEN)
+        # pygame.display.toggle_fullscreen()
         scaleObrazovky = 1
     else:
         sirkaPocitaca = pygame.display.Info().current_w
@@ -27,7 +27,7 @@ class G:
         scaleObrazovky = min(scaleSirka,scaleVyska)#ratam s tym, ze moja obrazovka je najmensia
         displej_width = int(moj_width*scaleObrazovky)
         displej_height = int(moj_height*scaleObrazovky)
-        Displej = pygame.display.set_mode((displej_width, displej_height))
+        Displej = pygame.display.set_mode((displej_width, displej_height),FULLSCREEN)
         print(sirkaPocitaca,vyskaPocitaca)
     Hodiny = pygame.time.Clock()
 
