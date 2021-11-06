@@ -180,8 +180,8 @@ class S:
                     pismena = ['x', 'l', 'g', 'x', 'g', 'l', 'l', 'g', 'x', 'g', 'l', 'x', 'x', 'x', 'l', 'l', 'g', 'g', 'l', 'l', 'g', 'g', 'x', 'x', 'l', 'l', 'l', 'x', 'x', 'x', 'g', 'g', 'g', 'x', 'l', 'g', 'x', 'l', 'g', 'x', 'l', 'g', 'x', 'x', 'x', 'x', 'g', 'g', 'g', 'g', 'l', 'l', 'l', 'l', 'g', 'l', 'x', 'l', 'g', 'x', 'x', 'l', 'g', 'x', 'g', 'l', 'g', 'l', 'x', 'g', 'x', 'l', 'g', 'g', 'x', 'l', 'l', 'g', 'x', 'x', 'l', 'x', 'x', 'l', 'l', 'g', 'g', 'g', 'x', 'l']
                     return[casy,pismena,self.klavesyPoz,1.3,self.cislo,1]
                 if self.tlacidla[2].je_keyup():
-                    casy = []
-                    pismena = []
+                    casy = [1.0, 3.0, 4.5, 6.0, 7.5, 9.0, 10.5, 12.0, 13.5, 15.0, 16.5, 18.0, 19.5, 21.0, 22.5, 24.0, 25.5, 27.0, 28.5, 30.0, 32.0, 34.0, 36.0, 38.0, 40.0, 42.0, 44.0, 46.0, 48.0, 49.1, 50.2, 51.3, 52.4, 53.5, 54.6, 55.7, 56.8, 57.9, 59.0, 60.1, 61.2, 62.5, 64.0, 65.5, 67.0, 68.5, 70.0, 71.5, 73.0, 74.5, 76.0, 77.1, 78.2, 79.3, 80.4, 81.5, 82.6, 86.0, 87.3]
+                    pismena = ['x', 'l', 'g', 'y', 'g', 'l', 'y', 'x', 'l', 'x', 'l', 'x', 'y', 'g', 'y', 'g', 'x', 'y', 'l', 'g', 'l', 'l', 'x', 'x', 'g', 'g', 'y', 'y', 'g', 'x', 'l', 'y', 'g', 'x', 'y', 'l', 'x', 'g', 'y', 'y', 'l', 'y', 'y', 'x', 'x', 'l', 'l', 'g', 'g', 'x', 'y', 'l', 'g', 'g', 'y', 'y', 'l', 'x', 'g']
                     return[casy,pismena,self.klavesyPoz,2.5,self.cislo,2]
                 if self.tlacidla[3].je_keyup():
                     casy = []
@@ -224,7 +224,7 @@ class S:
             self.texty = []
             for pismeno in self.pozicie:
                 pozicia = [self.pozicie[pismeno][0]+sirka/2 , self.pozicie[pismeno][1]+sirka/2-10]
-                self.texty.append(text(pozicia[0],pozicia[1],pismeno,32,(0,0,0),g.basic_hruby_font,roh='stred'))
+                self.texty.append(text(pozicia[0],pozicia[1],pismeno,32,(255,255,255),g.basic_hruby_font,roh='stred'))
 
             self.klavesyPoz = klavesyPoz
             self.klavesObrazokPozy = {}
@@ -373,7 +373,7 @@ class S:
         def update(self):#scalovanie steny, detekovanie inputu
             self.panak.update()
             self.vtipy.update()
-            if (cas.cas()-self.casZ)+self.casSteny > self.casyStien[self.indexCasu]:
+            if (cas.cas()-self.casZ) > self.casyStien[self.indexCasu]:#+self.casSteny na lavej strane
                 print(f"nadisiel cas na stenu {self.indexCasu}")
                 
                 print("grg",tuple(self.klavesyPoz[self.pismenaStien[self.indexCasu]]))
@@ -413,7 +413,6 @@ class S:
             
             if self.panvica != None:
                 if self.panvica.update() == 'presla' and self.ValeboP != True:
-                    print('bu')
                     self.updateOdomknute()
                     self.muzika.stop()
                     self.casNaburania = time.time()

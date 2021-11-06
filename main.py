@@ -1,5 +1,7 @@
 import pygame, math, random, threading,time
 
+from pygame.constants import FULLSCREEN
+
 #from pygame.mask import _Offset
 
 pygame.init()
@@ -206,9 +208,9 @@ def spustitMenu():
     resetScreen()
     myska = s.mys(o.mys)
     Xtlacidlo = tlacidlo(t.XN,t.XA,g.moj_width-5,5,roh="pravy_horny")
-    levely1 = s.levelSet(o.level1Panak,o.level1Pozadie,(400,100),(100,100),{'x':[0,1,2,1],'l':[1,2,1,1],'g':[0,0,2,1],'y':[1,1,1,2],'i':[2,1,1,2],'e':[1,1,0,1]},0)
-    levely2 = s.levelSet(o.level2Panak,o.level2Pozadie,(400,400),(100,400),{'k':[2,1,2,1],'v':[2,0,0,0],'a':[1,2,2,0],'p':[2,0,0,1],'j':[1,2,0,2],'x':[2,1,1,0],'c':[0,2,2,1],'b':[0,2,1,1],'l':[0,2,1,1],'q':[1,1,0,2],'o':[2,0,1,1]},1)
-    levely3 = s.levelSet(o.level3Panak,o.level3Pozadie,(400,700),(100,700),{'a':[0,0,0,2],'b':[1,2,2,0]},2)
+    levely1 = s.levelSet(o.level1Panak,o.level1Pozadie,(400,100),(100,100),{'x':[0,1,2,1],'l':[1,2,1,1],'g':[0,0,2,2],'y':[1,1,1,2],'i':[2,1,1,2],'e':[1,1,0,1]},0)
+    levely2 = s.levelSet(o.level2Panak,o.level2Pozadie,(400,400),(100,400),{'k':[2,1,2,1],'v':[2,0,0,0],'a':[1,2,2,0],'p':[2,0,0,1],'j':[1,2,0,2],'x':[2,1,1,0],'c':[0,2,2,1]},1)
+    levely3 = s.levelSet(o.level3Panak,o.level3Pozadie,(400,700),(100,700),{'b':[0,0,2,0],'l':[0,2,1,1],'q':[1,1,0,2],'o':[2,0,1,1],'f':[1,0,2,1],'z':[2,0,2,2],'t':[1,2,1,2],'s':[0,1,1,2]},2)
     loop = 'menu'
     globals().update(locals())
 
@@ -248,7 +250,7 @@ def resetScreen():# toto by chcelo byt rovnake vo vsetkych screenoch
     global g
     pygame.event.clear()
     g.koniec = False
-    g.Displej = pygame.display.set_mode((g.displej_width, g.displej_height))
+    # g.Displej = pygame.display.set_mode((g.displej_width, g.displej_height),FULLSCREEN)
     tlacidla.tlacidla = []
     animacie.animacie = []
     #g.Displej = pygame.display.set_mode((g.displej_width, g.displej_height))

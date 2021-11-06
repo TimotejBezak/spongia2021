@@ -16,7 +16,8 @@ class G:
     if nezvecsovatMod:
         displej_width = moj_width
         displej_height = moj_height
-        Displej = pygame.display.set_mode((displej_width, displej_height))
+        Displej = pygame.display.set_mode((displej_width, displej_height),pygame.NOFRAME)
+        pygame.display.toggle_fullscreen()
         scaleObrazovky = 1
     else:
         sirkaPocitaca = pygame.display.Info().current_w

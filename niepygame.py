@@ -113,7 +113,8 @@ def zobraz(obrazok,pozicia,surface=g.Displej,roh="lavy_horny",ui=False):#stred: 
         offset = (0,0)
 
     pozicia = [pozicia[0]-offset[0],pozicia[1]-offset[1]]
-    pozicia = [pozicia[0]*g.scaleObrazovky,pozicia[1]*g.scaleObrazovky]
+    if surface == g.Displej:
+        pozicia = [pozicia[0]*g.scaleObrazovky,pozicia[1]*g.scaleObrazovky]
 
     try:
         rohUpdate(pozicia,obrazok,roh)

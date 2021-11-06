@@ -28,7 +28,7 @@ class O:
     # kruh50 = p.loadniObrazok(100,100,'kruh.png')
     # kruh5 = p.loadniObrazok(10,10,'kruh.png')
 
-    pozadieKlavesu = p.loadniObrazok(110,110)
+    pozadieKlavesu = p.loadniObrazok(110,110,'klaves.png')
 
     pravaRuka = p.loadniAnimaciu(-1,-1,'prava ruka',polotransparent=False)
     lavaRuka = p.loadniAnimaciu(-1,-1,'lava ruka',polotransparent=False)
