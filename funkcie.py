@@ -1,3 +1,4 @@
+from pygame.constants import FULLSCREEN
 import tlacidla,animacie
 from globalnepremenne import g
 import pygame
@@ -23,3 +24,4 @@ def poziciaZKoncatin(rozmiestnenieKoncatin):
     pygame.zobraz(o.lavaNoha[ln],(0,0),surface=surface)
     pygame.zobraz(o.pravaNoha[pn],(0,0),surface=surface)
     return surface
+

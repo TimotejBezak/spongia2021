@@ -3,6 +3,7 @@ from pygame.locals import *
 import collections
 
 class G:
+    global nefullscreen
     #region menit:
     tlacidlovy = "fonts/theboldfont.ttf"
     basic_font = 'fonts/freesansbold.ttf'
@@ -12,23 +13,23 @@ class G:
     #region nemenit:
     moj_width = 1700
     moj_height = 960
-    nezvecsovatMod = False
-    if nezvecsovatMod:
-        displej_width = moj_width
-        displej_height = moj_height
-        Displej = pygame.display.set_mode((displej_width, displej_height),FULLSCREEN)
-        # pygame.display.toggle_fullscreen()
-        scaleObrazovky = 1
-    else:
-        sirkaPocitaca = pygame.display.Info().current_w
-        vyskaPocitaca = pygame.display.Info().current_h
-        scaleSirka = sirkaPocitaca/moj_width
-        scaleVyska = vyskaPocitaca/moj_height
-        scaleObrazovky = min(scaleSirka,scaleVyska)#ratam s tym, ze moja obrazovka je najmensia
-        displej_width = int(moj_width*scaleObrazovky)
-        displej_height = int(moj_height*scaleObrazovky)
-        Displej = pygame.display.set_mode((displej_width, displej_height),FULLSCREEN)
-        print(sirkaPocitaca,vyskaPocitaca)
+    sirkaPocitaca = pygame.display.Info().current_w
+    vyskaPocitaca = pygame.display.Info().current_h
+    
+    displej_width = moj_width
+    displej_height = moj_height
+    # Displej = pygame.display.set_mode((displej_width, displej_height))
+    scaleObrazovky = 1
+
+    
+    scaleSirka = sirkaPocitaca/moj_width
+    scaleVyska = vyskaPocitaca/moj_height
+    scaleObrazovky = min(scaleSirka,scaleVyska)#ratam s tym, ze moja obrazovka je najmensia
+    displej_width = int(moj_width*scaleObrazovky)
+    displej_height = int(moj_height*scaleObrazovky)
+    Displej = pygame.display.set_mode((displej_width, displej_height),FULLSCREEN)
+    print(sirkaPocitaca,vyskaPocitaca)
+    
     Hodiny = pygame.time.Clock()
 
     unlocknuteLevely = []
@@ -46,6 +47,9 @@ class G:
         modra = (0,0,255)
         zelena = (0,255,0)
         cervena = (255,0,0)
+
+
+
 
 def init():
     global g

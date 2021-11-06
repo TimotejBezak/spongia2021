@@ -22,6 +22,7 @@ def loadniObrazok(sirka,vyska,path="",polotransparent=False,bielaNaTransparent=F
         vyska = obrazok.get_height()
     obrazok = zmenitRozlisenie(obrazok,(sirka,vyska))
     obrazok = pygame.transform.smoothscale( obrazok, (int(obrazok.get_width()*g.scaleObrazovky),int(obrazok.get_height()*g.scaleObrazovky)) )
+    # print("scaleO =",g.scaleObrazovky)
     if polotransparent:
         obrazok = polotransparentnut(obrazok)
         if path != "":

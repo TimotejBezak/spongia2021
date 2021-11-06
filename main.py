@@ -1,7 +1,6 @@
 import pygame, math, random, threading,time
 
-from pygame.constants import FULLSCREEN
-
+from pygame.constants import FULLSCREEN, RESIZABLE
 #from pygame.mask import _Offset
 
 pygame.init()
@@ -15,7 +14,7 @@ S_init()
 from sprity import s
 
 import niepygame
-from loaderObrazkov import o,t,a,z
+from loaderObrazkov import o,t,a,z,loadniZnovu
 
 import klavesy
 import ratacfps
@@ -30,6 +29,7 @@ import mys
 #import vyhralsi,prehralsi,menu
 import text
 import cas
+import konstanty as k
 
 
 class myThread (threading.Thread):
@@ -61,11 +61,13 @@ restart = None
 hrat = None
 animaciaZacLevel = None
 inputPreLevel = None
+fullscreen = False
+toggleFullscreen = None
 
 # z.testMuzika.play()
 # z.testMuzika.set_volume(0.3)
 def fyzika():
-    global g,pauza,odpauza,koniec,stena,level,levely1,loop,vyhrat,prehrat,spetDoMenu
+    global g,pauza,odpauza,koniec,stena,level,levely1,loop,vyhrat,prehrat,spetDoMenu,fullscreen
     # while not koniec and not klavesy.je_koniec():
     mys.update()
     klavesy.update()
@@ -74,6 +76,21 @@ def fyzika():
     ratacfpsF.update()
     if Xtlacidlo.je_keyup():
         koniec = True
+
+    if toggleFullscreen.je_keyup():
+        fullscreen = not fullscreen
+        if fullscreen:
+            # print(g.sirkaPocitaca,g.moj_width,"sem pozeraaaaaaaaaj")
+            scaleSirka = g.sirkaPocitaca/g.moj_width
+            scaleVyska = g.vyskaPocitaca/g.moj_height
+            g.scaleObrazovky = min(scaleSirka,scaleVyska)#ratam s tym, ze moja obrazovka je najmensia
+            g.displej_width = int(g.moj_width*g.scaleObrazovky)
+            g.displej_height = int(g.moj_height*g.scaleObrazovky)
+            g.Displej = pygame.display.set_mode((g.displej_width, g.displej_height),FULLSCREEN)
+        else:
+            g.Displej = pygame.display.set_mode((g.moj_width, g.moj_height))
+            g.scaleObrazovky = 1
+        loadniZnovu()#znovu loadne obrazky
 
     if loop=='main':
         if klavesy.je_keyup('v'):
@@ -209,8 +226,8 @@ def spustitMenu():
     myska = s.mys(o.mys)
     Xtlacidlo = tlacidlo(t.XN,t.XA,g.moj_width-5,5,roh="pravy_horny")
     levely1 = s.levelSet(o.level1Panak,o.level1Pozadie,(400,100),(100,100),{'x':[0,1,2,1],'l':[1,2,1,1],'g':[0,0,2,2],'y':[1,1,1,2],'i':[2,1,1,2],'e':[1,1,0,1]},0)
-    levely2 = s.levelSet(o.level2Panak,o.level2Pozadie,(400,400),(100,400),{'k':[2,1,2,1],'v':[2,0,0,0],'a':[1,2,2,0],'p':[2,0,0,1],'j':[1,2,0,2],'x':[2,1,1,0],'c':[0,2,2,1]},1)
-    levely3 = s.levelSet(o.level3Panak,o.level3Pozadie,(400,700),(100,700),{'b':[0,0,2,0],'l':[0,2,1,1],'q':[1,1,0,2],'o':[2,0,1,1],'f':[1,0,2,1],'z':[2,0,2,2],'t':[1,2,1,2],'s':[0,1,1,2]},2)
+    levely2 = s.levelSet(o.level2Panak,o.level2Pozadie,(400,400),(100,400),{'k':[2,1,2,1],'v':[2,0,0,0],'a':[1,2,2,0],'p':[2,0,0,1],'j':[1,2,0,2],'x':[2,1,1,0],'r':[0,2,2,1]},1)
+    levely3 = s.levelSet(o.level3Panak,o.level3Pozadie,(400,700),(100,700),{'l':[0,0,2,0],'b':[0,2,1,1],'q':[1,1,0,2],'o':[2,0,1,1],'z':[1,0,2,1],'f':[2,0,2,2],'t':[1,2,1,2],'s':[0,1,1,2]},2)
     loop = 'menu'
     globals().update(locals())
 
@@ -243,6 +260,7 @@ def spustitIntro():#spusti sa naozaj len na zaciatku
     myska = s.mys(o.mys)
     hrat = tlacidlo(t.hratN,t.hratA,500,500,text="play",velkost=70)
     Xtlacidlo = tlacidlo(t.XN,t.XA,g.moj_width-5,5,roh="pravy_horny")
+    toggleFullscreen = tlacidlo(t.fullscreenN,t.fullscreenA,g.moj_width-40,5,roh="pravy_horny")
     loop = 'intro'
     globals().update(locals())
 
@@ -254,6 +272,7 @@ def resetScreen():# toto by chcelo byt rovnake vo vsetkych screenoch
     tlacidla.tlacidla = []
     animacie.animacie = []
     #g.Displej = pygame.display.set_mode((g.displej_width, g.displej_height))
+    toggleFullscreen = tlacidlo(t.fullscreenN,t.fullscreenA,g.moj_width-40,5,roh="pravy_horny")
     g.frameF = 0
     g.frameZ = 0
     globals().update(locals())

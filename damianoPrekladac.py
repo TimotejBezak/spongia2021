@@ -19,12 +19,12 @@ else:
     pismena = []
     for i in range(dlzka):
         cas,pismeno = input().split()
-        if ':' in cas:
-            minuty = int(cas[0])
-            sekundy = float(cas[2:])
-            casy.append(sekundy+minuty*60)
-        else:
-            casy.append(float(cas))
+        # if ':' in cas:
+        #     minuty = int(cas[0])
+        #     sekundy = float(cas[2:])
+        #     casy.append(sekundy+minuty*60)
+        # else:
+        casy.append(float(cas))
         
         pismena.append(pismeno)
 

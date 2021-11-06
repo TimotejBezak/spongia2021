@@ -162,7 +162,8 @@ class S:
 
             for i in g.unlocknuteLevely:
                 s,l = i#set,level
-                animacia(a.zamok,2,self.xT+(k.sirkaLevelTlacidla+medzeraTlacidiel)*l,self.yT)
+                if s == self.cislo:
+                    animacia(a.zamok,2,self.xT+(k.sirkaLevelTlacidla+medzeraTlacidiel)*l,self.yT)
 
             # self.levelN = levelN
             # self.levelA = levelA
@@ -182,6 +183,48 @@ class S:
                 if self.tlacidla[2].je_keyup():
                     casy = [1.0, 3.0, 4.5, 6.0, 7.5, 9.0, 10.5, 12.0, 13.5, 15.0, 16.5, 18.0, 19.5, 21.0, 22.5, 24.0, 25.5, 27.0, 28.5, 30.0, 32.0, 34.0, 36.0, 38.0, 40.0, 42.0, 44.0, 46.0, 48.0, 49.1, 50.2, 51.3, 52.4, 53.5, 54.6, 55.7, 56.8, 57.9, 59.0, 60.1, 61.2, 62.5, 64.0, 65.5, 67.0, 68.5, 70.0, 71.5, 73.0, 74.5, 76.0, 77.1, 78.2, 79.3, 80.4, 81.5, 82.6, 86.0, 87.3]
                     pismena = ['x', 'l', 'g', 'y', 'g', 'l', 'y', 'x', 'l', 'x', 'l', 'x', 'y', 'g', 'y', 'g', 'x', 'y', 'l', 'g', 'l', 'l', 'x', 'x', 'g', 'g', 'y', 'y', 'g', 'x', 'l', 'y', 'g', 'x', 'y', 'l', 'x', 'g', 'y', 'y', 'l', 'y', 'y', 'x', 'x', 'l', 'l', 'g', 'g', 'x', 'y', 'l', 'g', 'g', 'y', 'y', 'l', 'x', 'g']
+                    return[casy,pismena,self.klavesyPoz,1.1,self.cislo,2]
+                if self.tlacidla[3].je_keyup():
+                    casy = [1.0, 2.5, 4.0, 5.5, 7.0, 8.5, 10.0, 11.5, 13.0, 14.5, 16.0, 17.5, 19.0, 20.5, 22.0, 23.5, 25.0, 26.5, 28.0, 29.5, 31.0, 32.5, 34.0, 35.5, 37.0, 38.5, 40.0, 41.5, 43.0, 44.5, 46.0, 47.5, 49.0, 50.5, 52.0, 54.0, 56.0, 58.0, 60.0, 62.0, 64.0, 66.0, 68.0, 70.0, 72.0, 73.0, 74.0, 75.0, 76.0, 77.0, 78.0, 79.0, 80.0, 81.0, 82.0, 83.0, 84.5, 86.0, 87.5, 89.0, 90.5, 92.0, 93.5, 95.0, 96.5, 98.0, 99.5, 100.5]
+                    pismena = ['x', 'l', 'g', 'y', 'i', 'i', 'y', 'g', 'l', 'x', 'l', 'g', 'x', 'y', 'i', 'y', 'i', 'g', 'x', 'l', 'l', 'l', 'x', 'x', 'y', 'y', 'i', 'i', 'g', 'g', 'l', 'g', 'i', 'y', 'x', 'g', 'g', 'l', 'l', 'y', 'y', 'x', 'x', 'i', 'i', 'l', 'x', 'y', 'g', 'i', 'y', 'l', 'x', 'i', 'g', 'y', 'x', 'g', 'x', 'g', 'y', 'y', 'i', 'i', 'l', 'l', 'y', 'i']
+                    return[casy,pismena,self.klavesyPoz,1.0,self.cislo,3]
+                if self.tlacidla[4].je_keyup():
+                    casy = [1.0, 2.0, 4.0, 6.0, 8.0, 10.0, 12.0, 14.0, 16.0, 18.0, 20.0, 22.0, 24.0, 26.0, 28.0, 30.0, 32.0, 34.0, 36.0, 38.0, 40.0, 42.0, 44.0, 46.0, 47.5, 49.0, 50.5, 52.0, 53.5, 55.0, 56.0, 57.0, 58.0, 59.0, 60.0, 61.0, 62.0, 63.0, 64.0, 65.0, 66.0, 67.0, 68.0, 69.0, 70.0, 71.0, 72.0, 73.0, 74.5, 76.0, 77.5, 79.0, 80.5, 82.0, 83.5, 85.0, 86.5, 88.0, 89.5]
+                    pismena = ['x', 'l', 'g', 'y', 'i', 'e', 'e', 'i', 'y', 'g', 'l', 'x', 'x', 'x', 'l', 'l', 'g', 'g', 'e', 'e', 'i', 'i', 'y', 'y', 'i', 'e', 'x', 'l', 'g', 'y', 'x', 'e', 'i', 'l', 'g', 'y', 'x', 'l', 'i', 'e', 'y', 'g', 'x', 'l', 'g', 'y', 'i', 'e', 'e', 'e', 'y', 'y', 'i', 'i', 'x', 'x', 'g', 'g', 'l']
+                    return[casy,pismena,self.klavesyPoz,0.9,self.cislo,4]
+            if self.cislo == 1:
+                if self.tlacidla[0].je_keyup():
+                    casy = [2.0, 4.0, 6.0, 8.0, 10.0, 12.0, 14.0, 16.0, 18.0, 20.0, 22.0, 24.0, 25.5, 27.0, 28.5, 30.0, 31.5, 33.0, 34.5, 36.0, 37.5, 39.0, 40.5, 42.0, 44.0, 46.0, 48.0, 50.0, 52.0, 54.0, 55.5]
+                    pismena = ['k', 'v', 'a', 'k', 'v', 'a', 'k', 'k', 'v', 'v', 'a', 'a', 'v', 'k', 'a', 'v', 'k', 'a', 'k', 'a', 'v', 'k', 'a', 'v', 'k', 'v', 'a', 'k', 'v', 'a', 'v']
+                    return[casy,pismena,self.klavesyPoz,1.5,self.cislo,0]
+                if self.tlacidla[1].je_keyup():
+                    casy = [1.0, 3.0, 5.0, 7.0, 9.0, 11.0, 13.0, 15.0, 17.0, 19.0, 21.0, 23.0, 25.0, 27.0, 29.0, 31.0, 33.0, 35.0, 37.0, 39.0, 41.0, 43.0, 45.0, 47.0, 49.0, 51.0, 53.0, 55.0, 57.0, 59.0, 61.0, 63.0, 64.5, 66.0, 67.5, 69.0, 70.5, 72.0, 73.5, 75.0, 76.3, 77.6, 78.9, 80.2, 81.5, 82.8, 84.1, 85.4, 90.0, 92.0, 94.0, 96.0, 98.0, 100.0, 102.0, 104.0, 106.0, 108.0, 110.0, 112.0, 120.0, 121.5]
+                    pismena = ['k', 'v', 'a', 'p', 'k', 'v', 'a', 'p', 'k', 'k', 'v', 'v', 'a', 'a', 'p', 'p', 'p', 'a', 'v', 'k', 'p', 'a', 'v', 'k', 'v', 'a', 'k', 'p', 'a', 'p', 'v', 'k', 'k', 'v', 'k', 'v', 'a', 'p', 'a', 'p', 'k', 'v', 'a', 'p', 'p', 'a', 'v', 'k', 'k', 'k', 'p', 'p', 'v', 'v', 'a', 'a', 'k', 'v', 'a', 'p', 'a', 'p']
+                    return[casy,pismena,self.klavesyPoz,1.3,self.cislo,1]
+                if self.tlacidla[2].je_keyup():
+                    casy = [4.0, 6.0, 8.0, 10.0, 12.0, 14.0, 16.0, 18.0, 20.0, 22.0, 24.0, 26.0, 28.0, 30.0, 32.0, 34.0, 36.0, 38.0, 40.0, 42.0, 43.1, 44.2, 45.3, 46.4, 47.5, 48.6, 49.7, 50.8, 51.9, 53.0, 56.0, 58.0, 60.0, 62.0, 64.0, 68.0, 69.5, 71.0]
+                    pismena = ['k', 'v', 'a', 'p', 'j', 'k', 'v', 'a', 'p', 'j', 'p', 'p', 'v', 'v', 'a', 'a', 'j', 'j', 'k', 'k', 'j', 'a', 'k', 'p', 'v', 'k', 'v', 'a', 'j', 'p', 'k', 'v', 'a', 'p', 'j', 'p', 'v', 'j']
+                    return[casy,pismena,self.klavesyPoz,1.1,self.cislo,2]
+                if self.tlacidla[3].je_keyup():
+                    casy = [1.0, 3.0, 5.0, 7.0, 9.0, 11.0, 13.0, 15.0, 17.0, 19.0, 21.0, 23.0, 25.0, 27.0, 29.0, 31.0, 33.0, 35.0, 36.0, 37.0, 38.0, 39.0, 40.0, 41.0, 42.0, 43.0, 44.0, 46.0, 48.0, 50.0, 51.0, 53.0, 54.5]
+                    pismena = ['k', 'v', 'a', 'p', 'j', 'x', 'p', 'j', 'k', 'a', 'v', 'x', 'p', 'j', 'p', 'x', 'j', 'x', 'k', 'a', 'j', 'x', 'v', 'p', 'k', 'x', 'p', 'k', 'x', 'v', 'p', 'j', 'a']
+                    return[casy,pismena,self.klavesyPoz,1.0,self.cislo,3]
+                if self.tlacidla[4].je_keyup():
+                    casy = [5.0, 7.0, 9.0, 11.0, 13.0, 15.0, 17.0, 19.0, 21.0, 23.0, 25.0, 27.0, 29.0, 31.0, 32.0, 33.0, 34.0, 35.0, 36.0, 37.0, 38.0, 39.0, 40.0, 41.0, 42.0, 43.0, 44.0, 45.0, 48.0, 50.0, 52.0, 54.0, 56.0, 58.0, 60.0, 66.0, 67.0, 68.0]
+                    pismena = ['k', 'v', 'a', 'p', 'j', 'x', 'r', 'p', 'k', 'j', 'v', 'a', 'x', 'r', 'k', 'j', 'r', 'v', 'p', 'x', 'a', 'k', 'v', 'a', 'p', 'j', 'x', 'r', 'p', 'k', 'a', 'v', 'j', 'x', 'r', 'x', 'v', 'r']
+                    return[casy,pismena,self.klavesyPoz,0.9,self.cislo,4]
+            if self.cislo == 2:
+                if self.tlacidla[0].je_keyup():
+                    casy = [2.0, 4.0, 6.0, 8.0, 10.0, 12.0, 14.0, 16.0, 18.0, 20.0, 22.0, 24.0, 26.0, 28.0, 30.0, 32.0, 34.0, 36.0, 38.0, 40.0, 41.5, 43.0, 44.5, 46.0, 47.5, 49.0, 50.5, 52.0, 54.0, 56.0, 58.0, 60.0, 62.0, 64.0, 65.5]
+                    pismena = ['l', 'b', 'q', 'o', 'b', 'b', 'q', 'q', 'l', 'l', 'o', 'o', 'o', 'l', 'q', 'b', 'q', 'l', 'b', 'o', 'l', 'b', 'q', 'o', 'l', 'b', 'q', 'o', 'q', 'o', 'l', 'b', 'o', 'q', 'l']
+                    return[casy,pismena,self.klavesyPoz,2.5,self.cislo,0]
+                if self.tlacidla[1].je_keyup():
+                    casy = []
+                    pismena = []
+                    return[casy,pismena,self.klavesyPoz,2.5,self.cislo,1]
+                if self.tlacidla[2].je_keyup():
+                    casy = []
+                    pismena = []
                     return[casy,pismena,self.klavesyPoz,2.5,self.cislo,2]
                 if self.tlacidla[3].je_keyup():
                     casy = []
@@ -191,16 +234,6 @@ class S:
                     casy = []
                     pismena = []
                     return[casy,pismena,self.klavesyPoz,2.5,self.cislo,4]
-            if self.cislo == 1:
-                if self.tlacidla[0].je_keyup():
-                    casy = [5,7]
-                    pismena = ['k','k']
-                    return[casy,pismena,self.klavesyPoz,2.5,self.cislo,0]
-            if self.cislo == 2:
-                if self.tlacidla[0].je_keyup():
-                    casy = [100]
-                    pismena = ['a']
-                    return[casy,pismena,self.klavesyPoz,2.5,self.cislo,0]
 
             return False#[5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20],['x','l','g','y','x']
 
@@ -444,6 +477,7 @@ class S:
                 if odomknutost[self.cisloSetu+1][0] == 0:
                     odomknutost[self.cisloSetu+1][0] = 1
                     g.unlocknuteLevely.append([self.cisloSetu+1,0])
+            print(g.unlocknuteLevely,"tutoooooooooooooooooooooooooooooooooooooooooooo")
             for i in range(3):
                 subor.write(' '.join(list(map(str,odomknutost[i])))+'\n')
             subor.close()
