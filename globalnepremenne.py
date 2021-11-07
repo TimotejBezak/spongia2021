@@ -18,17 +18,17 @@ class G:
     
     displej_width = moj_width
     displej_height = moj_height
-    # Displej = pygame.display.set_mode((displej_width, displej_height))
+    Displej = pygame.display.set_mode((displej_width, displej_height))
     scaleObrazovky = 1
 
     
-    scaleSirka = sirkaPocitaca/moj_width
-    scaleVyska = vyskaPocitaca/moj_height
-    scaleObrazovky = min(scaleSirka,scaleVyska)#ratam s tym, ze moja obrazovka je najmensia
-    displej_width = int(moj_width*scaleObrazovky)
-    displej_height = int(moj_height*scaleObrazovky)
-    Displej = pygame.display.set_mode((displej_width, displej_height),FULLSCREEN)
-    print(sirkaPocitaca,vyskaPocitaca)
+    # scaleSirka = sirkaPocitaca/moj_width
+    # scaleVyska = vyskaPocitaca/moj_height
+    # scaleObrazovky = min(scaleSirka,scaleVyska)#ratam s tym, ze moja obrazovka je najmensia
+    # displej_width = int(moj_width*scaleObrazovky)
+    # displej_height = int(moj_height*scaleObrazovky)
+    # Displej = pygame.display.set_mode((displej_width, displej_height),FULLSCREEN)
+    # print(sirkaPocitaca,vyskaPocitaca)
     
     Hodiny = pygame.time.Clock()
 
