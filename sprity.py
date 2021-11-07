@@ -421,7 +421,7 @@ class S:
         def zobraz(self):
             castCasu = (time.time()-self.casZ)/self.celkovyCas
             # print(castCasu,"bughr")
-            bar = pygame.transform.smoothscale(o.bar2,(castCasu*self.sirka,self.vyska))
+            bar = pygame.transform.smoothscale(o.bar2,(int(castCasu*self.sirka),self.vyska))
             pygame.zobraz(bar,(0,0),surface=self.pozadie)
             pygame.zobraz(self.pozadie,(100,935))
             
