@@ -74,7 +74,7 @@ def fyzika():
     klavesy.update()
     tlacidla.update()
     animacie.update()
-    ratacfpsF.update()
+    # ratacfpsF.update()
     if Xtlacidlo.je_keyup():
         koniec = True
 
@@ -165,8 +165,8 @@ def zobrazovac():
     global g
     # while not koniec and not klavesy.je_koniec():
     if loop=='main':
-        g.Displej.fill((0,0,255))
-        # pygame.zobraz(o.oblakypozadie,(0,0))
+        g.Displej.fill((0,0,0))
+        pygame.zobraz(o.pozadieLevel,(0,0))
         level.zobraz()
     if loop=='pauza':
         # g.Displej.fill((g.farby.modra)) #nejaky iny overlay mozno
@@ -192,12 +192,12 @@ def zobrazovac():
 
     tlacidla.zobraz()
     animacie.zobraz()
-    ratacfpsF.zobraz()
-    ratacfpsZ.zobraz()
+    #ratacfpsF.zobraz()
+    #ratacfpsZ.zobraz()
 
     myska.zobraz()
     pygame.display.update()
-    ratacfpsZ.update()
+    #ratacfpsZ.update()
 
 def gameloop():
     # thread = myThread(fyzika)

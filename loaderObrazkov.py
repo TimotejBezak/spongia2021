@@ -317,11 +317,12 @@ class O:
         self.vyhra = p.loadniObrazok(-1,-1,'vyhra.png')
         self.prehra = p.loadniObrazok(-1,-1,'prehra.png')
         self.oblakypozadie = p.loadniObrazok(-1,-1,'oblakypozadie.png')
+        self.pozadieLevel = p.loadniObrazok(-1,-1,'pozadieLevel.png')
 
         self.bar1 = p.loadniObrazok(1500,10)
         self.bar2 = pygame.prefarb(p.loadniObrazok(10,10),(0,255,0))
 
-        self.vtipy = p.loadniAnimaciu(300,300,pocet_filov=10)#p.loadniAnimaciu(-1,-1,'vtipy')
+        self.vtipy = p.loadniAnimaciu(-1,-1,'vtipy')
 
 
 class T:
