@@ -1,7 +1,7 @@
 from globalnepremenne import g
 import pygame
 from klavesy import je_keydown, je_keyup
-from loaderObrazkov import o
+from loaderObrazkov import o,z
 import mys
 import text as Text
 import prekryvace
@@ -90,6 +90,8 @@ class tlacidlo:
     def je_keyup(self):
         if self.disabled:
             return False
+        if self.jeKeyup:
+            z.klik.play()
         return self.jeKeyup
 
     def je_zmena_hover(self):#minuly frame bol kurzor mimo, teraz je v alebo naopak

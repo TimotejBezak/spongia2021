@@ -62,7 +62,7 @@ hrat = None
 animaciaZacLevel = None
 inputPreLevel = None
 fullscreen = False
-toggleFullscreen = None
+# toggleFullscreen = None
 nazovHry = None
 
 # z.testMuzika.play()
@@ -78,20 +78,20 @@ def fyzika():
     if Xtlacidlo.je_keyup():
         koniec = True
 
-    if toggleFullscreen.je_keyup():
-        fullscreen = not fullscreen
-        if fullscreen:
-            # print(g.sirkaPocitaca,g.moj_width,"sem pozeraaaaaaaaaj")
-            scaleSirka = g.sirkaPocitaca/g.moj_width
-            scaleVyska = g.vyskaPocitaca/g.moj_height
-            g.scaleObrazovky = min(scaleSirka,scaleVyska)#ratam s tym, ze moja obrazovka je najmensia
-            g.displej_width = int(g.moj_width*g.scaleObrazovky)
-            g.displej_height = int(g.moj_height*g.scaleObrazovky)
-            g.Displej = pygame.display.set_mode((g.displej_width, g.displej_height),FULLSCREEN)
-        else:
-            g.Displej = pygame.display.set_mode((g.moj_width, g.moj_height))
-            g.scaleObrazovky = 1
-        loadniZnovu()#znovu loadne obrazky
+    # if toggleFullscreen.je_keyup():
+    #     fullscreen = not fullscreen
+    #     if fullscreen:
+    #         # print(g.sirkaPocitaca,g.moj_width,"sem pozeraaaaaaaaaj")
+    #         scaleSirka = g.sirkaPocitaca/g.moj_width
+    #         scaleVyska = g.vyskaPocitaca/g.moj_height
+    #         g.scaleObrazovky = min(scaleSirka,scaleVyska)#ratam s tym, ze moja obrazovka je najmensia
+    #         g.displej_width = int(g.moj_width*g.scaleObrazovky)
+    #         g.displej_height = int(g.moj_height*g.scaleObrazovky)
+    #         g.Displej = pygame.display.set_mode((g.displej_width, g.displej_height),FULLSCREEN)
+    #     else:
+    #         g.Displej = pygame.display.set_mode((g.moj_width, g.moj_height))
+    #         g.scaleObrazovky = 1
+    #     loadniZnovu()#znovu loadne obrazky
 
     if loop=='main':
         # if klavesy.je_keyup('v'):
@@ -223,6 +223,7 @@ def spustitZacLevel(lvl):
     animaciaZacLevel = animacia(a.zaciatokLevelu,1.5,0,0)
     inputPreLevel = lvl
     z.dopozadia.stop()
+    z.pustivajco.play()
     loop = 'zaclevel'
     globals().update(locals())
 
@@ -236,7 +237,7 @@ def spustitMenu():
     levely3 = s.levelSet(o.level3Panak,o.level3Pozadie,(400,700),(100,700),k.ls3k,2)
     if loop != 'intro':
         z.dopozadia.set_volume(0.1)
-        z.dopozadia.play()
+        z.dopozadia.play(-1)
     loop = 'menu'
     globals().update(locals())
 
@@ -270,9 +271,9 @@ def spustitIntro():#spusti sa naozaj len na zaciatku
     nazovHry = text.text(g.moj_width/2,250,"lačný Rytmus",150,(0,0,0),g.hruby_pixel_font,roh="stred")
     hrat = tlacidlo(t.hratN,t.hratA,g.moj_width/2,700,text="play",velkost=70,roh="stred")
     Xtlacidlo = tlacidlo(t.XN,t.XA,g.moj_width-5,5,roh="pravy_horny")
-    toggleFullscreen = tlacidlo(t.fullscreenN,t.fullscreenA,g.moj_width-40,5,roh="pravy_horny")
+    # toggleFullscreen = tlacidlo(t.fullscreenN,t.fullscreenA,g.moj_width-40,5,roh="pravy_horny")
     z.dopozadia.set_volume(0.1)
-    z.dopozadia.play()
+    z.dopozadia.play(-1)
     loop = 'intro'
     globals().update(locals())
 
@@ -284,7 +285,7 @@ def resetScreen():# toto by chcelo byt rovnake vo vsetkych screenoch
     tlacidla.tlacidla = []
     animacie.animacie = []
     #g.Displej = pygame.display.set_mode((g.displej_width, g.displej_height))
-    toggleFullscreen = tlacidlo(t.fullscreenN,t.fullscreenA,g.moj_width-40,5,roh="pravy_horny")
+    # toggleFullscreen = tlacidlo(t.fullscreenN,t.fullscreenA,g.moj_width-40,5,roh="pravy_horny")
     g.frameF = 0
     g.frameZ = 0
     globals().update(locals())

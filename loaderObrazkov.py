@@ -57,7 +57,7 @@ class O:
 
 
         self.jama = p.loadniObrazok(580,580,'hmla.png')
-        self.panvica = p.loadniObrazok(580,580,'kruh.png')
+        self.panvica = p.loadniObrazok(-1,-1,'panvica.png')
 
         self.stena1 = p.loadniObrazok(580,580)
         self.stena2 = p.loadniObrazok(580,580)
@@ -427,6 +427,11 @@ class Z:
         p.loadniZvuk('muzikyLevelov/15.wav')
     ]
     ]
+
+    klik = p.loadniZvuk('klik.wav')
+    rozplaskvajco = p.loadniZvuk('rozplaskvajco.wav')
+    pustivajco = p.loadniZvuk('pustivajco.wav')
+    odmlevel = p.loadniZvuk('odm level.wav')
 
 o = O()
 t = T()

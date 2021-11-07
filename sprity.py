@@ -64,7 +64,8 @@ class S:
             pygame.zobraz(self.image,(self.x,self.y))
 
     class stena:
-        def __init__(self,obrazok,surface,casDokopy):#chcem vyratat rychlost(zrychlenie) podla casDakopy
+        def __init__(self,obrazok,surface,casDokopy,panvica=False):#chcem vyratat rychlost(zrychlenie) podla casDakopy
+            self.panvica = panvica
             self.povodnyObrazok = obrazok
             self.obrazok = obrazok
 
@@ -120,14 +121,17 @@ class S:
                 # self.scale = 0
                 # self.casZ = cas.cas()
             
-            self.obrazok = pygame.transform.scale(self.povodnyObrazok, (int(self.scale),int(self.scale)) )
+            self.obrazok = pygame.transform.scale(self.povodnyObrazok, (int(self.scale*(self.povodnyObrazok.get_width()/self.povodnyObrazok.get_height())),int(self.scale)) )
             if self.scale > 580:
                 self.rychlostScalovania *= 1.04
                 # print("stena prechadza, trvalo",cas.cas()-self.casZ)
                 return 'presla'
         def zobraz(self):
-            pygame.zobraz(self.obrazok,(290,290),roh="stred",surface=self.surface)
-            #pygame.zobraz(self.surface,(k.xStenoDispleja,k.yStenoDispleja))
+            if not self.panvica:
+                pygame.zobraz(self.obrazok,(290,290),roh="stred",surface=self.surface)
+            else:
+                pygame.zobraz(self.obrazok,(290+(self.obrazok.get_width()-self.obrazok.get_height())/2,290),roh="stred",surface=self.surface)
+            # pygame.zobraz(self.surface,(k.xStenoDispleja,k.yStenoDispleja))
 
     class levelSet:#menu
         def __init__(self,obrazokPostavy,obrazokPozadia,posT,posP,klavesyPoz,cislo):#klavesyPoz = {'a':[0,1,0,2]...}
@@ -160,11 +164,15 @@ class S:
                 self.tlacidla.append(tlacidlo(t.levelyN[i+cislo*5],t.levelyN[i+cislo*5],self.xT+(k.sirkaLevelTlacidla+medzeraTlacidiel)*i,self.yT+25,text=f"{i+cislo*5+1}",velkost=velkostTextuTlacidiel,disabled=True,textOffset=[0,7]))
                 self.tlacidla.append(tlacidlo(o.zamok,o.zamok,self.xT+(k.sirkaLevelTlacidla+medzeraTlacidiel)*i,self.yT+25,text=f"",velkost=velkostTextuTlacidiel,disabled=True))
 
+            pz = False
             for i in g.unlocknuteLevely:
                 s,l = i#set,level
                 if s == self.cislo:
                     animacia(a.zamok,2,self.xT+(k.sirkaLevelTlacidla+medzeraTlacidiel)*l,self.yT)
-
+                    pz = True
+            if pz:
+                z.odmlevel.play()
+                
             # self.levelN = levelN
             # self.levelA = levelA
             self.medzeraTlacidiel = medzeraTlacidiel
@@ -245,8 +253,8 @@ class S:
                     klavesyPoz = {'l':k.ls3k['l'],'b':k.ls3k['b'],'q':k.ls3k['q'],'o':k.ls3k['o'],'z':k.ls3k['z'],'f':k.ls3k['f'],'t':k.ls3k['t']}
                     return[casy,pismena,klavesyPoz,1.0,self.cislo,3]
                 if self.tlacidla[4].je_keyup():
-                    casy = [5.0, 7.0, 9.0, 11.0, 13.0, 15.0, 17.0, 19.0, 21.0, 23.0, 25.0, 27.0, 29.0, 31.0, 33.0, 35.0, 35.9, 36.8, 37.7, 38.6, 39.5, 40.4, 41.3, 42.2, 47.0, 49.0, 51.0, 53.0, 58.0, 61.0, 64.0, 66.0, 74.0, 76.0, 82.0, 82.9, 88.0, 90.0, 93.0, 99.0]
-                    pismena = ['l', 'b', 'q', 'o', 'z', 'f', 't', 's', 'o', 'q', 'b', 'l', 's', 't', 'f', 'z', 'l', 'b', 'q', 'o', 'z', 'f', 't', 's', 'l', 'b', 'q', 'o', 's', 't', 'f', 'z', 'l', 'q', 'b', 'o', 't', 's', 'z', 'f']
+                    casy = [1]#[5.0, 7.0, 9.0, 11.0, 13.0, 15.0, 17.0, 19.0, 21.0, 23.0, 25.0, 27.0, 29.0, 31.0, 33.0, 35.0, 35.9, 36.8, 37.7, 38.6, 39.5, 40.4, 41.3, 42.2, 47.0, 49.0, 51.0, 53.0, 58.0, 61.0, 64.0, 66.0, 74.0, 76.0, 82.0, 82.9, 88.0, 90.0, 93.0, 99.0]
+                    pismena = ['l']#['l', 'b', 'q', 'o', 'z', 'f', 't', 's', 'o', 'q', 'b', 'l', 's', 't', 'f', 'z', 'l', 'b', 'q', 'o', 'z', 'f', 't', 's', 'l', 'b', 'q', 'o', 's', 't', 'f', 'z', 'l', 'q', 'b', 'o', 't', 's', 'z', 'f']
                     klavesyPoz = {'l':k.ls3k['l'],'b':k.ls3k['b'],'q':k.ls3k['q'],'o':k.ls3k['o'],'z':k.ls3k['z'],'f':k.ls3k['f'],'t':k.ls3k['t'],'s':k.ls3k['s']}
                     return[casy,pismena,klavesyPoz,0.9,self.cislo,4]
 
@@ -459,7 +467,7 @@ class S:
                 self.indexCasu += 1
             
             if (cas.cas()-self.casZ)+self.casSteny > self.casPanvice and self.panvica == None:
-                self.panvica = s.stena(o.panvica,self.surface,self.casSteny)
+                self.panvica = s.stena(o.panvica,self.surface,self.casSteny,panvica=True)
                 print("panvicaaaaaaa")
                 
 
@@ -478,6 +486,7 @@ class S:
                         self.freeznutyScreen = g.Displej.copy()
                         self.ValeboP = False
                         self.casCakania = 0.5
+                        z.rozplaskvajco.play()
                         #cas.pause()
                         #return 'f'
                         #return False#nabural som
@@ -500,6 +509,7 @@ class S:
                         self.casCakania = 3#cas animacie rozplesknutia vajca na prazenicu
                         animacia(a.rozplastenieNaPanvici,self.casCakania,k.xStenoDispleja-580/2,k.yStenoDispleja-580/2)
                         self.panak.schovajSa()
+                        z.rozplaskvajco.play()
             # if len(self.steny) == 0 and self.indexCasu == len(self.casyStien)-1:
                 # self.updateOdomknute()
                 # self.muzika.stop()
