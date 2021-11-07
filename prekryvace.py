@@ -11,7 +11,7 @@ class prekryvac:
 
     def prekryvaSa(self,inyPrekryvac):
         """bool, ci sa prekryvam s inyPrekryvac"""
-        offset = (inyPrekryvac.x-self.x,inyPrekryvac.y-self.y)
+        offset = (int(inyPrekryvac.x-self.x),int(inyPrekryvac.y-self.y))
         if self.mask.overlap(inyPrekryvac.mask,offset) is None:
             return True
         return False
