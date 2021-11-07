@@ -5,10 +5,10 @@ import collections
 class G:
     global nefullscreen
     #region menit:
-    tlacidlovy = "fonts/theboldfont.ttf"
+    tlacidlovy = "fonts/LEMONMILK-Medium.otf"#fonts/theboldfont.ttf"
     basic_font = 'fonts/freesansbold.ttf'
     basic_hruby_font = "fonts/theboldfont.ttf"
-    hruby_pixel_font = "fonts/04B_30__.TTF"
+    hruby_pixel_font = "fonts/Mostwasted.ttf"#fonts/04B_30__.TTF"
     #endregion
     #region nemenit:
     moj_width = 1700

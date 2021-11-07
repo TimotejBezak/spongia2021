@@ -165,7 +165,8 @@ def zobrazovac():
     global g
     # while not koniec and not klavesy.je_koniec():
     if loop=='main':
-        g.Displej.fill((0,0,0))
+        g.Displej.fill((0,0,255))
+        # pygame.zobraz(o.oblakypozadie,(0,0))
         level.zobraz()
     if loop=='pauza':
         # g.Displej.fill((g.farby.modra)) #nejaky iny overlay mozno
@@ -245,7 +246,7 @@ def spustitVyhralsi():
     resetScreen()
     z.vyhralsi.play()
     Xtlacidlo = tlacidlo(t.XN,t.XA,g.moj_width-5,5,roh="pravy_horny")
-    restart = tlacidlo(t.restartVyhralsiN,t.restartVyhralsiA,250,500,text="continue",velkost=70)
+    restart = tlacidlo(t.restartVyhralsiN,t.restartVyhralsiA,250,500,text="menu",velkost=70)
     loop = 'vyhralsi'
     globals().update(locals())
 
@@ -253,7 +254,7 @@ def spustitPrehralsi():
     resetScreen()
     z.prehralsi.play()
     Xtlacidlo = tlacidlo(t.XN,t.XA,g.moj_width-5,5,roh="pravy_horny")
-    restart = tlacidlo(t.restartPrehralsiN,t.restartPrehralsiA,1100,500,text="continue",velkost=70)
+    restart = tlacidlo(t.restartPrehralsiN,t.restartPrehralsiA,1100,500,text="ešte raz",velkost=70)
     loop = 'prehralsi'
     globals().update(locals())
 
@@ -268,8 +269,8 @@ def spustitPauza():
 def spustitIntro():#spusti sa naozaj len na zaciatku
     #resetScreen()
     myska = s.mys(o.mys)
-    nazovHry = text.text(g.moj_width/2,250,"lačný Rytmus",150,(0,0,0),g.hruby_pixel_font,roh="stred")
-    hrat = tlacidlo(t.hratN,t.hratA,g.moj_width/2,700,text="play",velkost=70,roh="stred")
+    nazovHry = text.text(g.moj_width/2,250,"Lačný Rytmus",250,(0,0,0),g.hruby_pixel_font,roh="stred")
+    hrat = tlacidlo(t.hratN,t.hratA,g.moj_width/2,700,text="hrať",velkost=70,roh="stred")
     Xtlacidlo = tlacidlo(t.XN,t.XA,g.moj_width-5,5,roh="pravy_horny")
     # toggleFullscreen = tlacidlo(t.fullscreenN,t.fullscreenA,g.moj_width-40,5,roh="pravy_horny")
     z.dopozadia.set_volume(0.1)

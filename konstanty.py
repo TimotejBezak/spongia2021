@@ -2,7 +2,7 @@
 import pygame
 sirkaLevelTlacidla = 100
 vyskaLevelTlacidla = 100
-xStenoDispleja = 580/2+100
+xStenoDispleja = 580/2+250
 yStenoDispleja = 660
 
 sirkaPocitaca = pygame.display.Info().current_w

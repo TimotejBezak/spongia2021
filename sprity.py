@@ -158,17 +158,17 @@ class S:
 
             self.tlacidla = []
             for i in self.odomknute:
-                self.tlacidla.append(tlacidlo(t.levelyN[i+cislo*5],t.levelyA[i+cislo*5],self.xT+(k.sirkaLevelTlacidla+medzeraTlacidiel)*i,self.yT+25,text=f"{i+cislo*5+1}",velkost=velkostTextuTlacidiel,textOffset=[0,7]))
+                self.tlacidla.append(tlacidlo(t.levelyN[i+cislo*5],t.levelyA[i+cislo*5],self.xT+(k.sirkaLevelTlacidla+medzeraTlacidiel)*i,self.yT+25,text=f"{i+cislo*5+1}",velkost=velkostTextuTlacidiel,textOffset=[0,0]))
             
             for i in self.zamknute:
-                self.tlacidla.append(tlacidlo(t.levelyN[i+cislo*5],t.levelyN[i+cislo*5],self.xT+(k.sirkaLevelTlacidla+medzeraTlacidiel)*i,self.yT+25,text=f"{i+cislo*5+1}",velkost=velkostTextuTlacidiel,disabled=True,textOffset=[0,7]))
+                self.tlacidla.append(tlacidlo(t.levelyN[i+cislo*5],t.levelyN[i+cislo*5],self.xT+(k.sirkaLevelTlacidla+medzeraTlacidiel)*i,self.yT+25,text=f"{i+cislo*5+1}",velkost=velkostTextuTlacidiel,disabled=True,textOffset=[0,0]))
                 self.tlacidla.append(tlacidlo(o.zamok,o.zamok,self.xT+(k.sirkaLevelTlacidla+medzeraTlacidiel)*i,self.yT+25,text=f"",velkost=velkostTextuTlacidiel,disabled=True))
 
             pz = False
             for i in g.unlocknuteLevely:
                 s,l = i#set,level
                 if s == self.cislo:
-                    animacia(a.zamok,2,self.xT+(k.sirkaLevelTlacidla+medzeraTlacidiel)*l,self.yT)
+                    animacia(a.zamok,2,self.xT+(k.sirkaLevelTlacidla+medzeraTlacidiel)*l,self.yT+25)
                     pz = True
             if pz:
                 z.odmlevel.play()
@@ -432,7 +432,7 @@ class S:
             self.progressBar = s.bar(casyStien[-1])
             self.casyStien.append(1000000)
             self.pismenaStien = pismenaStien#pismena, ktore treba stlacit
-            self.casPanvice = self.casyStien[len(pismenaStien)-1]+4
+            self.casPanvice = self.casyStien[len(pismenaStien)-1]+2.5
             self.klavesyPoz = klavesyPoz#klavesyPoz = {'a':[0,1,0,2]...}
             self.indexCasu = 0
             self.indexKlavesov = 0
@@ -530,7 +530,7 @@ class S:
                 if odomknutost[self.cisloSetu][self.cisloLevelu+1] == 0:
                     odomknutost[self.cisloSetu][self.cisloLevelu+1] = 1
                     g.unlocknuteLevely.append([self.cisloSetu,self.cisloLevelu+1])
-            if self.cisloLevelu == 2 and self.cisloSetu < 2:
+            if self.cisloLevelu == 0 and self.cisloSetu+1 < 2:
                 if odomknutost[self.cisloSetu+1][0] == 0:
                     odomknutost[self.cisloSetu+1][0] = 1
                     g.unlocknuteLevely.append([self.cisloSetu+1,0])
