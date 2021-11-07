@@ -14,15 +14,15 @@ class O:
         # test2 = p.loadniObrazok(-1,-1,'test4.png')
         # test3 = p.loadniObrazok(-1,-1,'test5.png')
         # ostryobrazok = p.loadniObrazok(-1,-1,'ostryobrazok.jpg')
-        self.mys = p.loadniObrazok(50,50,'mys.png')
+        self.mys = p.loadniObrazok(50,50,'prst.png')
         # stena = p.loadniObrazok(580,580,'stena.png',bielaNaTransparent=True)
         self.panak = p.loadniObrazok(-1,-1,'panak.png')
 
-        self.level1Panak = p.loadniObrazok(150,150)
+        self.level1Panak = p.loadniObrazok(150,150,'easy.png')
         self.level1Pozadie = p.loadniObrazok(1150,250)
-        self.level2Panak = p.loadniObrazok(150,150)
+        self.level2Panak = p.loadniObrazok(150,150,'medium.png')
         self.level2Pozadie = p.loadniObrazok(1150,250)
-        self.level3Panak = p.loadniObrazok(150,150)
+        self.level3Panak = p.loadniObrazok(150,150,'hard.png')
         self.level3Pozadie = p.loadniObrazok(1150,250)
         self.zamok = p.loadniObrazok(-1,-1,"zamok/1.png")
 
@@ -56,7 +56,7 @@ class O:
         # endregion
 
 
-        self.jama = p.loadniObrazok(580,580)
+        self.jama = p.loadniObrazok(580,580,'hmla.png')
         self.panvica = p.loadniObrazok(580,580,'kruh.png')
 
         self.stena1 = p.loadniObrazok(580,580)
@@ -316,6 +316,10 @@ class O:
 
         self.vyhra = p.loadniObrazok(-1,-1,'vyhra.png')
         self.prehra = p.loadniObrazok(-1,-1,'prehra.png')
+        self.oblakypozadie = p.loadniObrazok(-1,-1,'oblakypozadie.png')
+
+        self.bar1 = p.loadniObrazok(1500,10)
+        self.bar2 = pygame.prefarb(p.loadniObrazok(10,10),(0,255,0))
 
         self.vtipy = p.loadniAnimaciu(300,300,pocet_filov=10)#p.loadniAnimaciu(-1,-1,'vtipy')
 
@@ -341,8 +345,8 @@ class T:
         # pauzaN = p.loadniObrazok(100,100)
         # odpauzaA = p.loadniObrazok(100,100)
         # odpauzaN = p.loadniObrazok(100,100)
-        self.XA = p.loadniObrazok(25,25)
-        self.XN = p.loadniObrazok(25,25)
+        self.XN = p.loadniObrazok(25,25,'cervenex.png')
+        self.XA = p.tlacidloA(self.XN)
         self.fullscreenN = p.loadniObrazok(25,25)
         self.fullscreenA = p.tlacidloA(self.fullscreenN)
 
@@ -372,8 +376,8 @@ class T:
 class A:
     def __init__(self):
         self.animacia = p.loadniAnimaciu(1000,800,path_foldera='animciaNemasDostPenazi')
-        self.zaciatokLevelu = p.loadniAnimaciu(1700,960,path_foldera='animciaNemasDostPenazi')
-        self.rozplastenieNaPanvici = p.loadniAnimaciu(580,580,path_foldera='animciaNemasDostPenazi')#posledny obrazok mozem potom nakopirovat este zopar krat
+        self.zaciatokLevelu = p.loadniAnimaciu(1700,960,path_foldera='rytmushadzevajce')
+        self.rozplastenieNaPanvici = p.loadniAnimaciu(580,580,path_foldera='rozplesknutie')#posledny obrazok mozem potom nakopirovat este zopar krat
         self.zamok = p.loadniAnimaciu(-1,-1,'zamok')
         
         #region koncatiny
@@ -400,6 +404,7 @@ class Z:
     testMuzika = p.loadniZvuk('muzika.wav')#existuje zvuk.set_volume() od 0 do 1
     vyhralsi = p.loadniZvuk('vyhralsi.wav')
     prehralsi = p.loadniZvuk('prehralsi.wav')
+    dopozadia = p.loadniZvuk('backround music.wav')
     muzikyLevelov = [[
         p.loadniZvuk('muzikyLevelov/1.wav'),
         p.loadniZvuk('muzikyLevelov/2.wav'),

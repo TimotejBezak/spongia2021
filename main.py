@@ -63,6 +63,7 @@ animaciaZacLevel = None
 inputPreLevel = None
 fullscreen = False
 toggleFullscreen = None
+nazovHry = None
 
 # z.testMuzika.play()
 # z.testMuzika.set_volume(0.3)
@@ -93,9 +94,9 @@ def fyzika():
         loadniZnovu()#znovu loadne obrazky
 
     if loop=='main':
-        if klavesy.je_keyup('v'):
-            z.test.play()
-            animacia(a.animacia,0.7,500,20,loop=False)
+        # if klavesy.je_keyup('v'):
+        #     z.test.play()
+        #     animacia(a.animacia,0.7,500,20,loop=False)
 
         odpoved = level.update()
         if odpoved == True:
@@ -164,26 +165,29 @@ def zobrazovac():
     global g
     # while not koniec and not klavesy.je_koniec():
     if loop=='main':
-        g.Displej.fill(g.farby.modra)
+        g.Displej.fill((0,0,0))
         level.zobraz()
     if loop=='pauza':
-        g.Displej.fill((g.farby.modra)) #nejaky iny overlay mozno
+        # g.Displej.fill((g.farby.modra)) #nejaky iny overlay mozno
         odpauza.zobraz()
     if loop=='menu':
-        g.Displej.fill(g.farby.modra)
+        g.Displej.fill((0,0,0))
+        pygame.zobraz(o.oblakypozadie,(0,0))
         levely1.zobraz()
         levely2.zobraz()
         levely3.zobraz()
     if loop=='vyhralsi':
-        g.Displej.fill(g.farby.zelena)
+        g.Displej.fill((0,0,0))
         pygame.zobraz(o.vyhra,(0,0))
     if loop=='prehralsi':
-        g.Displej.fill(g.farby.cervena)
+        g.Displej.fill((0,0,0))
         pygame.zobraz(o.prehra,(0,0))
     if loop=='intro':
-        g.Displej.fill(g.farby.cervena)
+        g.Displej.fill((0,0,0))
+        pygame.zobraz(o.oblakypozadie,(0,0))
+        nazovHry.zobraz()
     if loop=='zaclevel':
-        g.Displej.fill((255,255,0))
+        g.Displej.fill((0,0,0))
 
     tlacidla.zobraz()
     animacie.zobraz()
@@ -216,18 +220,23 @@ def spustitZacLevel(lvl):
     resetScreen()
     Xtlacidlo = tlacidlo(t.XN,t.XA,g.moj_width-5,5,roh="pravy_horny")
     myska = s.mys(o.mys)
-    animaciaZacLevel = animacia(a.zaciatokLevelu,2,0,0)
+    animaciaZacLevel = animacia(a.zaciatokLevelu,1.5,0,0)
     inputPreLevel = lvl
+    z.dopozadia.stop()
     loop = 'zaclevel'
     globals().update(locals())
 
 def spustitMenu():
+    global loop
     resetScreen()
     myska = s.mys(o.mys)
     Xtlacidlo = tlacidlo(t.XN,t.XA,g.moj_width-5,5,roh="pravy_horny")
-    levely1 = s.levelSet(o.level1Panak,o.level1Pozadie,(400,100),(100,100),{'x':[0,1,2,1],'l':[1,2,1,1],'g':[0,0,2,2],'y':[1,1,1,2],'i':[2,1,1,2],'e':[1,1,0,1]},0)
-    levely2 = s.levelSet(o.level2Panak,o.level2Pozadie,(400,400),(100,400),{'k':[2,1,2,1],'v':[2,0,0,0],'a':[1,2,2,0],'p':[2,0,0,1],'j':[1,2,0,2],'x':[2,1,1,0],'r':[0,2,2,1]},1)
-    levely3 = s.levelSet(o.level3Panak,o.level3Pozadie,(400,700),(100,700),{'l':[0,0,2,0],'b':[0,2,1,1],'q':[1,1,0,2],'o':[2,0,1,1],'z':[1,0,2,1],'f':[2,0,2,2],'t':[1,2,1,2],'s':[0,1,1,2]},2)
+    levely1 = s.levelSet(o.level1Panak,o.level1Pozadie,(400,100),(100,100),k.ls1k,0)
+    levely2 = s.levelSet(o.level2Panak,o.level2Pozadie,(400,400),(100,400),k.ls2k,1)
+    levely3 = s.levelSet(o.level3Panak,o.level3Pozadie,(400,700),(100,700),k.ls3k,2)
+    if loop != 'intro':
+        z.dopozadia.set_volume(0.1)
+        z.dopozadia.play()
     loop = 'menu'
     globals().update(locals())
 
@@ -235,7 +244,7 @@ def spustitVyhralsi():
     resetScreen()
     z.vyhralsi.play()
     Xtlacidlo = tlacidlo(t.XN,t.XA,g.moj_width-5,5,roh="pravy_horny")
-    restart = tlacidlo(t.restartVyhralsiN,t.restartVyhralsiA,500,500,text="continue",velkost=70)
+    restart = tlacidlo(t.restartVyhralsiN,t.restartVyhralsiA,250,500,text="continue",velkost=70)
     loop = 'vyhralsi'
     globals().update(locals())
 
@@ -243,7 +252,7 @@ def spustitPrehralsi():
     resetScreen()
     z.prehralsi.play()
     Xtlacidlo = tlacidlo(t.XN,t.XA,g.moj_width-5,5,roh="pravy_horny")
-    restart = tlacidlo(t.restartPrehralsiN,t.restartPrehralsiA,500,500,text="continue",velkost=70)
+    restart = tlacidlo(t.restartPrehralsiN,t.restartPrehralsiA,1100,500,text="continue",velkost=70)
     loop = 'prehralsi'
     globals().update(locals())
 
@@ -258,9 +267,12 @@ def spustitPauza():
 def spustitIntro():#spusti sa naozaj len na zaciatku
     #resetScreen()
     myska = s.mys(o.mys)
-    hrat = tlacidlo(t.hratN,t.hratA,500,500,text="play",velkost=70)
+    nazovHry = text.text(g.moj_width/2,250,"lačný Rytmus",150,(0,0,0),g.hruby_pixel_font,roh="stred")
+    hrat = tlacidlo(t.hratN,t.hratA,g.moj_width/2,700,text="play",velkost=70,roh="stred")
     Xtlacidlo = tlacidlo(t.XN,t.XA,g.moj_width-5,5,roh="pravy_horny")
     toggleFullscreen = tlacidlo(t.fullscreenN,t.fullscreenA,g.moj_width-40,5,roh="pravy_horny")
+    z.dopozadia.set_volume(0.1)
+    z.dopozadia.play()
     loop = 'intro'
     globals().update(locals())
 

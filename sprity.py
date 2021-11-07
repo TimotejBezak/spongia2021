@@ -154,11 +154,11 @@ class S:
 
             self.tlacidla = []
             for i in self.odomknute:
-                self.tlacidla.append(tlacidlo(t.levelyN[i+cislo*5],t.levelyA[i+cislo*5],self.xT+(k.sirkaLevelTlacidla+medzeraTlacidiel)*i,self.yT,text=f"{i+cislo*5+1}",velkost=velkostTextuTlacidiel,textOffset=[0,7]))
+                self.tlacidla.append(tlacidlo(t.levelyN[i+cislo*5],t.levelyA[i+cislo*5],self.xT+(k.sirkaLevelTlacidla+medzeraTlacidiel)*i,self.yT+25,text=f"{i+cislo*5+1}",velkost=velkostTextuTlacidiel,textOffset=[0,7]))
             
             for i in self.zamknute:
-                self.tlacidla.append(tlacidlo(t.levelyN[i+cislo*5],t.levelyN[i+cislo*5],self.xT+(k.sirkaLevelTlacidla+medzeraTlacidiel)*i,self.yT,text=f"{i+cislo*5+1}",velkost=velkostTextuTlacidiel,disabled=True,textOffset=[0,7]))
-                self.tlacidla.append(tlacidlo(o.zamok,o.zamok,self.xT+(k.sirkaLevelTlacidla+medzeraTlacidiel)*i,self.yT,text=f"",velkost=velkostTextuTlacidiel,disabled=True))
+                self.tlacidla.append(tlacidlo(t.levelyN[i+cislo*5],t.levelyN[i+cislo*5],self.xT+(k.sirkaLevelTlacidla+medzeraTlacidiel)*i,self.yT+25,text=f"{i+cislo*5+1}",velkost=velkostTextuTlacidiel,disabled=True,textOffset=[0,7]))
+                self.tlacidla.append(tlacidlo(o.zamok,o.zamok,self.xT+(k.sirkaLevelTlacidla+medzeraTlacidiel)*i,self.yT+25,text=f"",velkost=velkostTextuTlacidiel,disabled=True))
 
             for i in g.unlocknuteLevely:
                 s,l = i#set,level
@@ -175,70 +175,85 @@ class S:
                 if self.tlacidla[0].je_keyup():
                     casy = [1.5, 3.5, 5.5, 8.0, 10.5, 13.0, 15.0, 18.0, 22.0, 25.0, 27.0, 29.5, 32.0, 34.5, 36.5, 38.5, 41.5, 43.5, 47.0, 49.5, 52.0, 54.0, 56.0, 58.0, 60.5, 62.5, 64.5, 67.0, 69.5, 71.5, 73.0, 75.0, 78.0, 80.0, 82.5, 85.0, 87.5, 90.0, 94.0, 96.0, 98.0, 100.0, 103.0, 105.0, 107.5, 110.0, 112.0, 114.0, 116.5, 118.5, 121.0, 125.0, 127.0, 129.0, 134.5, 137.0, 139.0, 141.5, 144.0, 146.0, 147.5, 149.0, 150.5, 152.0, 153.5, 155.0, 157.0, 159.0, 161.0, 163.0, 165.0, 166.5]
                     pismena = ['x', 'x', 'l', 'l', 'x', 'x', 'x', 'l', 'l', 'x', 'x', 'x', 'l', 'l', 'x', 'l', 'x', 'l', 'x', 'x', 'x', 'l', 'l', 'l', 'x', 'x', 'l', 'l', 'x', 'x', 'x', 'x', 'l', 'l', 'l', 'x', 'x', 'l', 'x', 'x', 'x', 'x', 'l', 'l', 'l', 'l', 'l', 'x', 'l', 'x', 'l', 'x', 'x', 'x', 'l', 'l', 'l', 'l', 'x', 'x', 'l', 'l', 'x', 'l', 'x', 'l', 'x', 'x', 'l', 'l', 'l', 'x']
-                    return [casy,pismena,self.klavesyPoz,1.5,self.cislo,0]#[0,[8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30],0]#input pre level
+                    klavesyPoz = {'x':k.ls1k['x'],'l':k.ls1k['l']}
+                    return [casy,pismena,klavesyPoz,1.5,self.cislo,0]#[0,[8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30],0]#input pre level
                 if self.tlacidla[1].je_keyup():
                     casy = [1.0, 2.5, 4.5, 6.0, 7.5, 9.5, 12.0, 13.5, 16.0, 18.0, 20.0, 22.0, 24.0, 26.0, 27.5, 29.5, 31.0, 33.0, 35.0, 37.0, 39.0, 41.0, 43.0, 45.0, 47.0, 48.5, 50.0, 51.5, 53.0, 55.0, 57.0, 59.0, 61.0, 63.0, 65.0, 67.0, 69.0, 71.0, 73.0, 75.0, 77.0, 79.0, 80.5, 82.0, 83.5, 85.0, 88.0, 89.3, 90.6, 91.9, 96.0, 97.3, 98.6, 99.9, 102.0, 104.0, 106.0, 108.0, 110.0, 112.0, 114.0, 116.0, 118.0, 120.0, 122.0, 124.0, 126.0, 128.0, 130.0, 132.0, 134.0, 136.0, 137.3, 138.6, 139.9, 141.2, 142.5, 143.8, 145.1, 146.4, 147.7, 150.0, 152.0, 154.0, 156.0, 158.0, 160.0, 162.0, 164.0, 165.3]
                     pismena = ['x', 'l', 'g', 'x', 'g', 'l', 'l', 'g', 'x', 'g', 'l', 'x', 'x', 'x', 'l', 'l', 'g', 'g', 'l', 'l', 'g', 'g', 'x', 'x', 'l', 'l', 'l', 'x', 'x', 'x', 'g', 'g', 'g', 'x', 'l', 'g', 'x', 'l', 'g', 'x', 'l', 'g', 'x', 'x', 'x', 'x', 'g', 'g', 'g', 'g', 'l', 'l', 'l', 'l', 'g', 'l', 'x', 'l', 'g', 'x', 'x', 'l', 'g', 'x', 'g', 'l', 'g', 'l', 'x', 'g', 'x', 'l', 'g', 'g', 'x', 'l', 'l', 'g', 'x', 'x', 'l', 'x', 'x', 'l', 'l', 'g', 'g', 'g', 'x', 'l']
-                    return[casy,pismena,self.klavesyPoz,1.3,self.cislo,1]
+                    klavesyPoz = {'x':k.ls1k['x'],'l':k.ls1k['l'],'g':k.ls1k['g']}
+                    return[casy,pismena,klavesyPoz,1.3,self.cislo,1]
                 if self.tlacidla[2].je_keyup():
                     casy = [1.0, 3.0, 4.5, 6.0, 7.5, 9.0, 10.5, 12.0, 13.5, 15.0, 16.5, 18.0, 19.5, 21.0, 22.5, 24.0, 25.5, 27.0, 28.5, 30.0, 32.0, 34.0, 36.0, 38.0, 40.0, 42.0, 44.0, 46.0, 48.0, 49.1, 50.2, 51.3, 52.4, 53.5, 54.6, 55.7, 56.8, 57.9, 59.0, 60.1, 61.2, 62.5, 64.0, 65.5, 67.0, 68.5, 70.0, 71.5, 73.0, 74.5, 76.0, 77.1, 78.2, 79.3, 80.4, 81.5, 82.6, 86.0, 87.3]
                     pismena = ['x', 'l', 'g', 'y', 'g', 'l', 'y', 'x', 'l', 'x', 'l', 'x', 'y', 'g', 'y', 'g', 'x', 'y', 'l', 'g', 'l', 'l', 'x', 'x', 'g', 'g', 'y', 'y', 'g', 'x', 'l', 'y', 'g', 'x', 'y', 'l', 'x', 'g', 'y', 'y', 'l', 'y', 'y', 'x', 'x', 'l', 'l', 'g', 'g', 'x', 'y', 'l', 'g', 'g', 'y', 'y', 'l', 'x', 'g']
-                    return[casy,pismena,self.klavesyPoz,1.1,self.cislo,2]
+                    klavesyPoz = {'x':k.ls1k['x'],'l':k.ls1k['l'],'g':k.ls1k['g'],'y':k.ls1k['y']}
+                    return[casy,pismena,klavesyPoz,1.1,self.cislo,2]
                 if self.tlacidla[3].je_keyup():
                     casy = [1.0, 2.5, 4.0, 5.5, 7.0, 8.5, 10.0, 11.5, 13.0, 14.5, 16.0, 17.5, 19.0, 20.5, 22.0, 23.5, 25.0, 26.5, 28.0, 29.5, 31.0, 32.5, 34.0, 35.5, 37.0, 38.5, 40.0, 41.5, 43.0, 44.5, 46.0, 47.5, 49.0, 50.5, 52.0, 54.0, 56.0, 58.0, 60.0, 62.0, 64.0, 66.0, 68.0, 70.0, 72.0, 73.0, 74.0, 75.0, 76.0, 77.0, 78.0, 79.0, 80.0, 81.0, 82.0, 83.0, 84.5, 86.0, 87.5, 89.0, 90.5, 92.0, 93.5, 95.0, 96.5, 98.0, 99.5, 100.5]
                     pismena = ['x', 'l', 'g', 'y', 'i', 'i', 'y', 'g', 'l', 'x', 'l', 'g', 'x', 'y', 'i', 'y', 'i', 'g', 'x', 'l', 'l', 'l', 'x', 'x', 'y', 'y', 'i', 'i', 'g', 'g', 'l', 'g', 'i', 'y', 'x', 'g', 'g', 'l', 'l', 'y', 'y', 'x', 'x', 'i', 'i', 'l', 'x', 'y', 'g', 'i', 'y', 'l', 'x', 'i', 'g', 'y', 'x', 'g', 'x', 'g', 'y', 'y', 'i', 'i', 'l', 'l', 'y', 'i']
-                    return[casy,pismena,self.klavesyPoz,1.0,self.cislo,3]
+                    klavesyPoz = {'x':k.ls1k['x'],'l':k.ls1k['l'],'g':k.ls1k['g'],'y':k.ls1k['y'],'i':k.ls1k['i']}
+                    return[casy,pismena,klavesyPoz,1.0,self.cislo,3]
                 if self.tlacidla[4].je_keyup():
                     casy = [1.0, 2.0, 4.0, 6.0, 8.0, 10.0, 12.0, 14.0, 16.0, 18.0, 20.0, 22.0, 24.0, 26.0, 28.0, 30.0, 32.0, 34.0, 36.0, 38.0, 40.0, 42.0, 44.0, 46.0, 47.5, 49.0, 50.5, 52.0, 53.5, 55.0, 56.0, 57.0, 58.0, 59.0, 60.0, 61.0, 62.0, 63.0, 64.0, 65.0, 66.0, 67.0, 68.0, 69.0, 70.0, 71.0, 72.0, 73.0, 74.5, 76.0, 77.5, 79.0, 80.5, 82.0, 83.5, 85.0, 86.5, 88.0, 89.5]
                     pismena = ['x', 'l', 'g', 'y', 'i', 'e', 'e', 'i', 'y', 'g', 'l', 'x', 'x', 'x', 'l', 'l', 'g', 'g', 'e', 'e', 'i', 'i', 'y', 'y', 'i', 'e', 'x', 'l', 'g', 'y', 'x', 'e', 'i', 'l', 'g', 'y', 'x', 'l', 'i', 'e', 'y', 'g', 'x', 'l', 'g', 'y', 'i', 'e', 'e', 'e', 'y', 'y', 'i', 'i', 'x', 'x', 'g', 'g', 'l']
-                    return[casy,pismena,self.klavesyPoz,0.9,self.cislo,4]
+                    klavesyPoz = {'x':k.ls1k['x'],'l':k.ls1k['l'],'g':k.ls1k['g'],'y':k.ls1k['y'],'i':k.ls1k['i'],'e':k.ls1k['e']}
+                    return[casy,pismena,klavesyPoz,0.9,self.cislo,4]
             if self.cislo == 1:
                 if self.tlacidla[0].je_keyup():
                     casy = [2.0, 4.0, 6.0, 8.0, 10.0, 12.0, 14.0, 16.0, 18.0, 20.0, 22.0, 24.0, 25.5, 27.0, 28.5, 30.0, 31.5, 33.0, 34.5, 36.0, 37.5, 39.0, 40.5, 42.0, 44.0, 46.0, 48.0, 50.0, 52.0, 54.0, 55.5]
                     pismena = ['k', 'v', 'a', 'k', 'v', 'a', 'k', 'k', 'v', 'v', 'a', 'a', 'v', 'k', 'a', 'v', 'k', 'a', 'k', 'a', 'v', 'k', 'a', 'v', 'k', 'v', 'a', 'k', 'v', 'a', 'v']
-                    return[casy,pismena,self.klavesyPoz,1.5,self.cislo,0]
+                    klavesyPoz = {'k':k.ls2k['k'],'v':k.ls2k['v'],'a':k.ls2k['a']}
+                    return[casy,pismena,klavesyPoz,1.5,self.cislo,0]
                 if self.tlacidla[1].je_keyup():
                     casy = [1.0, 3.0, 5.0, 7.0, 9.0, 11.0, 13.0, 15.0, 17.0, 19.0, 21.0, 23.0, 25.0, 27.0, 29.0, 31.0, 33.0, 35.0, 37.0, 39.0, 41.0, 43.0, 45.0, 47.0, 49.0, 51.0, 53.0, 55.0, 57.0, 59.0, 61.0, 63.0, 64.5, 66.0, 67.5, 69.0, 70.5, 72.0, 73.5, 75.0, 76.3, 77.6, 78.9, 80.2, 81.5, 82.8, 84.1, 85.4, 90.0, 92.0, 94.0, 96.0, 98.0, 100.0, 102.0, 104.0, 106.0, 108.0, 110.0, 112.0, 120.0, 121.5]
                     pismena = ['k', 'v', 'a', 'p', 'k', 'v', 'a', 'p', 'k', 'k', 'v', 'v', 'a', 'a', 'p', 'p', 'p', 'a', 'v', 'k', 'p', 'a', 'v', 'k', 'v', 'a', 'k', 'p', 'a', 'p', 'v', 'k', 'k', 'v', 'k', 'v', 'a', 'p', 'a', 'p', 'k', 'v', 'a', 'p', 'p', 'a', 'v', 'k', 'k', 'k', 'p', 'p', 'v', 'v', 'a', 'a', 'k', 'v', 'a', 'p', 'a', 'p']
-                    return[casy,pismena,self.klavesyPoz,1.3,self.cislo,1]
+                    klavesyPoz = klavesyPoz = {'k':k.ls2k['k'],'v':k.ls2k['v'],'a':k.ls2k['a'],'p':k.ls2k['p']}
+                    return[casy,pismena,klavesyPoz,1.3,self.cislo,1]
                 if self.tlacidla[2].je_keyup():
                     casy = [4.0, 6.0, 8.0, 10.0, 12.0, 14.0, 16.0, 18.0, 20.0, 22.0, 24.0, 26.0, 28.0, 30.0, 32.0, 34.0, 36.0, 38.0, 40.0, 42.0, 43.1, 44.2, 45.3, 46.4, 47.5, 48.6, 49.7, 50.8, 51.9, 53.0, 56.0, 58.0, 60.0, 62.0, 64.0, 68.0, 69.5, 71.0]
                     pismena = ['k', 'v', 'a', 'p', 'j', 'k', 'v', 'a', 'p', 'j', 'p', 'p', 'v', 'v', 'a', 'a', 'j', 'j', 'k', 'k', 'j', 'a', 'k', 'p', 'v', 'k', 'v', 'a', 'j', 'p', 'k', 'v', 'a', 'p', 'j', 'p', 'v', 'j']
-                    return[casy,pismena,self.klavesyPoz,1.1,self.cislo,2]
+                    klavesyPoz = {'k':k.ls2k['k'],'v':k.ls2k['v'],'a':k.ls2k['a'],'p':k.ls2k['p'],'j':k.ls2k['j']}
+                    return[casy,pismena,klavesyPoz,1.1,self.cislo,2]
                 if self.tlacidla[3].je_keyup():
                     casy = [1.0, 3.0, 5.0, 7.0, 9.0, 11.0, 13.0, 15.0, 17.0, 19.0, 21.0, 23.0, 25.0, 27.0, 29.0, 31.0, 33.0, 35.0, 36.0, 37.0, 38.0, 39.0, 40.0, 41.0, 42.0, 43.0, 44.0, 46.0, 48.0, 50.0, 51.0, 53.0, 54.5]
                     pismena = ['k', 'v', 'a', 'p', 'j', 'x', 'p', 'j', 'k', 'a', 'v', 'x', 'p', 'j', 'p', 'x', 'j', 'x', 'k', 'a', 'j', 'x', 'v', 'p', 'k', 'x', 'p', 'k', 'x', 'v', 'p', 'j', 'a']
-                    return[casy,pismena,self.klavesyPoz,1.0,self.cislo,3]
+                    klavesyPoz = {'k':k.ls2k['k'],'v':k.ls2k['v'],'a':k.ls2k['a'],'p':k.ls2k['p'],'j':k.ls2k['j'],'x':k.ls2k['x']}
+                    return[casy,pismena,klavesyPoz,1.0,self.cislo,3]
                 if self.tlacidla[4].je_keyup():
                     casy = [5.0, 7.0, 9.0, 11.0, 13.0, 15.0, 17.0, 19.0, 21.0, 23.0, 25.0, 27.0, 29.0, 31.0, 32.0, 33.0, 34.0, 35.0, 36.0, 37.0, 38.0, 39.0, 40.0, 41.0, 42.0, 43.0, 44.0, 45.0, 48.0, 50.0, 52.0, 54.0, 56.0, 58.0, 60.0, 66.0, 67.0, 68.0]
                     pismena = ['k', 'v', 'a', 'p', 'j', 'x', 'r', 'p', 'k', 'j', 'v', 'a', 'x', 'r', 'k', 'j', 'r', 'v', 'p', 'x', 'a', 'k', 'v', 'a', 'p', 'j', 'x', 'r', 'p', 'k', 'a', 'v', 'j', 'x', 'r', 'x', 'v', 'r']
-                    return[casy,pismena,self.klavesyPoz,0.9,self.cislo,4]
+                    klavesyPoz = {'k':k.ls2k['k'],'v':k.ls2k['v'],'a':k.ls2k['a'],'p':k.ls2k['p'],'j':k.ls2k['j'],'x':k.ls2k['x'],'r':k.ls2k['r']}
+                    return[casy,pismena,klavesyPoz,0.9,self.cislo,4]
             if self.cislo == 2:
                 if self.tlacidla[0].je_keyup():
                     casy = [2.0, 4.0, 6.0, 8.0, 10.0, 12.0, 14.0, 16.0, 18.0, 20.0, 22.0, 24.0, 26.0, 28.0, 30.0, 32.0, 34.0, 36.0, 38.0, 40.0, 41.5, 43.0, 44.5, 46.0, 47.5, 49.0, 50.5, 52.0, 54.0, 56.0, 58.0, 60.0, 62.0, 64.0, 65.5]
                     pismena = ['l', 'b', 'q', 'o', 'b', 'b', 'q', 'q', 'l', 'l', 'o', 'o', 'o', 'l', 'q', 'b', 'q', 'l', 'b', 'o', 'l', 'b', 'q', 'o', 'l', 'b', 'q', 'o', 'q', 'o', 'l', 'b', 'o', 'q', 'l']
-                    return[casy,pismena,self.klavesyPoz,2.5,self.cislo,0]
+                    klavesyPoz = {'l':k.ls3k['l'],'b':k.ls3k['b'],'q':k.ls3k['q'],'o':k.ls3k['o']}
+                    return[casy,pismena,klavesyPoz,1.5,self.cislo,0]
                 if self.tlacidla[1].je_keyup():
-                    casy = []
-                    pismena = []
-                    return[casy,pismena,self.klavesyPoz,2.5,self.cislo,1]
+                    casy = [5.0, 7.0, 9.0, 11.0, 13.0, 16.0, 18.0, 20.0, 22.0, 24.0, 25.3, 26.6, 27.9, 29.2, 30.5, 31.8, 33.1, 34.4, 35.7, 37.0, 40.0, 42.0, 44.0, 46.0, 48.0, 50.0, 52.0, 54.0, 56.0, 58.0, 60.0, 61.5, 63.0, 64.5, 66.0, 68.0, 70.0, 72.0, 74.0, 76.0, 79.0, 80.3, 81.6]
+                    pismena = ['l', 'b', 'q', 'o', 'z', 'z', 'o', 'q', 'b', 'l', 'l', 'b', 'q', 'l', 'b', 'q', 'o', 'z', 'o', 'z', 'l', 'o', 'b', 'z', 'q', 'b', 'b', 'q', 'q', 'o', 'o', 'z', 'z', 'l', 'l', 'z', 'q', 'o', 'l', 'b', 'o', 'l', 'b']
+                    klavesyPoz = {'l':k.ls3k['l'],'b':k.ls3k['b'],'q':k.ls3k['q'],'o':k.ls3k['o'],'z':k.ls3k['z']}
+                    return[casy,pismena,klavesyPoz,1.3,self.cislo,1]
                 if self.tlacidla[2].je_keyup():
-                    casy = []
-                    pismena = []
-                    return[casy,pismena,self.klavesyPoz,2.5,self.cislo,2]
+                    casy = [5.0, 7.0, 9.0, 11.0, 13.0, 15.0, 17.0, 19.0, 21.0, 23.0, 25.0, 27.0, 29.0, 31.0, 33.0, 35.0, 37.0, 39.0, 40.1, 41.2, 42.3, 43.4, 44.5, 45.6, 46.7, 47.8, 48.9, 50.0, 51.1, 52.2, 55.0, 57.0, 59.0, 61.0, 63.0, 65.0, 67.0, 69.0, 71.0, 73.0, 75.0, 77.0, 79.0, 81.0, 82.1, 83.2, 84.3, 86.0]
+                    pismena = ['l', 'b', 'q', 'o', 'z', 'f', 'o', 'z', 'f', 'l', 'b', 'q', 'b', 'l', 'q', 'f', 'z', 'o', 'l', 'l', 'z', 'z', 'f', 'f', 'b', 'b', 'q', 'q', 'o', 'o', 'l', 'b', 'q', 'o', 'z', 'f', 'l', 'b', 'f', 'o', 'q', 'z', 'b', 'o', 'f', 'l', 'q', 'z']
+                    klavesyPoz = {'l':k.ls3k['l'],'b':k.ls3k['b'],'q':k.ls3k['q'],'o':k.ls3k['o'],'z':k.ls3k['z'],'f':k.ls3k['f']}
+                    return[casy,pismena,klavesyPoz,1.1,self.cislo,2]
                 if self.tlacidla[3].je_keyup():
-                    casy = []
-                    pismena = []
-                    return[casy,pismena,self.klavesyPoz,2.5,self.cislo,3]
+                    casy = [5.0, 7.0, 9.0, 11.0, 13.0, 15.0, 17.0, 19.0, 21.0, 23.0, 25.0, 27.0, 29.0, 31.0, 33.0, 35.0, 37.0, 39.0, 41.0, 43.0, 45.0, 47.0, 49.0, 51.0, 53.0, 55.0, 57.0, 59.0, 75.0, 77.0, 78.0, 79.0, 80.0, 81.0, 82.0, 83.0, 84.0, 85.0, 86.0, 87.0, 88.0, 89.0, 92.0, 94.0, 96.0, 98.0, 100.0, 102.0, 103.0, 108.0, 112.0, 117.0, 118.0, 122.0, 125.0, 126.0, 127.0, 130.0, 133.0, 139.0, 144.0, 149.0, 154.0, 160.0, 161.0]
+                    pismena = ['l', 'b', 'q', 'o', 'z', 'f', 't', 't', 'f', 'z', 'o', 'q', 'b', 'l', 't', 't', 'z', 'z', 'f', 'f', 'o', 'o', 'q', 'q', 'b', 'b', 'l', 'l', 'l', 'o', 'z', 't', 'f', 'q', 'b', 't', 'f', 'z', 'o', 'q', 'b', 'l', 'l', 'b', 'q', 'o', 'z', 'f', 't', 't', 't', 'f', 't', 'z', 'l', 'b', 'q', 'q', 'b', 'q', 'l', 'q', 'b', 'q', 'z']
+                    klavesyPoz = {'l':k.ls3k['l'],'b':k.ls3k['b'],'q':k.ls3k['q'],'o':k.ls3k['o'],'z':k.ls3k['z'],'f':k.ls3k['f'],'t':k.ls3k['t']}
+                    return[casy,pismena,klavesyPoz,1.0,self.cislo,3]
                 if self.tlacidla[4].je_keyup():
-                    casy = []
-                    pismena = []
-                    return[casy,pismena,self.klavesyPoz,2.5,self.cislo,4]
+                    casy = [5.0, 7.0, 9.0, 11.0, 13.0, 15.0, 17.0, 19.0, 21.0, 23.0, 25.0, 27.0, 29.0, 31.0, 33.0, 35.0, 35.9, 36.8, 37.7, 38.6, 39.5, 40.4, 41.3, 42.2, 47.0, 49.0, 51.0, 53.0, 58.0, 61.0, 64.0, 66.0, 74.0, 76.0, 82.0, 82.9, 88.0, 90.0, 93.0, 99.0]
+                    pismena = ['l', 'b', 'q', 'o', 'z', 'f', 't', 's', 'o', 'q', 'b', 'l', 's', 't', 'f', 'z', 'l', 'b', 'q', 'o', 'z', 'f', 't', 's', 'l', 'b', 'q', 'o', 's', 't', 'f', 'z', 'l', 'q', 'b', 'o', 't', 's', 'z', 'f']
+                    klavesyPoz = {'l':k.ls3k['l'],'b':k.ls3k['b'],'q':k.ls3k['q'],'o':k.ls3k['o'],'z':k.ls3k['z'],'f':k.ls3k['f'],'t':k.ls3k['t'],'s':k.ls3k['s']}
+                    return[casy,pismena,klavesyPoz,0.9,self.cislo,4]
 
             return False#[5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20],['x','l','g','y','x']
 
         def zobraz(self):
-            pygame.zobraz(self.obrazokPozadia, (self.xP-50,self.yP-50))
+            # pygame.zobraz(self.obrazokPozadia, (self.xP-50,self.yP-50))
             pygame.zobraz(self.obrazokPostavy, (self.xP,self.yP))
 
     class klavesnica:
@@ -289,6 +304,8 @@ class S:
             self.beziAnimacia = False
             self.animacia = None
             self.casAnimacie = 0.1
+            self.naposledyPismeno = ''
+            self.zobrazitSa = True
 
         def animacia_obrazky(self,koncatina,koncatina2,p1,p2):#koncatina lr,pr...
             obrazky = []
@@ -333,6 +350,7 @@ class S:
             if len(klavesy.keydown_klavesi) > 0:
                 pismeno = klavesy.keydown_klavesi[0]
                 if pismeno in self.klavesyPoz:
+                    self.naposledyPismeno = pismeno
                     p1 = self.pozicia
                     p2 = self.klavesyPoz[pismeno]
                     
@@ -349,6 +367,12 @@ class S:
                     self.beziAnimacia = False
                     self.surface = poziciaZKoncatin(self.pozicia)
 
+        def naposledyKlaves(self):
+            return self.naposledyPismeno
+
+        def schovajSa(self):
+            self.zobrazitSa = False
+
         def zobraz(self):
             if self.beziAnimacia:
                 self.surface = o.vajce.copy()
@@ -356,7 +380,8 @@ class S:
                 pygame.zobraz(self.apr.aktualnyObrazok(),(0,0),surface=self.surface)
                 pygame.zobraz(self.aln.aktualnyObrazok(),(0,0),surface=self.surface)
                 pygame.zobraz(self.apn.aktualnyObrazok(),(0,0),surface=self.surface)
-            pygame.zobraz(self.surface,(k.xStenoDispleja,k.yStenoDispleja),roh='stred')
+            if self.zobrazitSa:
+                pygame.zobraz(self.surface,(k.xStenoDispleja,k.yStenoDispleja),roh='stred')
 
     class vtipy:
         def __init__(self):
@@ -375,9 +400,28 @@ class S:
         def losujVtip(self):
             return o.vtipy[random.randint(0,len(o.vtipy)-1)]
 
+    class bar:
+        def __init__(self,celkovyCas):
+            print("bar zacina, celkovy cas je",celkovyCas)
+            self.celkovyCas = celkovyCas
+            self.casZ = time.time()
+            self.pozadie = o.bar1.copy()
+            self.pozadie = pygame.prefarb(self.pozadie,(255,0,0))
+            self.sirka = 1500
+            self.vyska = 10
+
+        def zobraz(self):
+            castCasu = (time.time()-self.casZ)/self.celkovyCas
+            # print(castCasu,"bughr")
+            bar = pygame.transform.smoothscale(o.bar2,(castCasu*self.sirka,self.vyska))
+            pygame.zobraz(bar,(0,0),surface=self.pozadie)
+            pygame.zobraz(self.pozadie,(100,935))
+            
+
     class level:
         def __init__(self,casyStien,pismenaStien,klavesyPoz,casSteny,cisloSetu,cisloLevelu):#na spusteni levelu
             self.casyStien = casyStien #casStenyPredNaburanimDoVajca je konstantny
+            self.progressBar = s.bar(casyStien[-1])
             self.casyStien.append(1000000)
             self.pismenaStien = pismenaStien#pismena, ktore treba stlacit
             self.casPanvice = self.casyStien[len(pismenaStien)-1]+4
@@ -394,6 +438,7 @@ class S:
             self.panak = s.panak(klavesyPoz)
             self.muzika = z.muzikyLevelov[self.cisloSetu][self.cisloLevelu]#muzika
             self.muzika.play()
+            self.muzika.set_volume(0.35)
             self.minulePresla = None
             self.casNaburania = None
             self.freeznutyScreen = None
@@ -425,7 +470,7 @@ class S:
                     del self.steny[i]
                 
                 if supdate == 'presla' and stena != self.minulePresla:
-                    Npismeno = klavesy.naposledy_pismeno()
+                    Npismeno = self.panak.naposledyKlaves()#klavesy.naposledy_pismeno()
                     print("Npismeno",Npismeno,"malo byt",self.pismenaStien[self.indexKlavesov])
                     if Npismeno != self.pismenaStien[self.indexKlavesov]:
                         self.muzika.stop()
@@ -445,14 +490,16 @@ class S:
                     return self.ValeboP
             
             if self.panvica != None:
-                if self.panvica.update() == 'presla' and self.ValeboP != True:
-                    self.updateOdomknute()
-                    self.muzika.stop()
-                    self.casNaburania = time.time()
-                    self.freeznutyScreen = g.Displej.copy()
-                    self.ValeboP = True#updatnut odomknute
-                    self.casCakania = 1#cas animacie rozplesknutia vajca na prazenicu
-                    animacia(a.rozplastenieNaPanvici,self.casCakania,k.xStenoDispleja-580/2,k.yStenoDispleja-580/2)
+                if self.ValeboP != True:
+                    if self.panvica.update() == 'presla':
+                        self.updateOdomknute()
+                        self.muzika.stop()
+                        self.casNaburania = time.time()
+                        # self.freeznutyScreen = g.Displej.copy()
+                        self.ValeboP = True#updatnut odomknute
+                        self.casCakania = 3#cas animacie rozplesknutia vajca na prazenicu
+                        animacia(a.rozplastenieNaPanvici,self.casCakania,k.xStenoDispleja-580/2,k.yStenoDispleja-580/2)
+                        self.panak.schovajSa()
             # if len(self.steny) == 0 and self.indexCasu == len(self.casyStien)-1:
                 # self.updateOdomknute()
                 # self.muzika.stop()
@@ -469,7 +516,7 @@ class S:
             print(odomknutost)
             subor = open('odomknute.txt','w')
             subor.truncate()#snad zmaze veci v nom
-            if self.cisloLevelu < 5:
+            if self.cisloLevelu+1 < 5:
                 if odomknutost[self.cisloSetu][self.cisloLevelu+1] == 0:
                     odomknutost[self.cisloSetu][self.cisloLevelu+1] = 1
                     g.unlocknuteLevely.append([self.cisloSetu,self.cisloLevelu+1])
@@ -492,6 +539,7 @@ class S:
             pygame.zobraz(self.surface,(k.xStenoDispleja,k.yStenoDispleja),roh='stred')
             self.panak.zobraz()
             self.vtipy.zobraz()
+            self.progressBar.zobraz()
 
             if self.freeznutyScreen != None:
                 pygame.zobraz(self.freeznutyScreen,(0,0))
